@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary SEO ── -->
+  <title>DevToolsHub — Free Online Developer Tools | JSON Formatter, Converter &amp; More</title>
+  <meta name="description" content="Free online developer tools. Format JSON, convert CSV to JSON, generate UUIDs, encode Base64, and more. No signup required. Works in your browser.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DevToolsHub — Free Online Developer Tools">
+  <meta property="og:description" content="Free online developer tools. Format JSON, convert CSV to JSON, generate UUIDs, encode Base64, and more. No signup required.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DevToolsHub — Free Online Developer Tools">
+  <meta name="twitter:description" content="Free online developer tools. Format JSON, convert CSV to JSON, generate UUIDs, encode Base64, and more. No signup required.">
+  <meta name="twitter:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+
+  <!-- ── Misc Meta ── -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="author" content="DevToolsHub">
+
+  <!-- ── Structured Data (JSON-LD) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DevToolsHub",
+    "url": "https://devtoolshub.pages.dev/",
+    "description": "Free online developer tools. Format JSON, convert CSV to JSON, generate UUIDs, encode Base64, and more.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://devtoolshub.pages.dev/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/home.css">
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <!-- ================================================================== -->
+  <!--  HEADER                                                            -->
+  <!-- ================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+
+      <!-- Right actions -->
+      <div class="header-right">
+        <!-- Theme Toggle -->
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch to light mode"
+        >
+          <!-- Sun icon (shown in light mode) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon icon (shown in dark mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <!-- Mobile Hamburger -->
+        <button
+          class="hamburger"
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <!-- ================================================================== -->
+  <!--  MAIN CONTENT                                                      -->
+  <!-- ================================================================== -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <!--  HERO SECTION                                                   -->
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <section class="hero" aria-labelledby="hero-title">
+        <h1 id="hero-title">Free Online Developer Tools</h1>
+        <p class="hero-subtitle">
+          Format, convert, generate, and minify — all in your browser.<br>
+          No signup. No data uploaded.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="search"
+            id="tool-search"
+            class="search-input"
+            placeholder="Search tools… e.g. JSON, Base64, UUID"
+            autocomplete="off"
+            aria-label="Search developer tools"
+          >
+        </div>
+      </section>
+
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <!--  TOOLS GRID                                                     -->
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <section class="tools-section" id="tools" aria-labelledby="tools-heading">
+
+        <p id="no-results" class="no-results hidden">No tools match your search.</p>
+
+        <!-- ── Converters ── -->
+        <div class="tool-category" data-category="converters">
+          <h2 class="category-title" id="tools-heading">Converters</h2>
+          <div class="tools-grid">
+
+            <a href="/json-to-yaml/" class="tool-card" data-keywords="json yaml convert converter" aria-label="JSON to YAML Converter">
+              <span class="tool-card-icon" aria-hidden="true">🔄</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">JSON to YAML</h3>
+                <p class="tool-card-desc">Convert JSON data to YAML format instantly.</p>
+              </div>
+            </a>
+
+            <a href="/csv-to-json/" class="tool-card" data-keywords="csv json convert converter spreadsheet" aria-label="CSV to JSON Converter">
+              <span class="tool-card-icon" aria-hidden="true">📊</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">CSV to JSON</h3>
+                <p class="tool-card-desc">Transform CSV spreadsheet data into JSON format.</p>
+              </div>
+            </a>
+
+            <a href="/markdown-to-html/" class="tool-card" data-keywords="markdown md html convert converter" aria-label="Markdown to HTML Converter">
+              <span class="tool-card-icon" aria-hidden="true">📝</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Markdown to HTML</h3>
+                <p class="tool-card-desc">Convert Markdown text to clean HTML output.</p>
+              </div>
+            </a>
+
+            <a href="/base64-encode-decode/" class="tool-card" data-keywords="base64 encode decode binary text" aria-label="Base64 Encode and Decode tool">
+              <span class="tool-card-icon" aria-hidden="true">🔐</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Base64 Encode / Decode</h3>
+                <p class="tool-card-desc">Encode text to Base64 or decode Base64 to text.</p>
+              </div>
+            </a>
+
+            <a href="/unix-timestamp-converter/" class="tool-card" data-keywords="unix timestamp epoch date time convert" aria-label="Unix Timestamp Converter">
+              <span class="tool-card-icon" aria-hidden="true">⏱️</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Unix Timestamp Converter</h3>
+                <p class="tool-card-desc">Convert between Unix timestamps and human-readable dates.</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- ── Formatters ── -->
+        <div class="tool-category" data-category="formatters">
+          <h2 class="category-title">Formatters</h2>
+          <div class="tools-grid">
+
+            <a href="/json-formatter/" class="tool-card" data-keywords="json format formatter validate validator pretty print beautify" aria-label="JSON Formatter and Validator">
+              <span class="tool-card-icon" aria-hidden="true">📋</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">JSON Formatter &amp; Validator</h3>
+                <p class="tool-card-desc">Format, validate, and beautify JSON with syntax highlighting.</p>
+              </div>
+            </a>
+
+            <a href="/sql-formatter/" class="tool-card" data-keywords="sql format formatter query database" aria-label="SQL Formatter">
+              <span class="tool-card-icon" aria-hidden="true">🗃️</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">SQL Formatter</h3>
+                <p class="tool-card-desc">Beautify and format SQL queries for readability.</p>
+              </div>
+            </a>
+
+            <a href="/html-minifier/" class="tool-card" data-keywords="html minify minifier compress" aria-label="HTML Minifier">
+              <span class="tool-card-icon" aria-hidden="true">🗜️</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">HTML Minifier</h3>
+                <p class="tool-card-desc">Minify HTML code by removing whitespace and comments.</p>
+              </div>
+            </a>
+
+            <a href="/css-minifier/" class="tool-card" data-keywords="css minify minifier compress stylesheet" aria-label="CSS Minifier">
+              <span class="tool-card-icon" aria-hidden="true">🎨</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">CSS Minifier</h3>
+                <p class="tool-card-desc">Compress CSS files for faster page load times.</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- ── Generators ── -->
+        <div class="tool-category" data-category="generators">
+          <h2 class="category-title">Generators</h2>
+          <div class="tools-grid">
+
+            <a href="/uuid-generator/" class="tool-card" data-keywords="uuid guid generate generator unique id" aria-label="UUID Generator">
+              <span class="tool-card-icon" aria-hidden="true">🆔</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">UUID Generator</h3>
+                <p class="tool-card-desc">Generate UUIDs (v4) instantly. Copy with one click.</p>
+              </div>
+            </a>
+
+            <a href="/lorem-ipsum-generator/" class="tool-card" data-keywords="lorem ipsum placeholder text generate dummy" aria-label="Lorem Ipsum Generator">
+              <span class="tool-card-icon" aria-hidden="true">📄</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Lorem Ipsum Generator</h3>
+                <p class="tool-card-desc">Generate placeholder text for mockups and designs.</p>
+              </div>
+            </a>
+
+            <a href="/robots-txt-generator/" class="tool-card" data-keywords="robots txt generate seo crawler" aria-label="robots.txt Generator">
+              <span class="tool-card-icon" aria-hidden="true">🤖</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">robots.txt Generator</h3>
+                <p class="tool-card-desc">Create a robots.txt file for your website in seconds.</p>
+              </div>
+            </a>
+
+            <a href="/meta-tags-generator/" class="tool-card" data-keywords="meta tags html seo generate head" aria-label="Meta Tags Generator">
+              <span class="tool-card-icon" aria-hidden="true">🏷️</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Meta Tags Generator</h3>
+                <p class="tool-card-desc">Generate HTML meta tags for SEO and social sharing.</p>
+              </div>
+            </a>
+
+            <a href="/og-preview/" class="tool-card" data-keywords="open graph og preview social media share" aria-label="Open Graph Preview tool">
+              <span class="tool-card-icon" aria-hidden="true">👁️</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Open Graph Preview</h3>
+                <p class="tool-card-desc">Preview how your links look on social media platforms.</p>
+              </div>
+            </a>
+
+            <a href="/color-picker/" class="tool-card" data-keywords="color picker hex rgb hsl converter palette" aria-label="Color Picker and Converter">
+              <span class="tool-card-icon" aria-hidden="true">🎯</span>
+              <div class="tool-card-body">
+                <h3 class="tool-card-title">Color Picker &amp; Converter</h3>
+                <p class="tool-card-desc">Pick colors and convert between HEX, RGB, and HSL.</p>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <!--  AD PLACEHOLDER                                                 -->
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <div class="ad-container" aria-hidden="true"><!-- Ad will be placed here -->Advertisement</div>
+
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <!--  WHY SECTION                                                    -->
+      <!-- ──────────────────────────────────────────────────────────────── -->
+      <section class="why-section" aria-labelledby="why-heading">
+        <h2 id="why-heading">Why DevToolsHub?</h2>
+        <div class="features-grid">
+
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">💯</span>
+            <h3>100% Free</h3>
+            <p>No signup, no limits, no hidden fees. Every tool is completely free to use, forever.</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">🔒</span>
+            <h3>Privacy First</h3>
+            <p>Everything runs in your browser. Your data never leaves your device — zero server processing.</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">⚡</span>
+            <h3>Lightning Fast</h3>
+            <p>No server round-trips. All tools process data instantly, right in your browser tab.</p>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================================================================== -->
+  <!--  FOOTER                                                            -->
+  <!-- ================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ── -->
+  <script src="/assets/js/global.js"></script>
+
+  <!-- ── Home Page: Tool Search Filter ── -->
+  <script>
+    (function () {
+      'use strict';
+
+      const searchInput = document.getElementById('tool-search');
+      const toolCards = document.querySelectorAll('.tool-card');
+      const categories = document.querySelectorAll('.tool-category');
+      const noResults = document.getElementById('no-results');
+
+      if (!searchInput) {
+        return;
+      }
+
+      /**
+       * Filters tool cards based on search query.
+       * Matches against card title, description, and data-keywords attribute.
+       */
+      function filterTools() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        toolCards.forEach(function (card) {
+          const title = card.querySelector('.tool-card-title').textContent.toLowerCase();
+          const desc = card.querySelector('.tool-card-desc').textContent.toLowerCase();
+          const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+          const searchable = title + ' ' + desc + ' ' + keywords;
+
+          const isMatch = query === '' || searchable.indexOf(query) !== -1;
+          card.style.display = isMatch ? '' : 'none';
+          if (isMatch) {
+            visibleCount++;
+          }
+        });
+
+        /* Hide category headings if all their cards are hidden */
+        categories.forEach(function (cat) {
+          let hasSome = false;
+          cat.querySelectorAll('.tool-card').forEach(function (c) {
+            if (c.style.display !== 'none') {
+              hasSome = true;
+            }
+          });
+          cat.style.display = hasSome ? '' : 'none';
+        });
+
+        /* Show "no results" message */
+        if (noResults) {
+          noResults.classList.toggle('hidden', visibleCount > 0);
+        }
+      }
+
+      searchInput.addEventListener('input', debounce(filterTools, 150));
+    })();
+  </script>
+
+</body>
+</html>

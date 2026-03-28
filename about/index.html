@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About DevToolsHub — Free Online Developer Tools</title>
+  <meta name="description" content="DevToolsHub provides free, browser-based developer tools. All processing happens locally in your browser — no data is ever sent to a server.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/about/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About DevToolsHub — Free Online Developer Tools">
+  <meta property="og:description" content="DevToolsHub provides free, browser-based developer tools. All processing happens locally in your browser.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/about/">
+  <meta property="og:site_name" content="DevToolsHub">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"AboutPage","name":"About DevToolsHub","url":"https://devtoolshub.pages.dev/about/","description":"Free, browser-based developer tools that prioritise privacy and speed.","mainEntity":{"@type":"Organization","name":"DevToolsHub","url":"https://devtoolshub.pages.dev/"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://devtoolshub.pages.dev/"},{"@type":"ListItem","position":2,"name":"About","item":"https://devtoolshub.pages.dev/about/"}]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <style>
+    .breadcrumb{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-tertiary);margin-bottom:var(--space-6)}
+    .breadcrumb a{color:var(--text-secondary);transition:color var(--transition-fast)}.breadcrumb a:hover{color:var(--accent-text)}
+    .breadcrumb .current{color:var(--text-primary)}
+    .about-content{max-width:780px;margin:0 auto}
+    .about-content h1{font-size:var(--text-3xl);margin-bottom:var(--space-3)}
+    .about-content h2{font-size:var(--text-xl);margin-top:var(--space-8);margin-bottom:var(--space-3);color:var(--text-primary);padding-bottom:var(--space-2);border-bottom:1px solid var(--border-primary)}
+    .about-content p{color:var(--text-secondary);line-height:var(--line-height-relaxed);margin-bottom:var(--space-4)}
+    .about-content ul{color:var(--text-secondary);line-height:var(--line-height-relaxed);margin-bottom:var(--space-4);padding-left:var(--space-5)}
+    .about-content li{margin-bottom:var(--space-2)}
+    .about-content strong{color:var(--text-primary)}
+    .about-content a{color:var(--accent-text);text-decoration:underline;text-underline-offset:2px}
+    .about-content a:hover{color:var(--accent)}
+    .highlight-box{background:var(--bg-secondary);border:1px solid var(--border-primary);border-left:4px solid var(--accent);border-radius:var(--radius-md);padding:var(--space-4);margin:var(--space-4) 0}
+    .highlight-box p{margin-bottom:0}
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-4);margin:var(--space-5) 0}
+    .value-card{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);padding:var(--space-5);text-align:center}
+    .value-card .icon{font-size:2rem;margin-bottom:var(--space-3)}
+    .value-card h3{font-size:var(--text-base);color:var(--text-primary);margin-bottom:var(--space-2)}
+    .value-card p{font-size:var(--text-sm);color:var(--text-secondary);margin:0}
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <header class="site-header"><div class="header-inner">
+    <a href="/" class="logo" aria-label="DevToolsHub home"><span class="logo-icon" aria-hidden="true">🔧</span><span>DevToolsHub</span></a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+    <div class="header-right">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
+  </div></header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+
+  <main id="main-content"><div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="separator" aria-hidden="true">›</span><span class="current">About</span></nav>
+
+    <div class="about-content">
+      <h1>About DevToolsHub</h1>
+      <p>DevToolsHub is a collection of <strong>free, open, browser-based developer utilities</strong> designed to make your daily development workflow faster and more productive.</p>
+
+      <div class="highlight-box">
+        <p><strong>Our promise —</strong> Every tool on DevToolsHub processes your data entirely in your browser. Nothing is ever sent to a server. Your code, your data, your privacy.</p>
+      </div>
+
+      <h2>Our Mission</h2>
+      <p>We believe every developer deserves access to high-quality tools without paywalls, mandatory sign-ups, or privacy-invasive tracking. DevToolsHub was built to be the toolkit you bookmark once and reach for every day — whether you are formatting JSON, generating UUIDs, converting CSV files, or minifying HTML and CSS.</p>
+      <p>Too many "free" developer tools bury the useful functionality behind subscription prompts, splash ads that take longer to close than the actual task, or silently upload your data to remote servers. DevToolsHub takes the opposite approach: the tools load instantly, work offline after the first visit, and keep your data on your machine.</p>
+
+      <h2>Our Core Values</h2>
+      <div class="values-grid">
+        <div class="value-card"><div class="icon">🔒</div><h3>Privacy First</h3><p>All processing happens client-side. Zero data collection from tools. No tracking of your input.</p></div>
+        <div class="value-card"><div class="icon">⚡</div><h3>Instant Results</h3><p>No loading spinners, no server round-trips. Your results appear the moment you click.</p></div>
+        <div class="value-card"><div class="icon">🆓</div><h3>Always Free</h3><p>Every tool is free to use, forever. No freemium limits, no feature gates, no forced sign-ups.</p></div>
+        <div class="value-card"><div class="icon">📱</div><h3>Works Everywhere</h3><p>Fully responsive design that works on desktop, tablet, and mobile browsers.</p></div>
+      </div>
+
+      <h2>What Tools Do We Offer?</h2>
+      <p>DevToolsHub currently offers a growing suite of developer utilities, including:</p>
+      <ul>
+        <li><strong>JSON Formatter &amp; Validator</strong> — Format, minify, and validate JSON with syntax highlighting and error detection.</li>
+        <li><strong>CSV to JSON Converter</strong> — Convert CSV data to JSON with support for custom delimiters and header detection.</li>
+        <li><strong>JSON to YAML Converter</strong> — Bidirectional conversion between JSON and YAML formats.</li>
+        <li><strong>Base64 Encoder &amp; Decoder</strong> — Encode and decode text and files to and from Base64.</li>
+        <li><strong>UUID Generator</strong> — Generate RFC 4122-compliant v4 UUIDs with multiple format options.</li>
+        <li><strong>SQL Formatter</strong> — Beautify SQL queries with proper indentation and keyword formatting.</li>
+        <li><strong>HTML &amp; CSS Minifiers</strong> — Compress HTML and CSS code to reduce file sizes.</li>
+        <li><strong>Color Picker &amp; Converter</strong> — Pick colours and convert between HEX, RGB, HSL, and CMYK with WCAG contrast checking.</li>
+        <li><strong>Markdown to HTML</strong> — Convert Markdown to HTML with live preview.</li>
+        <li><strong>Meta Tags &amp; OG Preview</strong> — Generate SEO meta tags and preview how your links appear on social media.</li>
+        <li><strong>Lorem Ipsum Generator</strong> — Generate placeholder text in paragraphs, sentences, or words.</li>
+        <li><strong>robots.txt Generator</strong> — Create valid robots.txt files with templates for common configurations.</li>
+        <li><strong>Unix Timestamp Converter</strong> — Convert Unix timestamps to human-readable dates and vice versa.</li>
+      </ul>
+      <p>We regularly add new tools based on community feedback and common developer needs. If you have a suggestion, feel free to <a href="/contact/">reach out</a>.</p>
+
+      <h2>Technology</h2>
+      <p>DevToolsHub is built with pure <strong>HTML, CSS, and vanilla JavaScript</strong> — no frameworks, no build systems, no dependencies. This intentional simplicity means the site loads in under one second on most connections, works reliably across all modern browsers, and can even function offline after the initial page load.</p>
+      <p>The site is hosted on <strong>Cloudflare Pages</strong>, which provides a global CDN, automatic HTTPS, and near-instant deployments. This architecture ensures the fastest possible experience for developers worldwide.</p>
+
+      <h2>Contact</h2>
+      <p>Have questions, feedback, or tool suggestions? We would love to hear from you.</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:contact@devtoolshub.com">contact@devtoolshub.com</a></li>
+        <li><strong>Contact page:</strong> <a href="/contact/">DevToolsHub Contact Form</a></li>
+      </ul>
+      <p>We aim to respond to all inquiries within 48 hours.</p>
+    </div>
+  </div></main>
+
+  <footer class="site-footer"><div class="footer-inner">
+    <nav class="footer-links" aria-label="Footer navigation"><a href="/about/" aria-current="page">About</a><a href="/privacy-policy/">Privacy Policy</a><a href="/contact/">Contact</a></nav>
+    <div class="footer-copy"><p>&copy; 2026 DevToolsHub. All rights reserved.</p><p>Made with ☕ for developers</p></div>
+  </div></footer>
+
+  <script src="../assets/js/global.js"></script>
+</body>
+</html>

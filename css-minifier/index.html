@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary SEO ── -->
+  <title>CSS Minifier Online — Compress CSS Code Free | DevToolsHub</title>
+  <meta name="description" content="Minify and compress CSS code online for free. Remove comments, whitespace, and shorten properties. Reduce CSS file size instantly.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/css-minifier/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CSS Minifier Online — Compress CSS Code Free">
+  <meta property="og:description" content="Minify and compress CSS code online for free. Remove comments, whitespace, and shorten properties.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/css-minifier/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CSS Minifier Online — Compress CSS Code Free">
+  <meta name="twitter:description" content="Minify and compress CSS code online for free. Remove comments, whitespace, and shorten properties.">
+  <meta name="twitter:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+
+  <!-- ── Misc ── -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- ── Structured Data ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CSS Minifier & Compressor",
+    "description": "Minify and compress CSS code online for free. Remove comments, whitespace, and shorten properties.",
+    "url": "https://devtoolshub.pages.dev/css-minifier/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolshub.pages.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "CSS Minifier", "item": "https://devtoolshub.pages.dev/css-minifier/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does CSS minification change how my page looks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. CSS minification only removes characters that have no effect on rendering — whitespace, comments, and redundant syntax. The browser applies the exact same styles from minified CSS as from the original."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I minify CSS if I already use Gzip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Minification and Gzip compression are complementary. Minification reduces the raw source size, and Gzip further compresses it during transfer. Together they achieve the smallest possible file size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I reverse CSS minification?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but only structurally. The Beautify button in this tool re-formats minified CSS with proper indentation and line breaks. However, original comments and custom whitespace won't be recovered."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- ── Page-specific styles ── -->
+  <style>
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-tertiary); margin-bottom: var(--space-6);
+    }
+    .breadcrumb a { color: var(--text-secondary); transition: color var(--transition-fast); }
+    .breadcrumb a:hover { color: var(--accent-text); }
+    .breadcrumb .separator { user-select: none; }
+    .breadcrumb .current { color: var(--text-primary); }
+
+    /* Options */
+    .options-panel {
+      display: flex; flex-wrap: wrap; gap: var(--space-4);
+      padding: var(--space-4); margin-bottom: var(--space-4);
+      background-color: var(--bg-tertiary); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+    }
+    .opt-checkbox {
+      display: flex; align-items: center; gap: var(--space-2); cursor: pointer;
+    }
+    .opt-checkbox input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0;
+    }
+    .opt-checkbox span { font-size: var(--text-sm); color: var(--text-secondary); white-space: nowrap; }
+
+    /* Stats */
+    .stats-bar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--bg-tertiary); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md); margin-top: var(--space-3);
+      font-size: var(--text-sm); font-family: var(--font-mono); color: var(--text-secondary);
+    }
+    .stats-bar.hidden { display: none; }
+    .stat-item { display: flex; align-items: center; gap: var(--space-1); }
+    .stat-value { color: var(--text-primary); font-weight: 600; }
+    .stat-saved { color: var(--success); font-weight: 700; }
+    .stat-arrow { color: var(--text-tertiary); font-size: var(--text-base); }
+    .stat-negative { color: var(--error); }
+
+    .compression-bar {
+      height: 6px; border-radius: 3px; overflow: hidden;
+      background-color: var(--bg-input); margin-top: var(--space-2);
+    }
+    .compression-bar-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--success) 0%, #10b981 100%);
+      transition: width 0.5s ease;
+    }
+
+    /* Status */
+    .status-line {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);
+    }
+    .validation-status {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); font-weight: 500;
+      padding: var(--space-1) var(--space-3); border-radius: 100px;
+    }
+    .validation-status.idle { color: var(--text-tertiary); }
+    .validation-status.valid { color: var(--success); background-color: var(--success-soft); }
+    .validation-status.error { color: var(--error); background-color: var(--error-soft); }
+
+    .textarea-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: var(--space-2); font-size: var(--text-xs);
+      color: var(--text-tertiary); font-family: var(--font-mono);
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .faq-list details { border: 1px solid var(--border-primary); border-radius: var(--radius-md); overflow: hidden; }
+    .faq-list details[open] { border-color: var(--border-secondary); }
+    .faq-list summary {
+      padding: var(--space-4); font-weight: 600; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      background-color: var(--bg-secondary); user-select: none;
+    }
+    .faq-list summary:hover { background-color: var(--bg-hover); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: var(--text-lg); font-weight: 400; color: var(--text-tertiary); }
+    .faq-list details[open] summary::after { content: '\2212'; }
+    .faq-list .faq-answer { padding: 0 var(--space-4) var(--space-4); color: var(--text-secondary); line-height: var(--line-height-relaxed); }
+
+    /* Techniques table */
+    .tech-table { width: 100%; border-collapse: collapse; margin: var(--space-4) 0; font-size: var(--text-sm); }
+    .tech-table th, .tech-table td { text-align: left; padding: var(--space-3) var(--space-4); border: 1px solid var(--border-primary); }
+    .tech-table th { background-color: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .tech-table td { color: var(--text-secondary); }
+    .tech-table td code { background-color: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px; font-size: var(--text-xs); }
+    .tech-table tr:hover td { background-color: var(--bg-secondary); }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <!-- ================================================================ -->
+  <!--  HEADER                                                          -->
+  <!-- ================================================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+      <div class="header-right">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <!-- ================================================================ -->
+  <!--  MAIN                                                            -->
+  <!-- ================================================================ -->
+  <main id="main-content">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator" aria-hidden="true">›</span>
+        <span class="current">CSS Minifier</span>
+      </nav>
+
+      <div class="tool-header">
+        <h1>CSS Minifier &amp; Compressor</h1>
+        <p>Paste your CSS, tweak the options, and get production-ready minified output instantly. <span style="font-family:var(--font-mono);font-size:var(--text-xs);background:var(--bg-tertiary);padding:2px 6px;border-radius:3px;">Ctrl + Enter</span> to minify.</p>
+      </div>
+
+      <div class="tool-container">
+
+        <!-- Options -->
+        <div class="options-panel" role="group" aria-label="Minification options">
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-comments" checked>
+            <span>Remove comments</span>
+          </label>
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-whitespace" checked>
+            <span>Remove whitespace</span>
+          </label>
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-hex" checked>
+            <span>Shorten hex colors</span>
+          </label>
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-trailing">
+            <span>Remove trailing semicolons</span>
+          </label>
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-zero" checked>
+            <span>Remove units from zero</span>
+          </label>
+        </div>
+
+        <!-- Status -->
+        <div class="status-line">
+          <span class="validation-status idle" id="status-el">Paste CSS to begin</span>
+        </div>
+
+        <!-- Input / Output -->
+        <div class="input-output-grid">
+          <div class="textarea-block">
+            <label class="textarea-label" for="css-input">Input — CSS Source</label>
+            <textarea id="css-input" class="textarea-input" placeholder="Paste your CSS code here..." spellcheck="false" aria-label="CSS input"></textarea>
+            <div class="textarea-footer">
+              <span id="input-stats">0 chars · 0 B</span>
+            </div>
+          </div>
+          <div class="textarea-block">
+            <label class="textarea-label" for="css-output">Output — Minified CSS</label>
+            <textarea id="css-output" class="textarea-output" readonly aria-label="Minified CSS output"></textarea>
+            <div class="textarea-footer">
+              <span id="output-stats">0 chars · 0 B</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div id="stats-bar" class="stats-bar hidden" aria-live="polite">
+          <div class="stat-item">Original: <span id="stat-original" class="stat-value">—</span></div>
+          <span class="stat-arrow" aria-hidden="true">→</span>
+          <div class="stat-item">Minified: <span id="stat-minified" class="stat-value">—</span></div>
+          <div class="stat-item">Saved: <span id="stat-saved" class="stat-saved">—</span></div>
+          <div style="width:100%;">
+            <div class="compression-bar">
+              <div class="compression-bar-fill" id="compression-fill" style="width:0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+          <button id="btn-minify" class="btn btn-primary" type="button" aria-label="Minify CSS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            Minify
+          </button>
+          <button id="btn-beautify" class="btn btn-secondary" type="button" aria-label="Beautify CSS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            Beautify
+          </button>
+          <button id="btn-copy" class="btn btn-copy" type="button" aria-label="Copy output">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+          <button id="btn-sample" class="btn btn-secondary" type="button" aria-label="Load sample CSS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Sample
+          </button>
+          <button id="btn-clear" class="btn btn-secondary" type="button" aria-label="Clear all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Clear
+          </button>
+          <button id="btn-download" class="btn btn-secondary" type="button" aria-label="Download minified CSS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download .css
+          </button>
+        </div>
+
+      </div>
+
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+      <!-- ============================================================ -->
+      <!--  EDUCATIONAL CONTENT                                         -->
+      <!-- ============================================================ -->
+      <section class="content-section" aria-labelledby="what-is-css-minification">
+
+        <h2 id="what-is-css-minification">What is CSS Minification?</h2>
+        <p>
+          CSS minification is the process of removing all unnecessary characters from CSS source code without altering its functionality. This includes whitespace (spaces, tabs, newlines), comments, redundant semicolons, and unnecessary syntax like full-length hex colors or units on zero values.
+        </p>
+        <p>
+          The result is a smaller file that loads faster in browsers. On typical stylesheets, minification reduces file size by <strong>20–50%</strong>, and when combined with Gzip/Brotli compression, total transfer size can drop by 80% or more.
+        </p>
+
+        <h2>Why Minify CSS?</h2>
+        <ul>
+          <li><strong>Faster page rendering</strong> — CSS is render-blocking. A smaller CSS file means the browser can start painting the page sooner, directly improving First Contentful Paint (FCP) and Largest Contentful Paint (LCP).</li>
+          <li><strong>Better Core Web Vitals</strong> — Google uses page speed metrics as ranking signals. Minified CSS contributes to better scores across all performance categories.</li>
+          <li><strong>Reduced bandwidth costs</strong> — For high-traffic sites, even small per-file savings translate to significant bandwidth and cost reduction.</li>
+          <li><strong>Improved mobile experience</strong> — Mobile users on slow connections benefit the most from every byte saved.</li>
+          <li><strong>Better caching</strong> — Smaller files use less cache space, improving CDN performance and browser cache hit rates.</li>
+        </ul>
+
+        <h2>What Gets Optimized?</h2>
+        <table class="tech-table">
+          <thead>
+            <tr><th>Technique</th><th>Before</th><th>After</th><th>Savings</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Remove comments</td>
+              <td><code>/* Header styles */</code></td>
+              <td><em>(removed)</em></td>
+              <td>100% of comment text</td>
+            </tr>
+            <tr>
+              <td>Collapse whitespace</td>
+              <td><code>.btn {\n  color: red;\n}</code></td>
+              <td><code>.btn{color:red}</code></td>
+              <td>All unnecessary spaces</td>
+            </tr>
+            <tr>
+              <td>Shorten hex colors</td>
+              <td><code>#ffffff</code></td>
+              <td><code>#fff</code></td>
+              <td>3 characters per color</td>
+            </tr>
+            <tr>
+              <td>Remove zero units</td>
+              <td><code>margin: 0px 0em 0%</code></td>
+              <td><code>margin:0 0 0</code></td>
+              <td>2-3 chars per value</td>
+            </tr>
+            <tr>
+              <td>Trailing semicolons</td>
+              <td><code>{color:red;}</code></td>
+              <td><code>{color:red}</code></td>
+              <td>1 char per rule block</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>CSS Minification Best Practices</h2>
+        <ol>
+          <li><strong>Always keep source files unminified</strong> — Minify as a build step, never edit minified code directly. Keep readable source in your version control.</li>
+          <li><strong>Use source maps</strong> — Generate <code>.map</code> files alongside minified CSS so browser DevTools can map back to original line numbers.</li>
+          <li><strong>Combine with Gzip/Brotli</strong> — Minification reduces source size; compression reduces transfer size. Use both for maximum savings.</li>
+          <li><strong>Automate in your build pipeline</strong> — Integrate minification into your build process (Webpack, Vite, Gulp) so it happens automatically on every build.</li>
+          <li><strong>Measure the impact</strong> — Use browser DevTools Network tab to compare original vs. minified file sizes and loading times.</li>
+          <li><strong>Don't over-optimize</strong> — Advanced techniques like property merging, shorthand conversion, and selector deduplication can sometimes change specificity. Stick to safe optimizations.</li>
+        </ol>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Does CSS minification change how my page looks?</summary>
+            <div class="faq-answer">
+              <p>No. CSS minification only removes characters that do not affect rendering — whitespace, comments, and redundant syntax. The browser applies the exact same styles. Your page will look identical with minified CSS.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Should I minify CSS if I already use Gzip?</summary>
+            <div class="faq-answer">
+              <p>Yes. Minification and Gzip are complementary techniques. Minifying first reduces the raw source size, and Gzip then compresses the already-smaller file for transfer. Together they produce the smallest possible payload. A typical 50 KB stylesheet becomes ~30 KB after minification and ~6 KB after Gzip — an 88% total reduction.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Can I reverse CSS minification?</summary>
+            <div class="faq-answer">
+              <p>You can structurally re-format minified CSS using the Beautify button above — it adds back line breaks, indentation, and proper spacing. However, original comments, custom whitespace formatting, and any removed optional syntax won't be recovered. Always keep unminified source files in version control.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Does this tool handle @media and @keyframes?</summary>
+            <div class="faq-answer">
+              <p>Yes. The minifier correctly preserves the structure of <code>@media</code> queries, <code>@keyframes</code> blocks, <code>@font-face</code> declarations, <code>@import</code> rules, and all other CSS at-rules. Only whitespace and comments within them are removed; selectors and property values remain untouched.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Will this break <code>content: ""</code> or <code>url()</code> strings?</summary>
+            <div class="faq-answer">
+              <p>No. The minifier detects and preserves quoted string values (both single and double quotes) and <code>url()</code> contents. Whitespace inside strings is never modified. This ensures that pseudo-element <code>content</code> values, background URLs, and font names remain intact.</p>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+      <!-- Related Tools -->
+      <section class="related-tools" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Tools</h2>
+        <div class="related-tools-grid">
+          <a href="/html-minifier/" class="related-tool-card" aria-label="HTML Minifier">
+            <span class="card-icon" aria-hidden="true">🗜️</span>
+            HTML Minifier
+          </a>
+          <a href="/json-formatter/" class="related-tool-card" aria-label="JSON Formatter">
+            <span class="card-icon" aria-hidden="true">📋</span>
+            JSON Formatter
+          </a>
+          <a href="/color-picker/" class="related-tool-card" aria-label="Color Picker">
+            <span class="card-icon" aria-hidden="true">🎨</span>
+            Color Picker
+          </a>
+        </div>
+      </section>
+
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    </div>
+  </main>
+
+  <!-- ================================================================ -->
+  <!--  FOOTER                                                          -->
+  <!-- ================================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/global.js"></script>
+
+  <!-- ============================================================== -->
+  <!--  CSS MINIFIER — TOOL LOGIC                                      -->
+  <!-- ============================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================ */
+      /*  §1  CSS Tokenizer                                            */
+      /*      Splits CSS into tokens while preserving strings          */
+      /*      and url() values so they are never modified.             */
+      /* ============================================================ */
+
+      /**
+       * Extracts and protects all string literals and url() values.
+       * Replaces them with placeholder tokens so the minifier never
+       * touches content inside quotes or url().
+       *
+       * @param {string} css
+       * @returns {{ css: string, strings: string[] }}
+       */
+      function extractStrings(css) {
+        var strings = [];
+        var result = '';
+        var i = 0;
+        var len = css.length;
+
+        while (i < len) {
+          var ch = css[i];
+
+          /* ── url(...) ── */
+          if (css.slice(i, i + 4).toLowerCase() === 'url(') {
+            var start = i;
+            i += 4;
+            /* Skip whitespace */
+            while (i < len && /\s/.test(css[i])) i++;
+            if (i < len && (css[i] === '"' || css[i] === "'")) {
+              /* url("...") or url('...') */
+              var q = css[i];
+              i++;
+              while (i < len && css[i] !== q) {
+                if (css[i] === '\\') i++; /* skip escaped char */
+                i++;
+              }
+              if (i < len) i++; /* closing quote */
+            } else {
+              /* url(...) unquoted */
+              while (i < len && css[i] !== ')') i++;
+            }
+            /* Skip whitespace before closing ) */
+            while (i < len && /\s/.test(css[i])) i++;
+            if (i < len && css[i] === ')') i++;
+            var token = css.slice(start, i);
+            var idx = strings.length;
+            strings.push(token);
+            result += '\x00STR_' + idx + '\x00';
+            continue;
+          }
+
+          /* ── Quoted strings ── */
+          if (ch === '"' || ch === "'") {
+            var q = ch;
+            var start = i;
+            i++;
+            while (i < len && css[i] !== q) {
+              if (css[i] === '\\') i++;
+              i++;
+            }
+            if (i < len) i++;
+            var token = css.slice(start, i);
+            var idx = strings.length;
+            strings.push(token);
+            result += '\x00STR_' + idx + '\x00';
+            continue;
+          }
+
+          result += ch;
+          i++;
+        }
+
+        return { css: result, strings: strings };
+      }
+
+      /**
+       * Restores protected strings back into the CSS.
+       * @param {string} css
+       * @param {string[]} strings
+       * @returns {string}
+       */
+      function restoreStrings(css, strings) {
+        for (var i = 0; i < strings.length; i++) {
+          css = css.replace('\x00STR_' + i + '\x00', strings[i]);
+        }
+        return css;
+      }
+
+      /* ============================================================ */
+      /*  §2  CSS Minifier Engine                                      */
+      /* ============================================================ */
+
+      /**
+       * Minifies CSS.
+       * @param {string} css  Raw CSS source.
+       * @param {object} opts
+       * @param {boolean} opts.removeComments
+       * @param {boolean} opts.removeWhitespace
+       * @param {boolean} opts.shortenHex
+       * @param {boolean} opts.removeTrailingSemicolons
+       * @param {boolean} opts.removeZeroUnits
+       * @returns {string}
+       */
+      function minifyCSS(css, opts) {
+        if (!css.trim()) return '';
+
+        var result = css;
+
+        /* ── Step 1: Remove CSS comments ── */
+        if (opts.removeComments) {
+          result = result.replace(/\/\*[\s\S]*?\*\//g, '');
+        }
+
+        /* ── Step 2: Extract and protect strings/url() ── */
+        var extracted = extractStrings(result);
+        result = extracted.css;
+        var strings = extracted.strings;
+
+        /* ── Step 3: Collapse whitespace ── */
+        if (opts.removeWhitespace) {
+          /* Replace all runs of whitespace with a single space */
+          result = result.replace(/\s+/g, ' ');
+
+          /* Remove spaces around structural characters */
+          result = result.replace(/\s*{\s*/g, '{');
+          result = result.replace(/\s*}\s*/g, '}');
+          result = result.replace(/\s*;\s*/g, ';');
+          result = result.replace(/\s*:\s*/g, ':');
+          result = result.replace(/\s*,\s*/g, ',');
+
+          /* Remove space around combinators carefully:
+           * Keep space around > + ~ when they are combinators.
+           * But allow for calc() expressions: don't collapse + and - in calc.
+           */
+          result = result.replace(/\s*>\s*/g, '>');
+          result = result.replace(/\s*~\s*/g, '~');
+
+          result = result.trim();
+        }
+
+        /* ── Step 4: Shorten hex colors ── */
+        if (opts.shortenHex) {
+          /* #aabbcc → #abc, #AABBCC → #ABC */
+          result = result.replace(/#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3\b/g,
+            function (m, r, g, b) {
+              return '#' + r + g + b;
+            }
+          );
+        }
+
+        /* ── Step 5: Remove units from zero values ── */
+        if (opts.removeZeroUnits) {
+          /* 0px, 0em, 0rem, 0%, 0pt, 0vh, 0vw, etc. → 0
+           * But NOT inside things like 0s (animation duration) or
+           * percentage values in gradients where 0% has meaning */
+          result = result.replace(
+            /(?<=[\s:,])0(?:px|em|rem|pt|pc|in|cm|mm|ex|ch|vw|vh|vmin|vmax|%)\b/g,
+            '0'
+          );
+          /* Also handle at the start of a value: :0px → :0 */
+          result = result.replace(
+            /:0(?:px|em|rem|pt|pc|in|cm|mm|ex|ch|vw|vh|vmin|vmax|%)\b/g,
+            ':0'
+          );
+        }
+
+        /* ── Step 6: Remove trailing semicolons before } ── */
+        if (opts.removeTrailingSemicolons) {
+          result = result.replace(/;}/g, '}');
+        }
+
+        /* ── Step 7: Additional safe transforms ── */
+        /* Remove semicolons before } for nested @rules */
+        if (opts.removeTrailingSemicolons) {
+          result = result.replace(/;}/g, '}');
+        }
+
+        /* Remove empty rule blocks */
+        result = result.replace(/[^{}]+\{\s*\}/g, '');
+
+        /* ── Step 8: Restore strings ── */
+        result = restoreStrings(result, strings);
+
+        return result;
+      }
+
+      /* ============================================================ */
+      /*  §3  CSS Beautifier                                           */
+      /* ============================================================ */
+
+      /**
+       * Beautifies CSS: adds proper indentation and line breaks.
+       * @param {string} css
+       * @returns {string}
+       */
+      function beautifyCSS(css) {
+        if (!css.trim()) return '';
+
+        /* First extract strings so we don't format inside them */
+        var extracted = extractStrings(css);
+        var result = extracted.css;
+        var strings = extracted.strings;
+
+        /* Remove existing whitespace to normalize */
+        result = result.replace(/\s+/g, ' ');
+        result = result.replace(/\s*{\s*/g, '{');
+        result = result.replace(/\s*}\s*/g, '}');
+        result = result.replace(/\s*;\s*/g, ';');
+
+        /* Re-format */
+        var output = '';
+        var indent = 0;
+        var indentStr = '  ';
+
+        for (var i = 0; i < result.length; i++) {
+          var ch = result[i];
+
+          if (ch === '{') {
+            output += ' {\n';
+            indent++;
+            for (var d = 0; d < indent; d++) output += indentStr;
+          } else if (ch === '}') {
+            /* Remove trailing whitespace on previous line */
+            output = output.replace(/\s+$/, '');
+            output += '\n';
+            indent = Math.max(0, indent - 1);
+            for (var d = 0; d < indent; d++) output += indentStr;
+            output += '}';
+            /* Add blank line after top-level blocks */
+            if (indent === 0) output += '\n';
+            output += '\n';
+            if (indent > 0) {
+              for (var d = 0; d < indent; d++) output += indentStr;
+            }
+          } else if (ch === ';') {
+            output += ';\n';
+            for (var d = 0; d < indent; d++) output += indentStr;
+          } else if (ch === ':' && i + 1 < result.length && result[i + 1] !== ':') {
+            /* Property colon — add space after */
+            output += ': ';
+          } else if (ch === ',') {
+            /* Add space after comma in selectors */
+            output += ',\n';
+            for (var d = 0; d < indent; d++) output += indentStr;
+          } else {
+            output += ch;
+          }
+        }
+
+        /* Clean up */
+        var lines = output.split('\n');
+        var cleaned = [];
+        for (var li = 0; li < lines.length; li++) {
+          var line = lines[li].replace(/\s+$/, '');
+          /* Skip consecutive blank lines */
+          if (line === '' && cleaned.length > 0 && cleaned[cleaned.length - 1] === '') continue;
+          cleaned.push(line);
+        }
+        while (cleaned.length > 0 && cleaned[0] === '') cleaned.shift();
+        while (cleaned.length > 0 && cleaned[cleaned.length - 1] === '') cleaned.pop();
+
+        result = cleaned.join('\n');
+
+        /* Restore strings */
+        result = restoreStrings(result, strings);
+
+        return result;
+      }
+
+      /* ============================================================ */
+      /*  §4  Sample CSS                                               */
+      /* ============================================================ */
+
+      const SAMPLE_CSS =
+        '/* =========================\n' +
+        '   Main Stylesheet\n' +
+        '   Author: DevToolsHub\n' +
+        '   ========================= */\n' +
+        '\n' +
+        '/* Reset */\n' +
+        '*, *::before, *::after {\n' +
+        '    box-sizing: border-box;\n' +
+        '    margin: 0px;\n' +
+        '    padding: 0px;\n' +
+        '}\n' +
+        '\n' +
+        'body {\n' +
+        '    font-family: "Inter", -apple-system, sans-serif;\n' +
+        '    line-height: 1.6;\n' +
+        '    color: #333333;\n' +
+        '    background-color: #ffffff;\n' +
+        '}\n' +
+        '\n' +
+        '/* Navigation */\n' +
+        '.navbar {\n' +
+        '    display: flex;\n' +
+        '    align-items: center;\n' +
+        '    justify-content: space-between;\n' +
+        '    padding: 0px 24px;\n' +
+        '    height: 64px;\n' +
+        '    background-color: #1a1a1a;\n' +
+        '    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n' +
+        '}\n' +
+        '\n' +
+        '.navbar a {\n' +
+        '    color: #ffffff;\n' +
+        '    text-decoration: none;\n' +
+        '    padding: 8px 16px;\n' +
+        '    border-radius: 6px;\n' +
+        '    transition: background-color 0.2s ease;\n' +
+        '}\n' +
+        '\n' +
+        '.navbar a:hover {\n' +
+        '    background-color: #333333;\n' +
+        '}\n' +
+        '\n' +
+        '/* Hero Section */\n' +
+        '.hero {\n' +
+        '    text-align: center;\n' +
+        '    padding: 80px 0px;\n' +
+        '    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n' +
+        '    color: #ffffff;\n' +
+        '}\n' +
+        '\n' +
+        '.hero h1 {\n' +
+        '    font-size: 3rem;\n' +
+        '    margin-bottom: 16px;\n' +
+        '}\n' +
+        '\n' +
+        '/* Button Component */\n' +
+        '.btn {\n' +
+        '    display: inline-flex;\n' +
+        '    align-items: center;\n' +
+        '    gap: 8px;\n' +
+        '    padding: 12px 24px;\n' +
+        '    font-size: 1rem;\n' +
+        '    font-weight: 600;\n' +
+        '    border: none;\n' +
+        '    border-radius: 8px;\n' +
+        '    cursor: pointer;\n' +
+        '    transition: all 0.2s ease;\n' +
+        '}\n' +
+        '\n' +
+        '.btn-primary {\n' +
+        '    background-color: #3b82f6;\n' +
+        '    color: #ffffff;\n' +
+        '}\n' +
+        '\n' +
+        '.btn-primary:hover {\n' +
+        '    background-color: #2563eb;\n' +
+        '    transform: translateY(-1px);\n' +
+        '}\n' +
+        '\n' +
+        '/* Responsive */\n' +
+        '@media (max-width: 768px) {\n' +
+        '    .hero {\n' +
+        '        padding: 40px 16px;\n' +
+        '    }\n' +
+        '\n' +
+        '    .hero h1 {\n' +
+        '        font-size: 2rem;\n' +
+        '    }\n' +
+        '\n' +
+        '    .navbar {\n' +
+        '        padding: 0px 16px;\n' +
+        '    }\n' +
+        '}\n' +
+        '\n' +
+        '/* Animations */\n' +
+        '@keyframes fadeIn {\n' +
+        '    0% {\n' +
+        '        opacity: 0;\n' +
+        '        transform: translateY(20px);\n' +
+        '    }\n' +
+        '    100% {\n' +
+        '        opacity: 1;\n' +
+        '        transform: translateY(0px);\n' +
+        '    }\n' +
+        '}\n' +
+        '\n' +
+        '.fade-in {\n' +
+        '    animation: fadeIn 0.6s ease forwards;\n' +
+        '}\n';
+
+      /* ============================================================ */
+      /*  §5  DOM References                                           */
+      /* ============================================================ */
+
+      const cssInput     = document.getElementById('css-input');
+      const cssOutput    = document.getElementById('css-output');
+      const statusEl     = document.getElementById('status-el');
+      const inputStats   = document.getElementById('input-stats');
+      const outputStats  = document.getElementById('output-stats');
+      const statsBar     = document.getElementById('stats-bar');
+      const statOrig     = document.getElementById('stat-original');
+      const statMin      = document.getElementById('stat-minified');
+      const statSaved    = document.getElementById('stat-saved');
+      const compFill     = document.getElementById('compression-fill');
+      const optComments  = document.getElementById('opt-comments');
+      const optWhitespace = document.getElementById('opt-whitespace');
+      const optHex       = document.getElementById('opt-hex');
+      const optTrailing  = document.getElementById('opt-trailing');
+      const optZero      = document.getElementById('opt-zero');
+      const btnMinify    = document.getElementById('btn-minify');
+      const btnBeautify  = document.getElementById('btn-beautify');
+      const btnCopy      = document.getElementById('btn-copy');
+      const btnSample    = document.getElementById('btn-sample');
+      const btnClear     = document.getElementById('btn-clear');
+      const btnDownload  = document.getElementById('btn-download');
+
+      /* ============================================================ */
+      /*  §6  Helpers                                                  */
+      /* ============================================================ */
+
+      function byteSize(str) {
+        return new TextEncoder().encode(str).length;
+      }
+
+      function updateInputStats() {
+        const raw = cssInput.value;
+        const bytes = byteSize(raw);
+        inputStats.textContent = raw.length.toLocaleString() + ' chars \u00b7 ' + formatFileSize(bytes);
+      }
+
+      function updateOutputStats() {
+        const out = cssOutput.value;
+        const bytes = byteSize(out);
+        outputStats.textContent = out.length.toLocaleString() + ' chars \u00b7 ' + formatFileSize(bytes);
+      }
+
+      function updateCompressionStats(origSize, minSize) {
+        if (origSize === 0) { statsBar.classList.add('hidden'); return; }
+        statsBar.classList.remove('hidden');
+        statOrig.textContent = formatFileSize(origSize);
+        statMin.textContent = formatFileSize(minSize);
+        const saved = origSize - minSize;
+        const pct = ((saved / origSize) * 100).toFixed(1);
+        if (saved >= 0) {
+          statSaved.textContent = formatFileSize(saved) + ' (' + pct + '% smaller)';
+          statSaved.className = 'stat-saved';
+          compFill.style.width = pct + '%';
+        } else {
+          statSaved.textContent = '0 B saved';
+          statSaved.className = 'stat-saved stat-negative';
+          compFill.style.width = '0%';
+        }
+      }
+
+      function getOpts() {
+        return {
+          removeComments: optComments.checked,
+          removeWhitespace: optWhitespace.checked,
+          shortenHex: optHex.checked,
+          removeTrailingSemicolons: optTrailing.checked,
+          removeZeroUnits: optZero.checked
+        };
+      }
+
+      function resetUI() {
+        cssOutput.value = '';
+        statusEl.className = 'validation-status idle';
+        statusEl.textContent = 'Paste CSS to begin';
+        statsBar.classList.add('hidden');
+        updateInputStats();
+        updateOutputStats();
+      }
+
+      /* ============================================================ */
+      /*  §7  Core Actions                                             */
+      /* ============================================================ */
+
+      function doMinify() {
+        const raw = cssInput.value;
+        if (!raw.trim()) { resetUI(); return; }
+
+        try {
+          const result = minifyCSS(raw, getOpts());
+          cssOutput.value = result;
+          const origBytes = byteSize(raw);
+          const minBytes = byteSize(result);
+          statusEl.className = 'validation-status valid';
+          statusEl.textContent = '\u2713 Minified successfully';
+          updateInputStats();
+          updateOutputStats();
+          updateCompressionStats(origBytes, minBytes);
+        } catch (err) {
+          statusEl.className = 'validation-status error';
+          statusEl.textContent = '\u2717 Error: ' + err.message;
+        }
+      }
+
+      function doBeautify() {
+        const raw = cssInput.value;
+        if (!raw.trim()) { resetUI(); return; }
+
+        try {
+          const result = beautifyCSS(raw);
+          cssOutput.value = result;
+          const origBytes = byteSize(raw);
+          const outBytes = byteSize(result);
+          statusEl.className = 'validation-status valid';
+          statusEl.textContent = '\u2713 Beautified';
+          updateInputStats();
+          updateOutputStats();
+          updateCompressionStats(origBytes, outBytes);
+        } catch (err) {
+          statusEl.className = 'validation-status error';
+          statusEl.textContent = '\u2717 Error: ' + err.message;
+        }
+      }
+
+      /* ============================================================ */
+      /*  §8  Event Bindings                                           */
+      /* ============================================================ */
+
+      btnMinify.addEventListener('click', doMinify);
+      btnBeautify.addEventListener('click', doBeautify);
+
+      btnCopy.addEventListener('click', function () {
+        if (!cssOutput.value) { showToast('Nothing to copy.', { type: 'error' }); return; }
+        copyToClipboard(cssOutput.value);
+      });
+
+      btnSample.addEventListener('click', function () {
+        cssInput.value = SAMPLE_CSS;
+        doMinify();
+      });
+
+      btnClear.addEventListener('click', function () {
+        cssInput.value = '';
+        resetUI();
+        cssInput.focus();
+      });
+
+      btnDownload.addEventListener('click', function () {
+        if (!cssOutput.value) { showToast('Nothing to download.', { type: 'error' }); return; }
+        downloadAsFile(cssOutput.value, 'minified.css', 'text/css');
+      });
+
+      /* Auto-minify on input */
+      cssInput.addEventListener('input', debounce(function () {
+        updateInputStats();
+        if (cssInput.value.trim()) doMinify();
+        else resetUI();
+      }, 500));
+
+      /* Re-minify on option change */
+      const optEls = [optComments, optWhitespace, optHex, optTrailing, optZero];
+      optEls.forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (cssInput.value.trim()) doMinify();
+        });
+      });
+
+      /* Keyboard shortcuts */
+      cssInput.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          doMinify();
+        }
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const s = cssInput.selectionStart;
+          const end = cssInput.selectionEnd;
+          cssInput.value = cssInput.value.substring(0, s) + '  ' + cssInput.value.substring(end);
+          cssInput.selectionStart = cssInput.selectionEnd = s + 2;
+        }
+      });
+
+      /* Init */
+      updateInputStats();
+      updateOutputStats();
+
+    })();
+  </script>
+
+</body>
+</html>

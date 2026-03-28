@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary SEO ── -->
+  <title>SQL Formatter &amp; Beautifier Online — Free SQL Pretty Printer | DevToolsHub</title>
+  <meta name="description" content="Format and beautify SQL queries online for free. Supports MySQL, PostgreSQL, SQL Server syntax. Instant formatting in your browser.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/sql-formatter/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SQL Formatter &amp; Beautifier Online — Free SQL Pretty Printer">
+  <meta property="og:description" content="Format and beautify SQL queries online for free. Supports MySQL, PostgreSQL, SQL Server syntax.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/sql-formatter/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SQL Formatter &amp; Beautifier Online — Free SQL Pretty Printer">
+  <meta name="twitter:description" content="Format and beautify SQL queries online for free. Supports MySQL, PostgreSQL, SQL Server syntax.">
+  <meta name="twitter:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+
+  <!-- ── Misc ── -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- ── Structured Data ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SQL Formatter & Beautifier",
+    "description": "Format and beautify SQL queries online for free. Supports MySQL, PostgreSQL, SQL Server syntax.",
+    "url": "https://devtoolshub.pages.dev/sql-formatter/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolshub.pages.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "SQL Formatter", "item": "https://devtoolshub.pages.dev/sql-formatter/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this tool send my SQL to a server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All formatting happens entirely in your browser using JavaScript. No data is uploaded, stored, or transmitted to any server. Your queries remain completely private."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which SQL dialects does this formatter support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The formatter handles standard ANSI SQL, MySQL, PostgreSQL, and SQL Server syntax. Keyword recognition covers all common clauses including JOINs, CTEs, subqueries, and DDL statements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why should I format my SQL queries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Formatted SQL is dramatically easier to read, debug, review, and maintain. Consistent formatting helps teams collaborate, makes code reviews faster, and reduces the chance of logical errors hiding in long, unreadable one-line queries."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- ── Page-specific styles ── -->
+  <style>
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-tertiary); margin-bottom: var(--space-6);
+    }
+    .breadcrumb a { color: var(--text-secondary); transition: color var(--transition-fast); }
+    .breadcrumb a:hover { color: var(--accent-text); }
+    .breadcrumb .separator { user-select: none; }
+    .breadcrumb .current { color: var(--text-primary); }
+
+    /* Options panel */
+    .options-panel {
+      display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4);
+      padding: var(--space-4); margin-bottom: var(--space-4);
+      background-color: var(--bg-tertiary); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+    }
+    .opt-group { display: flex; align-items: center; gap: var(--space-2); }
+    .opt-label {
+      font-size: var(--text-xs); font-weight: 600; color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+    }
+    .opt-select {
+      padding: var(--space-1) var(--space-3); font-size: var(--text-sm);
+      font-family: var(--font-sans); color: var(--text-primary);
+      background-color: var(--bg-input); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm); outline: none;
+      transition: border-color var(--transition-fast); cursor: pointer;
+    }
+    .opt-select:focus { border-color: var(--border-focus); }
+    .opt-checkbox {
+      display: flex; align-items: center; gap: var(--space-2); cursor: pointer;
+    }
+    .opt-checkbox input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;
+    }
+    .opt-checkbox span { font-size: var(--text-sm); color: var(--text-secondary); white-space: nowrap; }
+
+    /* Status bar */
+    .status-bar {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    .validation-status {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); font-weight: 500;
+      padding: var(--space-1) var(--space-3); border-radius: 100px;
+    }
+    .validation-status.idle { color: var(--text-tertiary); }
+    .validation-status.valid { color: var(--success); background-color: var(--success-soft); }
+    .validation-status.error { color: var(--error); background-color: var(--error-soft); }
+
+    .stat-pills {
+      display: flex; gap: var(--space-3); font-size: var(--text-xs);
+      font-family: var(--font-mono); color: var(--text-tertiary);
+    }
+    .stat-pills span { display: flex; align-items: center; gap: var(--space-1); }
+    .stat-val { color: var(--text-secondary); font-weight: 600; }
+
+    /* Textarea footer */
+    .textarea-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: var(--space-2); font-size: var(--text-xs);
+      color: var(--text-tertiary); font-family: var(--font-mono);
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .faq-list details { border: 1px solid var(--border-primary); border-radius: var(--radius-md); overflow: hidden; }
+    .faq-list details[open] { border-color: var(--border-secondary); }
+    .faq-list summary {
+      padding: var(--space-4); font-weight: 600; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      background-color: var(--bg-secondary); user-select: none;
+    }
+    .faq-list summary:hover { background-color: var(--bg-hover); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: var(--text-lg); font-weight: 400; color: var(--text-tertiary); }
+    .faq-list details[open] summary::after { content: '\2212'; }
+    .faq-list .faq-answer { padding: 0 var(--space-4) var(--space-4); color: var(--text-secondary); line-height: var(--line-height-relaxed); }
+
+    /* Keywords table */
+    .kw-table { width: 100%; border-collapse: collapse; margin: var(--space-4) 0; font-size: var(--text-sm); }
+    .kw-table th, .kw-table td { text-align: left; padding: var(--space-3) var(--space-4); border: 1px solid var(--border-primary); }
+    .kw-table th { background-color: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .kw-table td { color: var(--text-secondary); }
+    .kw-table td code { background-color: var(--bg-tertiary); padding: 2px 6px; border-radius: 3px; font-size: var(--text-xs); }
+    .kw-table tr:hover td { background-color: var(--bg-secondary); }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <!-- ================================================================ -->
+  <!--  HEADER                                                          -->
+  <!-- ================================================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+      <div class="header-right">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <!-- ================================================================ -->
+  <!--  MAIN                                                            -->
+  <!-- ================================================================ -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator" aria-hidden="true">›</span>
+        <span class="current">SQL Formatter</span>
+      </nav>
+
+      <!-- Tool Header -->
+      <div class="tool-header">
+        <h1>SQL Formatter &amp; Beautifier</h1>
+        <p>Paste messy SQL and get beautifully formatted, readable queries. Supports all major SQL dialects. <span style="font-family:var(--font-mono);font-size:var(--text-xs);background:var(--bg-tertiary);padding:2px 6px;border-radius:3px;">Ctrl + Enter</span> to format.</p>
+      </div>
+
+      <!-- Tool Container -->
+      <div class="tool-container">
+
+        <!-- Options -->
+        <div class="options-panel">
+          <div class="opt-group">
+            <span class="opt-label">Indent</span>
+            <select id="opt-indent" class="opt-select" aria-label="Indentation style">
+              <option value="2">2 spaces</option>
+              <option value="4" selected>4 spaces</option>
+              <option value="tab">Tab</option>
+            </select>
+          </div>
+          <div class="opt-group">
+            <span class="opt-label">Dialect</span>
+            <select id="opt-dialect" class="opt-select" aria-label="SQL dialect">
+              <option value="standard">Standard SQL</option>
+              <option value="mysql">MySQL</option>
+              <option value="postgresql">PostgreSQL</option>
+            </select>
+          </div>
+          <label class="opt-checkbox">
+            <input type="checkbox" id="opt-uppercase" checked>
+            <span>Uppercase keywords</span>
+          </label>
+        </div>
+
+        <!-- Status -->
+        <div class="status-bar">
+          <span class="validation-status idle" id="status-el">Paste SQL to begin</span>
+          <div class="stat-pills">
+            <span>Lines: <span class="stat-val" id="stat-lines">0</span></span>
+            <span>Chars: <span class="stat-val" id="stat-chars">0</span></span>
+          </div>
+        </div>
+
+        <!-- Input / Output -->
+        <div class="input-output-grid">
+          <div class="textarea-block">
+            <label class="textarea-label" for="sql-input">Input — Raw SQL</label>
+            <textarea
+              id="sql-input"
+              class="textarea-input"
+              placeholder="Paste your SQL query here..."
+              spellcheck="false"
+              aria-label="SQL input"
+            ></textarea>
+            <div class="textarea-footer">
+              <span id="input-stats">0 characters</span>
+            </div>
+          </div>
+          <div class="textarea-block">
+            <label class="textarea-label" for="sql-output">Output — Formatted SQL</label>
+            <textarea
+              id="sql-output"
+              class="textarea-output"
+              readonly
+              aria-label="Formatted SQL output"
+            ></textarea>
+            <div class="textarea-footer">
+              <span id="output-stats">0 characters</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+          <button id="btn-format" class="btn btn-primary" type="button" aria-label="Format SQL">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+            Format
+          </button>
+          <button id="btn-minify" class="btn btn-secondary" type="button" aria-label="Minify SQL">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            Minify
+          </button>
+          <button id="btn-copy" class="btn btn-copy" type="button" aria-label="Copy output">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+          <button id="btn-sample" class="btn btn-secondary" type="button" aria-label="Load sample SQL">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Sample
+          </button>
+          <button id="btn-clear" class="btn btn-secondary" type="button" aria-label="Clear all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Clear
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+      <!-- ============================================================ -->
+      <!--  EDUCATIONAL CONTENT                                         -->
+      <!-- ============================================================ -->
+      <section class="content-section" aria-labelledby="why-format-sql">
+
+        <h2 id="why-format-sql">Why Format SQL Queries?</h2>
+        <p>
+          SQL queries are often written as long, single-line strings — especially when generated by ORMs, copied from logs, or quickly typed in a console. While the database engine doesn't care about whitespace, <strong>humans do</strong>. Properly formatted SQL offers significant advantages:
+        </p>
+        <ul>
+          <li><strong>Readability</strong> — Each clause on its own line makes the query's logic immediately clear.</li>
+          <li><strong>Debugging</strong> — It's far easier to spot missing <code>JOIN</code> conditions, wrong <code>WHERE</code> clauses, or typos when the query is well-structured.</li>
+          <li><strong>Code reviews</strong> — Reviewers can quickly scan formatted SQL and understand the intent without mentally parsing a wall of text.</li>
+          <li><strong>Team consistency</strong> — A shared formatting standard eliminates style debates and makes diffs cleaner.</li>
+          <li><strong>Documentation</strong> — Formatted queries serve as self-documenting code when included in wikis, READMEs, or runbooks.</li>
+        </ul>
+
+        <h2>SQL Formatting Best Practices</h2>
+        <ol>
+          <li><strong>One clause per line</strong> — Put <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>JOIN</code>, <code>ORDER BY</code>, etc. on separate lines.</li>
+          <li><strong>Indent sub-items</strong> — Column lists, conditions, and subquery bodies should be indented one level deeper than their parent clause.</li>
+          <li><strong>Uppercase keywords</strong> — Using <code>SELECT</code> instead of <code>select</code> visually distinguishes SQL keywords from table/column names.</li>
+          <li><strong>Align related items</strong> — Vertically aligning <code>AND</code>/<code>OR</code> conditions aids scanning.</li>
+          <li><strong>Break up long <code>IN</code> lists</strong> — Put each value on its own line or group them logically.</li>
+          <li><strong>Use aliases consistently</strong> — Alias tables with meaningful short names (<code>u</code> for <code>users</code>, <code>o</code> for <code>orders</code>) and always qualify column references.</li>
+          <li><strong>Comment complex logic</strong> — Add <code>-- inline comments</code> to explain non-obvious conditions or business rules.</li>
+        </ol>
+        <pre><code>-- Well-formatted example
+SELECT
+    u.id,
+    u.name,
+    COUNT(o.id) AS order_count
+FROM
+    users u
+    INNER JOIN orders o ON o.user_id = u.id
+WHERE
+    u.active = 1
+    AND o.created_at >= '2025-01-01'
+GROUP BY
+    u.id,
+    u.name
+ORDER BY
+    order_count DESC
+LIMIT
+    10;</code></pre>
+
+        <h2>Common SQL Keywords</h2>
+        <table class="kw-table">
+          <thead>
+            <tr><th>Category</th><th>Keywords</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Data Query (DQL)</td><td><code>SELECT</code> <code>FROM</code> <code>WHERE</code> <code>JOIN</code> <code>ON</code> <code>GROUP BY</code> <code>HAVING</code> <code>ORDER BY</code> <code>LIMIT</code> <code>OFFSET</code> <code>UNION</code> <code>DISTINCT</code></td></tr>
+            <tr><td>Data Manipulation (DML)</td><td><code>INSERT INTO</code> <code>VALUES</code> <code>UPDATE</code> <code>SET</code> <code>DELETE FROM</code> <code>MERGE</code></td></tr>
+            <tr><td>Data Definition (DDL)</td><td><code>CREATE TABLE</code> <code>ALTER TABLE</code> <code>DROP TABLE</code> <code>CREATE INDEX</code> <code>CREATE VIEW</code></td></tr>
+            <tr><td>Joins</td><td><code>INNER JOIN</code> <code>LEFT JOIN</code> <code>RIGHT JOIN</code> <code>FULL OUTER JOIN</code> <code>CROSS JOIN</code></td></tr>
+            <tr><td>Conditions</td><td><code>AND</code> <code>OR</code> <code>NOT</code> <code>IN</code> <code>BETWEEN</code> <code>LIKE</code> <code>IS NULL</code> <code>EXISTS</code></td></tr>
+            <tr><td>Functions</td><td><code>COUNT</code> <code>SUM</code> <code>AVG</code> <code>MIN</code> <code>MAX</code> <code>COALESCE</code> <code>CASE WHEN</code></td></tr>
+          </tbody>
+        </table>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Does this tool send my SQL to a server?</summary>
+            <div class="faq-answer">
+              <p>No. All formatting happens entirely in your browser using JavaScript. No data is uploaded, stored, or transmitted to any server. Your queries remain completely private.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Which SQL dialects does this formatter support?</summary>
+            <div class="faq-answer">
+              <p>The formatter handles standard ANSI SQL keywords and syntax. The dialect selector (MySQL, PostgreSQL) is provided for future dialect-specific formatting rules. Currently, all dialects share the same core formatting engine, which correctly handles all common SQL clauses, JOINs, subqueries, CTEs, comments, and string literals.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Does formatting change the meaning of my SQL?</summary>
+            <div class="faq-answer">
+              <p>No. The formatter only adds or removes whitespace and line breaks. It never modifies keywords, table names, column names, operators, values, or the logical structure of your query. The formatted output is semantically identical to the input.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Can I format stored procedures and DDL statements?</summary>
+            <div class="faq-answer">
+              <p>Yes. The formatter recognizes DDL keywords like <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>CREATE INDEX</code>, and <code>DROP TABLE</code>. It also handles <code>INSERT INTO ... VALUES</code>, <code>UPDATE ... SET</code>, and <code>DELETE FROM</code>. Complex procedural blocks (PL/pgSQL, T-SQL) may have limited support, but the core statement formatting works reliably.</p>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+      <!-- Related Tools -->
+      <section class="related-tools" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Tools</h2>
+        <div class="related-tools-grid">
+          <a href="/json-formatter/" class="related-tool-card" aria-label="JSON Formatter">
+            <span class="card-icon" aria-hidden="true">📋</span>
+            JSON Formatter &amp; Validator
+          </a>
+          <a href="/html-minifier/" class="related-tool-card" aria-label="HTML Minifier">
+            <span class="card-icon" aria-hidden="true">🗜️</span>
+            HTML Minifier
+          </a>
+          <a href="/css-minifier/" class="related-tool-card" aria-label="CSS Minifier">
+            <span class="card-icon" aria-hidden="true">🎨</span>
+            CSS Minifier
+          </a>
+        </div>
+      </section>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    </div>
+  </main>
+
+  <!-- ================================================================ -->
+  <!--  FOOTER                                                          -->
+  <!-- ================================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ── -->
+  <script src="../assets/js/global.js"></script>
+
+  <!-- ============================================================== -->
+  <!--  SQL FORMATTER — TOOL LOGIC                                     -->
+  <!-- ============================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================ */
+      /*  §1  SQL Tokenizer                                            */
+      /*      Breaks SQL into tokens while preserving strings,         */
+      /*      comments, and identifiers.                               */
+      /* ============================================================ */
+
+      /**
+       * Token types produced by the tokenizer.
+       * @enum {string}
+       */
+      var TT = {
+        WORD: 'WORD',
+        STRING: 'STRING',
+        NUMBER: 'NUMBER',
+        OPERATOR: 'OPERATOR',
+        PAREN_OPEN: 'PAREN_OPEN',
+        PAREN_CLOSE: 'PAREN_CLOSE',
+        COMMA: 'COMMA',
+        SEMICOLON: 'SEMICOLON',
+        COMMENT_LINE: 'COMMENT_LINE',
+        COMMENT_BLOCK: 'COMMENT_BLOCK',
+        WHITESPACE: 'WHITESPACE',
+        DOT: 'DOT',
+        WILDCARD: 'WILDCARD',
+        QUOTED_ID: 'QUOTED_ID',
+        UNKNOWN: 'UNKNOWN'
+      };
+
+      /**
+       * Tokenizes a SQL string into an array of token objects.
+       * Each token: { type: string, value: string }
+       * @param {string} sql
+       * @returns {Array<{ type: string, value: string }>}
+       */
+      function tokenize(sql) {
+        var tokens = [];
+        var i = 0;
+        var len = sql.length;
+
+        while (i < len) {
+          var ch = sql[i];
+
+          /* ── Whitespace ── */
+          if (/\s/.test(ch)) {
+            var start = i;
+            while (i < len && /\s/.test(sql[i])) i++;
+            tokens.push({ type: TT.WHITESPACE, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Single-line comment: -- ── */
+          if (ch === '-' && i + 1 < len && sql[i + 1] === '-') {
+            var start = i;
+            i += 2;
+            while (i < len && sql[i] !== '\n') i++;
+            tokens.push({ type: TT.COMMENT_LINE, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Block comment: /* ... *​/ ── */
+          if (ch === '/' && i + 1 < len && sql[i + 1] === '*') {
+            var start = i;
+            i += 2;
+            while (i < len && !(sql[i] === '*' && i + 1 < len && sql[i + 1] === '/')) i++;
+            i += 2; /* skip closing *​/ */
+            tokens.push({ type: TT.COMMENT_BLOCK, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── String literal: 'text' ── */
+          if (ch === "'") {
+            var start = i;
+            i++;
+            while (i < len) {
+              if (sql[i] === "'" && i + 1 < len && sql[i + 1] === "'") {
+                i += 2; /* escaped quote '' */
+              } else if (sql[i] === "'") {
+                i++;
+                break;
+              } else {
+                i++;
+              }
+            }
+            tokens.push({ type: TT.STRING, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Quoted identifier: "name" or `name` ── */
+          if (ch === '"' || ch === '`') {
+            var closeChar = ch;
+            var start = i;
+            i++;
+            while (i < len && sql[i] !== closeChar) i++;
+            if (i < len) i++;
+            tokens.push({ type: TT.QUOTED_ID, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Brackets [identifier] (SQL Server) ── */
+          if (ch === '[') {
+            var start = i;
+            i++;
+            while (i < len && sql[i] !== ']') i++;
+            if (i < len) i++;
+            tokens.push({ type: TT.QUOTED_ID, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Parentheses ── */
+          if (ch === '(') { tokens.push({ type: TT.PAREN_OPEN, value: '(' }); i++; continue; }
+          if (ch === ')') { tokens.push({ type: TT.PAREN_CLOSE, value: ')' }); i++; continue; }
+
+          /* ── Comma ── */
+          if (ch === ',') { tokens.push({ type: TT.COMMA, value: ',' }); i++; continue; }
+
+          /* ── Semicolon ── */
+          if (ch === ';') { tokens.push({ type: TT.SEMICOLON, value: ';' }); i++; continue; }
+
+          /* ── Dot ── */
+          if (ch === '.') { tokens.push({ type: TT.DOT, value: '.' }); i++; continue; }
+
+          /* ── Number ── */
+          if (/[0-9]/.test(ch)) {
+            var start = i;
+            while (i < len && /[0-9.eE]/.test(sql[i])) i++;
+            tokens.push({ type: TT.NUMBER, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Word (keyword or identifier) ── */
+          if (/[a-zA-Z_@#]/.test(ch)) {
+            var start = i;
+            while (i < len && /[a-zA-Z0-9_@#$]/.test(sql[i])) i++;
+            tokens.push({ type: TT.WORD, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Operators or misc ── */
+          if ('<>=!|&+-*/%^~'.indexOf(ch) !== -1) {
+            var start = i;
+            /* Grab multi-char operators like !=, >=, <=, <>, ||, :: */
+            i++;
+            if (i < len && '<>=!|:'.indexOf(sql[i]) !== -1) i++;
+            tokens.push({ type: TT.OPERATOR, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Colon (for casts :: in PostgreSQL or named params) ── */
+          if (ch === ':') {
+            var start = i;
+            i++;
+            if (i < len && sql[i] === ':') i++;
+            tokens.push({ type: TT.OPERATOR, value: sql.slice(start, i) });
+            continue;
+          }
+
+          /* ── Wildcard * ── */
+          if (ch === '*') { tokens.push({ type: TT.WILDCARD, value: '*' }); i++; continue; }
+
+          /* ── Unknown ── */
+          tokens.push({ type: TT.UNKNOWN, value: ch });
+          i++;
+        }
+
+        return tokens;
+      }
+
+      /* ============================================================ */
+      /*  §2  Keyword Sets                                             */
+      /* ============================================================ */
+
+      /**
+       * Major keywords that get a new line and NO extra indentation.
+       * These sit at "clause level".
+       */
+      var MAJOR_KEYWORDS = [
+        'SELECT', 'FROM', 'WHERE', 'SET', 'HAVING',
+        'ORDER BY', 'GROUP BY', 'LIMIT', 'OFFSET',
+        'UNION', 'UNION ALL', 'INTERSECT', 'EXCEPT',
+        'INSERT INTO', 'VALUES', 'UPDATE', 'DELETE FROM',
+        'CREATE TABLE', 'CREATE INDEX', 'CREATE VIEW',
+        'CREATE OR REPLACE', 'ALTER TABLE', 'DROP TABLE',
+        'DROP INDEX', 'DROP VIEW', 'TRUNCATE TABLE',
+        'WITH', 'RETURNING', 'INTO', 'FETCH', 'FOR'
+      ];
+
+      /**
+       * Join keywords. New line, same indent level as FROM.
+       */
+      var JOIN_KEYWORDS = [
+        'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN',
+        'LEFT OUTER JOIN', 'RIGHT OUTER JOIN',
+        'FULL JOIN', 'FULL OUTER JOIN', 'CROSS JOIN',
+        'JOIN', 'NATURAL JOIN'
+      ];
+
+      /**
+       * Keywords for new line with extra indent (subordinate).
+       */
+      var SUB_KEYWORDS = ['ON', 'USING'];
+
+      /**
+       * Logical operators that go on a new line at sub-indent level.
+       */
+      var LOGIC_KEYWORDS = ['AND', 'OR'];
+
+      /**
+       * All keywords merged for case-matching purposes.
+       */
+      var ALL_KEYWORDS_SET = {};
+      var ALL_KW_LIST = [
+        'SELECT', 'FROM', 'WHERE', 'SET', 'HAVING', 'ON', 'USING', 'AS',
+        'ORDER', 'BY', 'GROUP', 'LIMIT', 'OFFSET', 'ASC', 'DESC',
+        'UNION', 'ALL', 'INTERSECT', 'EXCEPT', 'DISTINCT', 'TOP',
+        'INSERT', 'INTO', 'VALUES', 'UPDATE', 'DELETE', 'MERGE',
+        'CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'TABLE', 'INDEX', 'VIEW',
+        'OR', 'REPLACE',
+        'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS', 'NATURAL', 'JOIN',
+        'AND', 'NOT', 'IN', 'BETWEEN', 'LIKE', 'ILIKE', 'IS', 'NULL',
+        'EXISTS', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'CAST',
+        'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'NULLIF',
+        'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'UNIQUE', 'CHECK',
+        'DEFAULT', 'CONSTRAINT', 'CASCADE', 'RESTRICT',
+        'IF', 'ELSE', 'BEGIN', 'COMMIT', 'ROLLBACK', 'TRANSACTION',
+        'GRANT', 'REVOKE', 'WITH', 'RECURSIVE', 'RETURNING',
+        'FETCH', 'NEXT', 'ROWS', 'ONLY', 'PERCENT', 'FOR',
+        'VARCHAR', 'INT', 'INTEGER', 'BIGINT', 'SMALLINT', 'BOOLEAN',
+        'TEXT', 'DATE', 'TIMESTAMP', 'NUMERIC', 'DECIMAL', 'FLOAT',
+        'DOUBLE', 'PRECISION', 'SERIAL', 'BIGSERIAL', 'UUID',
+        'TRUE', 'FALSE', 'OVER', 'PARTITION', 'WINDOW', 'FILTER',
+        'ROWS', 'RANGE', 'UNBOUNDED', 'PRECEDING', 'FOLLOWING', 'CURRENT', 'ROW'
+      ];
+      for (var ki = 0; ki < ALL_KW_LIST.length; ki++) {
+        ALL_KEYWORDS_SET[ALL_KW_LIST[ki]] = true;
+      }
+
+      /**
+       * Checks if a run of upcoming WORD tokens matches a multi-word keyword.
+       * @param {Array} tokens  Non-whitespace tokens.
+       * @param {number} pos    Current position.
+       * @param {Array<string>} kwList  Multi-word keyword list.
+       * @returns {{ kw: string, consumed: number } | null}
+       */
+      function matchMultiKeyword(tokens, pos, kwList) {
+        for (var k = 0; k < kwList.length; k++) {
+          var parts = kwList[k].split(' ');
+          var matched = true;
+          for (var p = 0; p < parts.length; p++) {
+            var idx = pos + p;
+            if (idx >= tokens.length || tokens[idx].type !== TT.WORD ||
+                tokens[idx].value.toUpperCase() !== parts[p]) {
+              matched = false;
+              break;
+            }
+          }
+          if (matched) {
+            return { kw: kwList[k], consumed: parts.length };
+          }
+        }
+        return null;
+      }
+
+      /* ============================================================ */
+      /*  §3  SQL Formatter Engine                                     */
+      /* ============================================================ */
+
+      /**
+       * Formats a SQL string.
+       * @param {string} sql       Raw SQL.
+       * @param {object} opts
+       * @param {string} opts.indent   '2', '4', or 'tab'
+       * @param {boolean} opts.uppercase  Whether to uppercase keywords.
+       * @returns {string}  Formatted SQL.
+       */
+      function formatSQL(sql, opts) {
+        if (!sql.trim()) return '';
+
+        var indentStr;
+        if (opts.indent === 'tab') indentStr = '\t';
+        else if (opts.indent === '2') indentStr = '  ';
+        else indentStr = '    ';
+
+        var rawTokens = tokenize(sql);
+
+        /* Filter out whitespace — we'll rebuild it ourselves */
+        var tokens = [];
+        for (var t = 0; t < rawTokens.length; t++) {
+          if (rawTokens[t].type !== TT.WHITESPACE) {
+            tokens.push(rawTokens[t]);
+          }
+        }
+
+        var output = '';
+        var indent = 0;
+        var i = 0;
+        var newline = true;
+        var afterSelect = false;
+
+        function nl() {
+          output += '\n';
+          for (var d = 0; d < indent; d++) output += indentStr;
+          newline = true;
+        }
+
+        function space() {
+          if (!newline && output.length > 0 && output[output.length - 1] !== ' ' && output[output.length - 1] !== '\t') {
+            output += ' ';
+          }
+        }
+
+        function kwCase(word) {
+          return opts.uppercase ? word.toUpperCase() : word.toLowerCase();
+        }
+
+        function wordCase(token) {
+          var upper = token.value.toUpperCase();
+          if (ALL_KEYWORDS_SET[upper]) {
+            return kwCase(upper);
+          }
+          return token.value;
+        }
+
+        /* Sort multi-word keywords by length descending for greedy matching */
+        var allMultiKW = MAJOR_KEYWORDS.concat(JOIN_KEYWORDS).sort(function (a, b) {
+          return b.split(' ').length - a.split(' ').length;
+        });
+
+        while (i < tokens.length) {
+          var tok = tokens[i];
+
+          /* ── Comments: keep as-is on new line ── */
+          if (tok.type === TT.COMMENT_LINE || tok.type === TT.COMMENT_BLOCK) {
+            nl();
+            output += tok.value.trim();
+            i++;
+            newline = false;
+            continue;
+          }
+
+          /* ── Semicolons: new statement ── */
+          if (tok.type === TT.SEMICOLON) {
+            output += ';';
+            indent = 0;
+            afterSelect = false;
+            nl();
+            nl();
+            i++;
+            continue;
+          }
+
+          /* ── Open paren ── */
+          if (tok.type === TT.PAREN_OPEN) {
+            space();
+            output += '(';
+            indent++;
+            newline = false;
+            /* Check if this is a subquery: next significant token is SELECT */
+            var nextSig = i + 1;
+            while (nextSig < tokens.length && tokens[nextSig].type === TT.WHITESPACE) nextSig++;
+            if (nextSig < tokens.length && tokens[nextSig].type === TT.WORD &&
+                tokens[nextSig].value.toUpperCase() === 'SELECT') {
+              nl();
+            }
+            i++;
+            continue;
+          }
+
+          /* ── Close paren ── */
+          if (tok.type === TT.PAREN_CLOSE) {
+            indent = Math.max(0, indent - 1);
+            nl();
+            output += ')';
+            newline = false;
+            i++;
+            continue;
+          }
+
+          /* ── Comma ── */
+          if (tok.type === TT.COMMA) {
+            output += ',';
+            nl();
+            newline = true;
+            i++;
+            continue;
+          }
+
+          /* ── Words: check for keywords ── */
+          if (tok.type === TT.WORD) {
+            var upper = tok.value.toUpperCase();
+
+            /* Try multi-word keyword match first */
+            var multi = matchMultiKeyword(tokens, i, allMultiKW);
+
+            if (multi) {
+              var kwUp = multi.kw;
+
+              /* Determine category */
+              var isMajor = MAJOR_KEYWORDS.indexOf(kwUp) !== -1;
+              var isJoin = JOIN_KEYWORDS.indexOf(kwUp) !== -1;
+
+              if (isMajor || isJoin) {
+                /* Reset indent for a new major clause at base level if not inside parens */
+                if (kwUp === 'SELECT' || kwUp === 'INSERT INTO' || kwUp === 'UPDATE' ||
+                    kwUp === 'DELETE FROM' || kwUp === 'CREATE TABLE' || kwUp === 'ALTER TABLE' ||
+                    kwUp === 'DROP TABLE' || kwUp === 'CREATE INDEX' || kwUp === 'CREATE VIEW' ||
+                    kwUp === 'CREATE OR REPLACE' || kwUp === 'DROP INDEX' || kwUp === 'DROP VIEW' ||
+                    kwUp === 'TRUNCATE TABLE' || kwUp === 'WITH') {
+                  /* Top-level statement keyword — don't change indent */
+                }
+
+                nl();
+                output += kwCase(kwUp);
+                newline = false;
+                afterSelect = (kwUp === 'SELECT');
+
+                /* Indent the *next* line for clauses that have sub-items */
+                if (kwUp === 'SELECT' || kwUp === 'SET' || kwUp === 'VALUES') {
+                  indent++;
+                  nl();
+                } else if (kwUp === 'FROM' || kwUp === 'WHERE' || kwUp === 'HAVING' ||
+                           kwUp === 'ORDER BY' || kwUp === 'GROUP BY') {
+                  /* Un-indent from SELECT, re-indent for this clause's content */
+                  if (afterSelect && kwUp === 'FROM') {
+                    indent = Math.max(0, indent - 1);
+                    afterSelect = false;
+                    /* Re-emit on the correct indent */
+                    output = output.replace(/\n[ \t]*$/, '');
+                    nl();
+                    output += kwCase(kwUp);
+                  }
+                  indent++;
+                  nl();
+                }
+
+                i += multi.consumed;
+                continue;
+              }
+            }
+
+            /* ── Single-word sub-keywords: ON, USING ── */
+            if (SUB_KEYWORDS.indexOf(upper) !== -1) {
+              indent++;
+              nl();
+              output += kwCase(upper);
+              newline = false;
+              i++;
+              /* Don't decrement here — will be handled by next major kw */
+              continue;
+            }
+
+            /* ── AND / OR ── */
+            if (LOGIC_KEYWORDS.indexOf(upper) !== -1) {
+              nl();
+              output += kwCase(upper);
+              space();
+              newline = false;
+              i++;
+              continue;
+            }
+
+            /* ── CASE / WHEN / THEN / ELSE / END ── */
+            if (upper === 'CASE') {
+              space();
+              output += kwCase('CASE');
+              indent++;
+              newline = false;
+              i++;
+              continue;
+            }
+            if (upper === 'WHEN' || upper === 'ELSE') {
+              nl();
+              output += kwCase(upper);
+              newline = false;
+              i++;
+              continue;
+            }
+            if (upper === 'THEN') {
+              space();
+              output += kwCase('THEN');
+              newline = false;
+              i++;
+              continue;
+            }
+            if (upper === 'END') {
+              indent = Math.max(0, indent - 1);
+              nl();
+              output += kwCase('END');
+              newline = false;
+              i++;
+              continue;
+            }
+
+            /* ── Regular word ── */
+            space();
+            output += wordCase(tok);
+            newline = false;
+            i++;
+            continue;
+          }
+
+          /* ── Dot (qualified name) ── */
+          if (tok.type === TT.DOT) {
+            output += '.';
+            newline = false;
+            i++;
+            continue;
+          }
+
+          /* ── Everything else (strings, numbers, operators, etc.) ── */
+          space();
+          output += tok.value;
+          newline = false;
+          i++;
+        }
+
+        /* Clean up excessive blank lines and trailing whitespace */
+        var lines = output.split('\n');
+        var cleaned = [];
+        var prevBlank = false;
+        for (var li = 0; li < lines.length; li++) {
+          var line = lines[li].replace(/\s+$/, ''); /* rtrim */
+          var isBlank = line === '';
+          if (isBlank && prevBlank) continue;
+          cleaned.push(line);
+          prevBlank = isBlank;
+        }
+
+        /* Remove leading/trailing blanks */
+        while (cleaned.length > 0 && cleaned[0] === '') cleaned.shift();
+        while (cleaned.length > 0 && cleaned[cleaned.length - 1] === '') cleaned.pop();
+
+        return cleaned.join('\n');
+      }
+
+      /* ============================================================ */
+      /*  §4  SQL Minifier                                             */
+      /* ============================================================ */
+
+      /**
+       * Minifies SQL: removes comments, collapses whitespace.
+       * @param {string} sql
+       * @returns {string}
+       */
+      function minifySQL(sql) {
+        var tokens = tokenize(sql);
+        var out = '';
+        var lastWasSpace = false;
+
+        for (var i = 0; i < tokens.length; i++) {
+          var tok = tokens[i];
+
+          /* Strip comments */
+          if (tok.type === TT.COMMENT_LINE || tok.type === TT.COMMENT_BLOCK) continue;
+
+          /* Collapse whitespace to a single space */
+          if (tok.type === TT.WHITESPACE) {
+            if (!lastWasSpace && out.length > 0) {
+              out += ' ';
+              lastWasSpace = true;
+            }
+            continue;
+          }
+
+          /* No space needed around dots, before commas/semicolons, or after open-paren */
+          if (tok.type === TT.DOT || tok.type === TT.COMMA || tok.type === TT.SEMICOLON) {
+            out = out.replace(/ $/, '');
+            out += tok.value;
+            lastWasSpace = false;
+            continue;
+          }
+          if (tok.type === TT.PAREN_OPEN) {
+            out += tok.value;
+            lastWasSpace = false;
+            continue;
+          }
+          if (tok.type === TT.PAREN_CLOSE) {
+            out = out.replace(/ $/, '');
+            out += tok.value;
+            lastWasSpace = false;
+            continue;
+          }
+
+          out += tok.value;
+          lastWasSpace = false;
+        }
+
+        return out.trim();
+      }
+
+      /* ============================================================ */
+      /*  §5  Sample SQL                                               */
+      /* ============================================================ */
+
+      const SAMPLE_SQL = "select u.id, u.name, u.email, count(o.id) as order_count, sum(o.total) as total_spent from users u inner join orders o on o.user_id = u.id left join addresses a on a.user_id = u.id and a.is_primary = true where u.active = 1 and u.created_at >= '2024-01-01' and (o.status = 'completed' or o.status = 'shipped') group by u.id, u.name, u.email having count(o.id) > 5 order by total_spent desc limit 25 offset 0;";
+
+      /* ============================================================ */
+      /*  §6  DOM References                                           */
+      /* ============================================================ */
+
+      const sqlInput    = document.getElementById('sql-input');
+      const sqlOutput   = document.getElementById('sql-output');
+      const statusEl    = document.getElementById('status-el');
+      const statLines   = document.getElementById('stat-lines');
+      const statChars   = document.getElementById('stat-chars');
+      const inputStats  = document.getElementById('input-stats');
+      const outputStats = document.getElementById('output-stats');
+      const optIndent   = document.getElementById('opt-indent');
+      const optDialect  = document.getElementById('opt-dialect');
+      const optUpper    = document.getElementById('opt-uppercase');
+      const btnFormat   = document.getElementById('btn-format');
+      const btnMinify   = document.getElementById('btn-minify');
+      const btnCopy     = document.getElementById('btn-copy');
+      const btnSample   = document.getElementById('btn-sample');
+      const btnClear    = document.getElementById('btn-clear');
+
+      /* ============================================================ */
+      /*  §7  Actions                                                  */
+      /* ============================================================ */
+
+      function getOpts() {
+        return {
+          indent: optIndent.value,
+          uppercase: optUpper.checked,
+          dialect: optDialect.value
+        };
+      }
+
+      function updateStats() {
+        const raw = sqlInput.value;
+        inputStats.textContent = raw.length.toLocaleString() + ' characters';
+
+        const out = sqlOutput.value;
+        outputStats.textContent = out.length.toLocaleString() + ' characters';
+        statChars.textContent = out.length.toLocaleString();
+        statLines.textContent = out ? out.split('\n').length : 0;
+      }
+
+      function doFormat() {
+        const raw = sqlInput.value;
+        if (!raw.trim()) {
+          sqlOutput.value = '';
+          statusEl.className = 'validation-status idle';
+          statusEl.textContent = 'Paste SQL to begin';
+          updateStats();
+          return;
+        }
+
+        try {
+          const result = formatSQL(raw, getOpts());
+          sqlOutput.value = result;
+          statusEl.className = 'validation-status valid';
+          statusEl.textContent = '\u2713 Formatted';
+          updateStats();
+        } catch (err) {
+          statusEl.className = 'validation-status error';
+          statusEl.textContent = '\u2717 ' + err.message;
+        }
+      }
+
+      function doMinify() {
+        const raw = sqlInput.value;
+        if (!raw.trim()) return;
+
+        try {
+          const result = minifySQL(raw);
+          sqlOutput.value = result;
+          statusEl.className = 'validation-status valid';
+          statusEl.textContent = '\u2713 Minified';
+          updateStats();
+        } catch (err) {
+          statusEl.className = 'validation-status error';
+          statusEl.textContent = '\u2717 ' + err.message;
+        }
+      }
+
+      /* ============================================================ */
+      /*  §8  Event Bindings                                           */
+      /* ============================================================ */
+
+      btnFormat.addEventListener('click', doFormat);
+      btnMinify.addEventListener('click', doMinify);
+
+      btnCopy.addEventListener('click', function () {
+        if (!sqlOutput.value) {
+          showToast('Nothing to copy.', { type: 'error' });
+          return;
+        }
+        copyToClipboard(sqlOutput.value);
+      });
+
+      btnSample.addEventListener('click', function () {
+        sqlInput.value = SAMPLE_SQL;
+        doFormat();
+      });
+
+      btnClear.addEventListener('click', function () {
+        sqlInput.value = '';
+        sqlOutput.value = '';
+        statusEl.className = 'validation-status idle';
+        statusEl.textContent = 'Paste SQL to begin';
+        updateStats();
+        sqlInput.focus();
+      });
+
+      /* Auto-format on input (debounced) */
+      sqlInput.addEventListener('input', debounce(function () {
+        updateStats();
+        if (sqlInput.value.trim()) doFormat();
+        else {
+          sqlOutput.value = '';
+          statusEl.className = 'validation-status idle';
+          statusEl.textContent = 'Paste SQL to begin';
+          updateStats();
+        }
+      }, 500));
+
+      /* Keyboard shortcut */
+      sqlInput.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          doFormat();
+        }
+        /* Tab to indent */
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = sqlInput.selectionStart;
+          const end = sqlInput.selectionEnd;
+          sqlInput.value = sqlInput.value.substring(0, start) + '  ' + sqlInput.value.substring(end);
+          sqlInput.selectionStart = sqlInput.selectionEnd = start + 2;
+        }
+      });
+
+      /* Re-format on option change */
+      optIndent.addEventListener('change', function () { if (sqlInput.value.trim()) doFormat(); });
+      optDialect.addEventListener('change', function () { if (sqlInput.value.trim()) doFormat(); });
+      optUpper.addEventListener('change', function () { if (sqlInput.value.trim()) doFormat(); });
+
+      /* ── Init ── */
+      updateStats();
+
+    })();
+  </script>
+
+</body>
+</html>

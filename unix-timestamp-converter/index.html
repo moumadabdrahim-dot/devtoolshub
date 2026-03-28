@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary SEO ── -->
+  <title>Unix Timestamp Converter Online — Epoch to Date &amp; Date to Epoch | DevToolsHub</title>
+  <meta name="description" content="Convert Unix timestamps to human-readable dates and vice versa. Supports seconds and milliseconds. Free online tool.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/unix-timestamp-converter/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Unix Timestamp Converter Online — Epoch to Date &amp; Date to Epoch">
+  <meta property="og:description" content="Convert Unix timestamps to human-readable dates and vice versa. Supports seconds and milliseconds.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/unix-timestamp-converter/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unix Timestamp Converter Online — Epoch to Date &amp; Date to Epoch">
+  <meta name="twitter:description" content="Convert Unix timestamps to human-readable dates and vice versa. Free online tool.">
+  <meta name="twitter:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+
+  <!-- ── Misc ── -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- ── Structured Data ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Unix Timestamp Converter",
+    "description": "Convert Unix timestamps to human-readable dates and vice versa. Supports seconds and milliseconds.",
+    "url": "https://devtoolshub.pages.dev/unix-timestamp-converter/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolshub.pages.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Unix Timestamp Converter", "item": "https://devtoolshub.pages.dev/unix-timestamp-converter/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Unix epoch time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unix epoch time (or POSIX time) counts the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC, excluding leap seconds. It is the standard time representation used in most programming languages and operating systems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Year 2038 problem?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Year 2038 problem occurs because 32-bit signed integers can only store timestamps up to January 19, 2038 03:14:07 UTC. After that, the value overflows. Modern systems use 64-bit integers which can represent dates billions of years into the future."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a Unix timestamp in seconds or milliseconds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The traditional Unix timestamp is in seconds. However, JavaScript's Date.now() and many APIs use milliseconds. If your timestamp has 10 digits, it is in seconds; if it has 13 digits, it is in milliseconds."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- ── Page-specific styles ── -->
+  <style>
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-tertiary); margin-bottom: var(--space-6);
+    }
+    .breadcrumb a { color: var(--text-secondary); transition: color var(--transition-fast); }
+    .breadcrumb a:hover { color: var(--accent-text); }
+    .breadcrumb .separator { user-select: none; }
+    .breadcrumb .current { color: var(--text-primary); }
+
+    /* Section cards */
+    .tool-section {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-5);
+    }
+    .tool-section h2 {
+      font-size: var(--text-lg);
+      margin: 0 0 var(--space-4);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .section-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background-color: var(--accent-soft); color: var(--accent-text);
+      font-size: var(--text-base); flex-shrink: 0;
+    }
+
+    /* Live clock */
+    .live-clock {
+      text-align: center; padding: var(--space-6) 0;
+    }
+    .live-timestamp {
+      font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700;
+      color: var(--accent-text); letter-spacing: 2px;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 8px rgba(59, 130, 246, 0.3); }
+      50% { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+    }
+    .live-date {
+      font-size: var(--text-base); color: var(--text-secondary);
+      margin-top: var(--space-2); font-family: var(--font-mono);
+    }
+    .live-ms {
+      font-size: var(--text-sm); color: var(--text-tertiary);
+      margin-top: var(--space-1); font-family: var(--font-mono);
+    }
+
+    /* Result display */
+    .result-grid {
+      display: grid; gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .result-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+    }
+    .result-label {
+      color: var(--text-tertiary); font-weight: 600;
+      min-width: 70px; flex-shrink: 0;
+      text-transform: uppercase; font-size: var(--text-xs);
+      letter-spacing: 0.5px;
+    }
+    .result-value {
+      font-family: var(--font-mono); color: var(--text-primary);
+      word-break: break-all; flex: 1;
+    }
+    .result-copy-btn {
+      padding: var(--space-1) var(--space-2); font-size: var(--text-xs);
+      background: transparent; border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm); color: var(--text-secondary);
+      cursor: pointer; transition: all var(--transition-fast); flex-shrink: 0;
+      font-family: var(--font-sans);
+    }
+    .result-copy-btn:hover {
+      background-color: var(--accent); border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Input rows */
+    .input-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    .input-row label {
+      font-size: var(--text-sm); color: var(--text-secondary);
+      font-weight: 500; min-width: 80px;
+    }
+    .ts-input {
+      flex: 1; min-width: 200px; padding: var(--space-3);
+      font-family: var(--font-mono); font-size: var(--text-lg);
+      color: var(--text-primary); background-color: var(--bg-input);
+      border: 1px solid var(--border-primary); border-radius: var(--radius-md);
+      outline: none; transition: border-color var(--transition-fast);
+    }
+    .ts-input:focus { border-color: var(--border-focus); }
+    .ts-input::placeholder { color: var(--text-tertiary); }
+
+    /* Toggle buttons */
+    .toggle-group {
+      display: inline-flex; border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border-primary);
+    }
+    .toggle-btn {
+      padding: var(--space-2) var(--space-4); font-size: var(--text-sm);
+      font-weight: 500; font-family: var(--font-sans);
+      background: var(--bg-tertiary); border: none;
+      color: var(--text-secondary); cursor: pointer;
+      transition: all var(--transition-fast);
+      border-right: 1px solid var(--border-primary);
+    }
+    .toggle-btn:last-child { border-right: none; }
+    .toggle-btn.active { background-color: var(--accent); color: #ffffff; }
+    .toggle-btn:hover:not(.active) { background-color: var(--bg-hover); }
+
+    /* Date inputs */
+    .date-input-group {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    .date-field {
+      display: flex; flex-direction: column; gap: var(--space-1);
+    }
+    .date-field label {
+      font-size: var(--text-xs); color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+    }
+    .date-field input,
+    .date-field select {
+      padding: var(--space-2) var(--space-3); font-family: var(--font-mono);
+      font-size: var(--text-sm); color: var(--text-primary);
+      background-color: var(--bg-input); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm); outline: none;
+      transition: border-color var(--transition-fast);
+      min-width: 80px;
+    }
+    .date-field input:focus, .date-field select:focus { border-color: var(--border-focus); }
+
+    .datetime-input {
+      padding: var(--space-3); font-family: var(--font-mono);
+      font-size: var(--text-base); color: var(--text-primary);
+      background-color: var(--bg-input); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md); outline: none; width: 100%; max-width: 350px;
+      transition: border-color var(--transition-fast);
+      color-scheme: dark;
+    }
+    [data-theme="light"] .datetime-input { color-scheme: light; }
+    .datetime-input:focus { border-color: var(--border-focus); }
+
+    /* Relative time badge */
+    .relative-badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-1) var(--space-3); border-radius: 100px;
+      font-size: var(--text-sm); font-weight: 500;
+    }
+    .relative-badge.past { color: var(--warning); background-color: rgba(245, 158, 11, 0.1); }
+    .relative-badge.future { color: var(--success); background-color: var(--success-soft); }
+
+    /* Error bar */
+    .error-bar {
+      display: none; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-4); background-color: var(--error-soft);
+      border: 1px solid var(--error); border-radius: var(--radius-md);
+      color: var(--error); font-family: var(--font-mono); font-size: var(--text-sm);
+      margin-top: var(--space-3); word-break: break-word;
+    }
+    .error-bar.visible { display: flex; }
+
+    /* Examples table */
+    .examples-table {
+      width: 100%; border-collapse: collapse; margin: var(--space-4) 0; font-size: var(--text-sm);
+    }
+    .examples-table th, .examples-table td {
+      text-align: left; padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-primary);
+    }
+    .examples-table th { background-color: var(--bg-secondary); color: var(--text-primary); font-weight: 600; }
+    .examples-table td { color: var(--text-secondary); }
+    .examples-table td code {
+      background-color: var(--bg-tertiary); padding: 2px 6px;
+      border-radius: 3px; font-size: var(--text-xs);
+    }
+    .examples-table tr:hover td { background-color: var(--bg-secondary); }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .faq-list details { border: 1px solid var(--border-primary); border-radius: var(--radius-md); overflow: hidden; }
+    .faq-list details[open] { border-color: var(--border-secondary); }
+    .faq-list summary {
+      padding: var(--space-4); font-weight: 600; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      background-color: var(--bg-secondary); user-select: none;
+    }
+    .faq-list summary:hover { background-color: var(--bg-hover); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: var(--text-lg); font-weight: 400; color: var(--text-tertiary); }
+    .faq-list details[open] summary::after { content: '\2212'; }
+    .faq-list .faq-answer { padding: 0 var(--space-4) var(--space-4); color: var(--text-secondary); line-height: var(--line-height-relaxed); }
+
+    .or-divider {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin: var(--space-4) 0; color: var(--text-tertiary); font-size: var(--text-sm);
+    }
+    .or-divider::before, .or-divider::after {
+      content: ''; flex: 1; height: 1px; background-color: var(--border-primary);
+    }
+
+    @media (max-width: 768px) {
+      .live-timestamp { font-size: 1.8rem; }
+      .result-row { flex-wrap: wrap; }
+      .result-label { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <!-- ================================================================ -->
+  <!--  HEADER                                                          -->
+  <!-- ================================================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+      <div class="header-right">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <!-- ================================================================ -->
+  <!--  MAIN                                                            -->
+  <!-- ================================================================ -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator" aria-hidden="true">›</span>
+        <span class="current">Unix Timestamp Converter</span>
+      </nav>
+
+      <!-- Tool Header -->
+      <div class="tool-header">
+        <h1>Unix Timestamp Converter</h1>
+        <p>Convert between Unix epoch timestamps and human-readable dates. Supports seconds and milliseconds.</p>
+      </div>
+
+      <!-- ── Section 1: Live Clock ── -->
+      <div class="tool-section" id="section-live">
+        <h2>
+          <span class="section-icon" aria-hidden="true">⏱️</span>
+          Current Unix Timestamp
+        </h2>
+        <div class="live-clock">
+          <div class="live-timestamp" id="live-ts" aria-live="polite" aria-label="Current Unix timestamp"></div>
+          <div class="live-date" id="live-date"></div>
+          <div class="live-ms" id="live-ms"></div>
+        </div>
+        <div style="text-align: center; margin-top: var(--space-3);">
+          <button id="btn-copy-live" class="btn btn-primary" type="button" aria-label="Copy current timestamp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Timestamp
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Section 2: Timestamp → Date ── -->
+      <div class="tool-section" id="section-ts-to-date">
+        <h2>
+          <span class="section-icon" aria-hidden="true">📅</span>
+          Timestamp → Date
+        </h2>
+
+        <div class="input-row">
+          <label for="ts-input">Timestamp:</label>
+          <input type="text" id="ts-input" class="ts-input" placeholder="e.g. 1711545600" inputmode="numeric" aria-label="Unix timestamp input" autocomplete="off">
+          <div class="toggle-group" role="radiogroup" aria-label="Timestamp unit">
+            <button class="toggle-btn active" data-unit="s" type="button" role="radio" aria-checked="true">Seconds</button>
+            <button class="toggle-btn" data-unit="ms" type="button" role="radio" aria-checked="false">Milliseconds</button>
+          </div>
+        </div>
+
+        <div class="button-group" style="margin-bottom: var(--space-3);">
+          <button id="btn-now-ts" class="btn btn-secondary btn-sm" type="button" aria-label="Use current timestamp">Now</button>
+          <button id="btn-clear-ts" class="btn btn-secondary btn-sm" type="button" aria-label="Clear timestamp">Clear</button>
+        </div>
+
+        <div id="ts-error" class="error-bar" role="alert"><span id="ts-error-msg"></span></div>
+
+        <div id="ts-results" class="result-grid" style="display: none;">
+          <div class="result-row">
+            <span class="result-label">UTC</span>
+            <span class="result-value" id="res-utc"></span>
+            <button class="result-copy-btn" data-copy="res-utc" type="button" aria-label="Copy UTC date">Copy</button>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Local</span>
+            <span class="result-value" id="res-local"></span>
+            <button class="result-copy-btn" data-copy="res-local" type="button" aria-label="Copy local date">Copy</button>
+          </div>
+          <div class="result-row">
+            <span class="result-label">ISO 8601</span>
+            <span class="result-value" id="res-iso"></span>
+            <button class="result-copy-btn" data-copy="res-iso" type="button" aria-label="Copy ISO 8601 date">Copy</button>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Relative</span>
+            <span class="result-value" id="res-relative"></span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Day of Year</span>
+            <span class="result-value" id="res-doy"></span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Week</span>
+            <span class="result-value" id="res-week"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Section 3: Date → Timestamp ── -->
+      <div class="tool-section" id="section-date-to-ts">
+        <h2>
+          <span class="section-icon" aria-hidden="true">🔢</span>
+          Date → Timestamp
+        </h2>
+
+        <div class="input-row">
+          <label for="date-input">Date &amp; Time:</label>
+          <input type="datetime-local" id="date-input" class="datetime-input" step="1" aria-label="Date and time input">
+        </div>
+
+        <div class="or-divider" aria-hidden="true">or enter manually</div>
+
+        <div class="date-input-group">
+          <div class="date-field">
+            <label for="d-year">Year</label>
+            <input type="number" id="d-year" min="1970" max="2099" placeholder="2026" aria-label="Year">
+          </div>
+          <div class="date-field">
+            <label for="d-month">Month</label>
+            <select id="d-month" aria-label="Month">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2" selected>March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div class="date-field">
+            <label for="d-day">Day</label>
+            <input type="number" id="d-day" min="1" max="31" placeholder="28" aria-label="Day">
+          </div>
+          <div class="date-field">
+            <label for="d-hour">Hour</label>
+            <input type="number" id="d-hour" min="0" max="23" placeholder="0" aria-label="Hour">
+          </div>
+          <div class="date-field">
+            <label for="d-min">Minute</label>
+            <input type="number" id="d-min" min="0" max="59" placeholder="0" aria-label="Minute">
+          </div>
+          <div class="date-field">
+            <label for="d-sec">Second</label>
+            <input type="number" id="d-sec" min="0" max="59" placeholder="0" aria-label="Second">
+          </div>
+          <div class="date-field">
+            <label for="d-tz">Timezone</label>
+            <select id="d-tz" aria-label="Timezone">
+              <option value="utc">UTC</option>
+              <option value="local" selected>Local</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="button-group" style="margin-bottom: var(--space-3);">
+          <button id="btn-convert-date" class="btn btn-primary btn-sm" type="button" aria-label="Convert date to timestamp">Convert</button>
+          <button id="btn-now-date" class="btn btn-secondary btn-sm" type="button" aria-label="Set to current date">Now</button>
+          <button id="btn-clear-date" class="btn btn-secondary btn-sm" type="button" aria-label="Clear date fields">Clear</button>
+        </div>
+
+        <div id="date-error" class="error-bar" role="alert"><span id="date-error-msg"></span></div>
+
+        <div id="date-results" class="result-grid" style="display: none;">
+          <div class="result-row">
+            <span class="result-label">Seconds</span>
+            <span class="result-value" id="res-ts-sec"></span>
+            <button class="result-copy-btn" data-copy="res-ts-sec" type="button" aria-label="Copy timestamp in seconds">Copy</button>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Milliseconds</span>
+            <span class="result-value" id="res-ts-ms"></span>
+            <button class="result-copy-btn" data-copy="res-ts-ms" type="button" aria-label="Copy timestamp in milliseconds">Copy</button>
+          </div>
+          <div class="result-row">
+            <span class="result-label">ISO 8601</span>
+            <span class="result-value" id="res-ts-iso"></span>
+            <button class="result-copy-btn" data-copy="res-ts-iso" type="button" aria-label="Copy ISO date">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+      <!-- ============================================================ -->
+      <!--  EDUCATIONAL CONTENT                                         -->
+      <!-- ============================================================ -->
+      <section class="content-section" aria-labelledby="what-is-unix-ts">
+
+        <h2 id="what-is-unix-ts">What is a Unix Timestamp?</h2>
+        <p>
+          A Unix timestamp (also called Epoch time, POSIX time, or Unix Epoch time) is a system for tracking time as a single number: the total number of seconds that have elapsed since <strong>January 1, 1970, 00:00:00 UTC</strong> — a moment known as the "Unix Epoch." It does not account for leap seconds.
+        </p>
+        <p>
+          This simple, timezone-independent number is the backbone of timekeeping in virtually every operating system, programming language, database, and web API. When you see timestamps like <code>1711545600</code> in logs, databases, or API responses, that is Unix time at work.
+        </p>
+
+        <h2>How Unix Time Works</h2>
+        <p>
+          The concept is elegant in its simplicity: count seconds from a fixed point. At the Unix Epoch (Jan 1, 1970 00:00:00 UTC), the timestamp is <code>0</code>. One hour later, it is <code>3600</code>. One day later, it is <code>86400</code>. Right now, the timestamp is in the billions.
+        </p>
+        <p>
+          Because Unix time is just a number, it avoids the complexities of time zones, daylight saving time, calendar formats, and locale-specific date representations. Any system can convert the same number to the correct local time for its timezone.
+        </p>
+        <pre><code>// JavaScript
+const now = Math.floor(Date.now() / 1000);
+console.log(now); // e.g. 1711545600
+
+// Python
+import time
+now = int(time.time())
+
+// PHP
+$now = time();
+
+// Bash
+date +%s</code></pre>
+
+        <h2>Unix Timestamp Examples</h2>
+        <table class="examples-table">
+          <thead>
+            <tr><th>Event</th><th>Date (UTC)</th><th>Timestamp</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Unix Epoch</td><td>Jan 1, 1970 00:00:00</td><td><code>0</code></td></tr>
+            <tr><td>Moon Landing</td><td>Jul 20, 1969 20:17:40</td><td><code>-14182940</code></td></tr>
+            <tr><td>Y2K</td><td>Jan 1, 2000 00:00:00</td><td><code>946684800</code></td></tr>
+            <tr><td>iPhone Launch</td><td>Jan 9, 2007 09:41:00</td><td><code>1168332060</code></td></tr>
+            <tr><td>1 Billion Seconds</td><td>Sep 9, 2001 01:46:40</td><td><code>1000000000</code></td></tr>
+            <tr><td>2 Billion Seconds</td><td>May 18, 2033 03:33:20</td><td><code>2000000000</code></td></tr>
+            <tr><td>Year 2038 Problem</td><td>Jan 19, 2038 03:14:07</td><td><code>2147483647</code></td></tr>
+          </tbody>
+        </table>
+
+        <h2>The Year 2038 Problem</h2>
+        <p>
+          Many older systems store Unix timestamps as a <strong>32-bit signed integer</strong>, which has a maximum value of <code>2,147,483,647</code> — corresponding to <strong>January 19, 2038, at 03:14:07 UTC</strong>. One second later, the integer overflows and wraps to a negative number, which these systems would interpret as December 13, 1901.
+        </p>
+        <p>
+          This is known as the <strong>Y2K38 Bug</strong> or the <strong>Epochalypse</strong>. Modern systems have largely mitigated this by switching to <strong>64-bit integers</strong>, which can represent dates up to approximately 292 billion years in the future — effectively solving the problem forever. However, legacy embedded systems, firmware, and old databases may still be at risk.
+        </p>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>What is Unix epoch time?</summary>
+            <div class="faq-answer">
+              <p>Unix epoch time counts the number of seconds since January 1, 1970, 00:00:00 UTC. It is a timezone-independent way to represent a specific moment in time as a single number, and it is used by virtually all programming languages and operating systems.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Is a Unix timestamp in seconds or milliseconds?</summary>
+            <div class="faq-answer">
+              <p>The traditional Unix timestamp is in <strong>seconds</strong> (10 digits, e.g. <code>1711545600</code>). However, JavaScript's <code>Date.now()</code> and many modern APIs use <strong>milliseconds</strong> (13 digits, e.g. <code>1711545600000</code>). This tool supports both — use the toggle to switch.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Can Unix timestamps represent dates before 1970?</summary>
+            <div class="faq-answer">
+              <p>Yes. Dates before the epoch are represented as <strong>negative numbers</strong>. For example, the Moon Landing on July 20, 1969 has a timestamp of <code>-14182940</code>. JavaScript's <code>Date</code> object handles negative timestamps correctly.</p>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+      <!-- Related Tools -->
+      <section class="related-tools" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Tools</h2>
+        <div class="related-tools-grid">
+          <a href="/json-formatter/" class="related-tool-card" aria-label="JSON Formatter">
+            <span class="card-icon" aria-hidden="true">📋</span>
+            JSON Formatter &amp; Validator
+          </a>
+          <a href="/uuid-generator/" class="related-tool-card" aria-label="UUID Generator">
+            <span class="card-icon" aria-hidden="true">🔑</span>
+            UUID Generator
+          </a>
+          <a href="/base64-encode-decode/" class="related-tool-card" aria-label="Base64 Encode/Decode">
+            <span class="card-icon" aria-hidden="true">🔐</span>
+            Base64 Encode / Decode
+          </a>
+        </div>
+      </section>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    </div>
+  </main>
+
+  <!-- ================================================================ -->
+  <!--  FOOTER                                                          -->
+  <!-- ================================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ── -->
+  <script src="../assets/js/global.js"></script>
+
+  <!-- ============================================================== -->
+  <!--  UNIX TIMESTAMP CONVERTER — TOOL LOGIC                          -->
+  <!-- ============================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================ */
+      /*  §1  Utility Functions                                         */
+      /* ============================================================ */
+
+      const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+
+      /**
+       * Formats a Date as a full human-readable UTC string.
+       * @param {Date} d
+       * @returns {string}
+       */
+      function formatUTC(d) {
+        return DAYS[d.getUTCDay()] + ', ' +
+               MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' +
+               d.getUTCFullYear() + ' ' +
+               pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()) + ':' + pad2(d.getUTCSeconds()) + ' UTC';
+      }
+
+      /**
+       * Formats a Date as a full human-readable local string.
+       * @param {Date} d
+       * @returns {string}
+       */
+      function formatLocal(d) {
+        return DAYS[d.getDay()] + ', ' +
+               MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' +
+               d.getFullYear() + ' ' +
+               pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds()) + ' ' +
+               getTimezoneAbbr(d);
+      }
+
+      /**
+       * Gets timezone offset string like "GMT+1" or "GMT-5".
+       * @param {Date} d
+       * @returns {string}
+       */
+      function getTimezoneAbbr(d) {
+        const offset = -d.getTimezoneOffset();
+        const sign = offset >= 0 ? '+' : '-';
+        const absH = Math.floor(Math.abs(offset) / 60);
+        const absM = Math.abs(offset) % 60;
+        return 'GMT' + sign + absH + (absM > 0 ? ':' + pad2(absM) : '');
+      }
+
+      /**
+       * Pads a number with leading zero.
+       * @param {number} n
+       * @returns {string}
+       */
+      function pad2(n) {
+        return n < 10 ? '0' + n : String(n);
+      }
+
+      /**
+       * Computes relative time string.
+       * @param {number} tsMs  Timestamp in milliseconds.
+       * @returns {{ text: string, isPast: boolean }}
+       */
+      function relativeTime(tsMs) {
+        const now = Date.now();
+        const diff = tsMs - now;
+        const absDiff = Math.abs(diff);
+        const isPast = diff < 0;
+
+        const seconds = Math.floor(absDiff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const weeks = Math.floor(days / 7);
+        const months = Math.floor(days / 30.44);
+        const years = Math.floor(days / 365.25);
+
+        let text;
+        if (seconds < 5) text = 'just now';
+        else if (seconds < 60) text = seconds + ' seconds';
+        else if (minutes < 2) text = '1 minute';
+        else if (minutes < 60) text = minutes + ' minutes';
+        else if (hours < 2) text = '1 hour';
+        else if (hours < 24) text = hours + ' hours';
+        else if (days < 2) text = '1 day';
+        else if (days < 7) text = days + ' days';
+        else if (weeks < 2) text = '1 week';
+        else if (weeks < 5) text = weeks + ' weeks';
+        else if (months < 2) text = '1 month';
+        else if (months < 12) text = months + ' months';
+        else if (years < 2) text = '1 year';
+        else text = years + ' years';
+
+        if (text === 'just now') return { text: text, isPast: isPast };
+        return { text: (isPast ? text + ' ago' : 'in ' + text), isPast: isPast };
+      }
+
+      /**
+       * Calculates the day of the year (1-366).
+       * @param {Date} d
+       * @returns {number}
+       */
+      function dayOfYear(d) {
+        const start = new Date(d.getUTCFullYear(), 0, 0);
+        const diff2 = (d - start) + ((start.getTimezoneOffset() - d.getTimezoneOffset()) * 60000);
+        return Math.floor(diff2 / 86400000);
+      }
+
+      /**
+       * Calculates ISO week number.
+       * @param {Date} d
+       * @returns {number}
+       */
+      function weekNumber(d) {
+        const date = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+        date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+        return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+      }
+
+      /* ============================================================ */
+      /*  §2  DOM References                                            */
+      /* ============================================================ */
+
+      const liveTs      = document.getElementById('live-ts');
+      const liveDate    = document.getElementById('live-date');
+      const liveMs      = document.getElementById('live-ms');
+      const btnCopyLive = document.getElementById('btn-copy-live');
+
+      const tsInput     = document.getElementById('ts-input');
+      const unitBtns    = document.querySelectorAll('.toggle-btn[data-unit]');
+      const btnNowTs    = document.getElementById('btn-now-ts');
+      const btnClearTs  = document.getElementById('btn-clear-ts');
+      const tsError     = document.getElementById('ts-error');
+      const tsErrorMsg  = document.getElementById('ts-error-msg');
+      const tsResults   = document.getElementById('ts-results');
+      const resUtc      = document.getElementById('res-utc');
+      const resLocal    = document.getElementById('res-local');
+      const resIso      = document.getElementById('res-iso');
+      const resRelative = document.getElementById('res-relative');
+      const resDoy      = document.getElementById('res-doy');
+      const resWeek     = document.getElementById('res-week');
+
+      const dateInput   = document.getElementById('date-input');
+      const dYear       = document.getElementById('d-year');
+      const dMonth      = document.getElementById('d-month');
+      const dDay        = document.getElementById('d-day');
+      const dHour       = document.getElementById('d-hour');
+      const dMin        = document.getElementById('d-min');
+      const dSec        = document.getElementById('d-sec');
+      const dTz         = document.getElementById('d-tz');
+      const btnConvDate = document.getElementById('btn-convert-date');
+      const btnNowDate  = document.getElementById('btn-now-date');
+      const btnClearDate = document.getElementById('btn-clear-date');
+      const dateError   = document.getElementById('date-error');
+      const dateErrorMsg = document.getElementById('date-error-msg');
+      const dateResults = document.getElementById('date-results');
+      const resTsSec    = document.getElementById('res-ts-sec');
+      const resToMs     = document.getElementById('res-ts-ms');
+      const resTsIso    = document.getElementById('res-ts-iso');
+
+      /* ============================================================ */
+      /*  §3  State                                                     */
+      /* ============================================================ */
+
+      let currentUnit = 's'; /* 's' or 'ms' */
+
+      /* ============================================================ */
+      /*  §4  Section 1: Live Clock                                     */
+      /* ============================================================ */
+
+      function tickClock() {
+        const now = new Date();
+        const sec = Math.floor(now.getTime() / 1000);
+        liveTs.textContent = sec;
+        liveDate.textContent = '= ' + formatUTC(now);
+        liveMs.textContent = 'Milliseconds: ' + now.getTime();
+      }
+
+      tickClock();
+      let clockInterval = setInterval(tickClock, 1000);
+
+      /* Pause live clock when tab is hidden to save resources */
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          clearInterval(clockInterval);
+          clockInterval = null;
+        } else {
+          tickClock();
+          clockInterval = setInterval(tickClock, 1000);
+        }
+      });
+
+      btnCopyLive.addEventListener('click', function () {
+        copyToClipboard(String(Math.floor(Date.now() / 1000)));
+      });
+
+      /* ============================================================ */
+      /*  §5  Section 2: Timestamp → Date                               */
+      /* ============================================================ */
+
+      /* Unit toggle */
+      unitBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          currentUnit = btn.getAttribute('data-unit');
+          unitBtns.forEach(function (b) {
+            const isActive = b === btn;
+            b.classList.toggle('active', isActive);
+            b.setAttribute('aria-checked', isActive ? 'true' : 'false');
+          });
+          convertTs();
+        });
+      });
+
+      function convertTs() {
+        const raw = tsInput.value.trim();
+        if (!raw) {
+          tsResults.style.display = 'none';
+          tsError.classList.remove('visible');
+          return;
+        }
+
+        const num = Number(raw);
+        if (isNaN(num) || !isFinite(num)) {
+          tsErrorMsg.textContent = '\u274c Invalid timestamp. Enter a numeric value.';
+          tsError.classList.add('visible');
+          tsResults.style.display = 'none';
+          return;
+        }
+
+        const ms = currentUnit === 'ms' ? num : num * 1000;
+        const d = new Date(ms);
+
+        if (isNaN(d.getTime())) {
+          tsErrorMsg.textContent = '\u274c Timestamp out of valid range.';
+          tsError.classList.add('visible');
+          tsResults.style.display = 'none';
+          return;
+        }
+
+        tsError.classList.remove('visible');
+        tsResults.style.display = 'grid';
+
+        resUtc.textContent = formatUTC(d);
+        resLocal.textContent = formatLocal(d);
+        resIso.textContent = d.toISOString();
+
+        const rel = relativeTime(ms);
+        resRelative.innerHTML = '<span class="relative-badge ' + (rel.isPast ? 'past' : 'future') + '">' + rel.text + '</span>';
+
+        resDoy.textContent = 'Day ' + dayOfYear(d) + ' of ' + d.getUTCFullYear();
+        resWeek.textContent = 'ISO Week ' + weekNumber(d) + ', ' + d.getUTCFullYear();
+      }
+
+      tsInput.addEventListener('input', debounce(convertTs, 300));
+
+      btnNowTs.addEventListener('click', function () {
+        const now = Date.now();
+        tsInput.value = currentUnit === 'ms' ? String(now) : String(Math.floor(now / 1000));
+        convertTs();
+      });
+
+      btnClearTs.addEventListener('click', function () {
+        tsInput.value = '';
+        tsResults.style.display = 'none';
+        tsError.classList.remove('visible');
+        tsInput.focus();
+      });
+
+      /* ============================================================ */
+      /*  §6  Section 3: Date → Timestamp                               */
+      /* ============================================================ */
+
+      function convertDate() {
+        let d;
+
+        /* Try datetime-local input first */
+        if (dateInput.value) {
+          d = new Date(dateInput.value);
+        } else if (dYear.value) {
+          const yr = parseInt(dYear.value, 10);
+          const mo = parseInt(dMonth.value, 10);
+          const dy = parseInt(dDay.value, 10) || 1;
+          const hr = parseInt(dHour.value, 10) || 0;
+          const mi = parseInt(dMin.value, 10) || 0;
+          const sc = parseInt(dSec.value, 10) || 0;
+
+          if (dTz.value === 'utc') {
+            d = new Date(Date.UTC(yr, mo, dy, hr, mi, sc));
+          } else {
+            d = new Date(yr, mo, dy, hr, mi, sc);
+          }
+        } else {
+          dateResults.style.display = 'none';
+          dateError.classList.remove('visible');
+          return;
+        }
+
+        if (!d || isNaN(d.getTime())) {
+          dateErrorMsg.textContent = '\u274c Invalid date. Check your input values.';
+          dateError.classList.add('visible');
+          dateResults.style.display = 'none';
+          return;
+        }
+
+        dateError.classList.remove('visible');
+        dateResults.style.display = 'grid';
+
+        const tsSeconds = Math.floor(d.getTime() / 1000);
+        const tsMillis = d.getTime();
+
+        resTsSec.textContent = tsSeconds;
+        resToMs.textContent = tsMillis;
+        resTsIso.textContent = d.toISOString();
+      }
+
+      /* Sync datetime-local → manual fields */
+      dateInput.addEventListener('input', function () {
+        if (dateInput.value) {
+          const d = new Date(dateInput.value);
+          if (!isNaN(d.getTime())) {
+            dYear.value = d.getFullYear();
+            dMonth.value = d.getMonth();
+            dDay.value = d.getDate();
+            dHour.value = d.getHours();
+            dMin.value = d.getMinutes();
+            dSec.value = d.getSeconds();
+          }
+        }
+        convertDate();
+      });
+
+      /* Manual field changes */
+      const manualFields = [dYear, dMonth, dDay, dHour, dMin, dSec, dTz];
+      const debouncedManual = debounce(function () {
+        /* Sync manual → datetime-local */
+        if (dYear.value && dDay.value) {
+          const mo = pad2(parseInt(dMonth.value, 10) + 1);
+          const dy = pad2(parseInt(dDay.value, 10) || 1);
+          const hr = pad2(parseInt(dHour.value, 10) || 0);
+          const mi = pad2(parseInt(dMin.value, 10) || 0);
+          const sc = pad2(parseInt(dSec.value, 10) || 0);
+          dateInput.value = dYear.value + '-' + mo + '-' + dy + 'T' + hr + ':' + mi + ':' + sc;
+        }
+        convertDate();
+      }, 300);
+      manualFields.forEach(function (field) {
+        field.addEventListener('input', debouncedManual);
+      });
+
+      btnConvDate.addEventListener('click', convertDate);
+
+      btnNowDate.addEventListener('click', function () {
+        const now = new Date();
+        dYear.value = now.getFullYear();
+        dMonth.value = now.getMonth();
+        dDay.value = now.getDate();
+        dHour.value = now.getHours();
+        dMin.value = now.getMinutes();
+        dSec.value = now.getSeconds();
+
+        const iso = now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate()) +
+                    'T' + pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds());
+        dateInput.value = iso;
+        convertDate();
+      });
+
+      btnClearDate.addEventListener('click', function () {
+        dateInput.value = '';
+        dYear.value = '';
+        dDay.value = '';
+        dHour.value = '';
+        dMin.value = '';
+        dSec.value = '';
+        dateResults.style.display = 'none';
+        dateError.classList.remove('visible');
+      });
+
+      /* ============================================================ */
+      /*  §7  Copy Buttons (result rows)                                */
+      /* ============================================================ */
+
+      const copyBtns = document.querySelectorAll('.result-copy-btn');
+      copyBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const targetId = btn.getAttribute('data-copy');
+          const el = document.getElementById(targetId);
+          if (el && el.textContent) {
+            copyToClipboard(el.textContent);
+          }
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

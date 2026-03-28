@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lorem Ipsum Generator Online — Placeholder Text Generator | DevToolsHub</title>
+  <meta name="description" content="Generate Lorem Ipsum placeholder text for your designs. Choose paragraphs, sentences, or words. Copy with one click. Free online tool.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/lorem-ipsum-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lorem Ipsum Generator Online — Placeholder Text Generator">
+  <meta property="og:description" content="Generate Lorem Ipsum placeholder text for your designs. Choose paragraphs, sentences, or words.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/lorem-ipsum-generator/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lorem Ipsum Generator Online — Placeholder Text Generator">
+  <meta name="twitter:description" content="Generate Lorem Ipsum placeholder text for your designs.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Lorem Ipsum Generator","description":"Generate Lorem Ipsum placeholder text for your designs.","url":"https://devtoolshub.pages.dev/lorem-ipsum-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://devtoolshub.pages.dev/"},{"@type":"ListItem","position":2,"name":"Lorem Ipsum Generator","item":"https://devtoolshub.pages.dev/lorem-ipsum-generator/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Lorem Ipsum?","acceptedAnswer":{"@type":"Answer","text":"Lorem Ipsum is placeholder text used in the design and typesetting industry. It originates from a 1st-century BC Latin text by Cicero, 'De Finibus Bonorum et Malorum'."}},{"@type":"Question","name":"Why use Lorem Ipsum instead of real text?","acceptedAnswer":{"@type":"Answer","text":"Lorem Ipsum provides a natural-looking text distribution that prevents reviewers from focusing on content instead of design. Its Latin roots make it obviously placeholder text while maintaining realistic word lengths and patterns."}},{"@type":"Question","name":"Is Lorem Ipsum real Latin?","acceptedAnswer":{"@type":"Answer","text":"Partially. It is derived from sections 1.10.32 and 1.10.33 of Cicero's 'De Finibus Bonorum et Malorum' (45 BC), but words have been altered, added, and removed over centuries, making it nonsensical Latin."}}]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <style>
+    .breadcrumb{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-tertiary);margin-bottom:var(--space-6)}
+    .breadcrumb a{color:var(--text-secondary);transition:color var(--transition-fast)}.breadcrumb a:hover{color:var(--accent-text)}
+    .breadcrumb .current{color:var(--text-primary)}
+
+    .controls-panel{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4);padding:var(--space-4);background-color:var(--bg-tertiary);border:1px solid var(--border-primary);border-radius:var(--radius-md);margin-bottom:var(--space-4)}
+    .control-group{display:flex;align-items:center;gap:var(--space-2)}
+    .control-group label{font-size:var(--text-sm);color:var(--text-secondary);font-weight:500;white-space:nowrap}
+    .num-input{width:70px;padding:var(--space-2);background:var(--bg-input);border:1px solid var(--border-primary);border-radius:var(--radius-md);color:var(--text-primary);font-family:var(--font-mono);font-size:var(--text-sm);text-align:center}
+    .type-select{padding:var(--space-2) var(--space-3);background:var(--bg-input);border:1px solid var(--border-primary);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);cursor:pointer}
+    .opt-check{display:flex;align-items:center;gap:var(--space-2);cursor:pointer}
+    .opt-check input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+    .opt-check span{font-size:var(--text-sm);color:var(--text-secondary);white-space:nowrap}
+
+    .output-count{font-size:var(--text-sm);color:var(--text-tertiary);font-family:var(--font-mono);margin-bottom:var(--space-2)}
+
+    /* Live preview */
+    .preview-box{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);padding:var(--space-5);margin-top:var(--space-4);max-height:400px;overflow-y:auto;line-height:var(--line-height-relaxed);color:var(--text-secondary);font-size:var(--text-sm)}
+    .preview-box p{margin-bottom:var(--space-4)}.preview-box p:last-child{margin-bottom:0}
+
+    .textarea-footer{display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-tertiary);font-family:var(--font-mono)}
+
+    .faq-list{display:flex;flex-direction:column;gap:var(--space-3)}
+    .faq-list details{border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden}
+    .faq-list details[open]{border-color:var(--border-secondary)}
+    .faq-list summary{padding:var(--space-4);font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background-color:var(--bg-secondary);user-select:none}
+    .faq-list summary:hover{background-color:var(--bg-hover)}
+    .faq-list summary::-webkit-details-marker{display:none}
+    .faq-list summary::after{content:'+';font-size:var(--text-lg);font-weight:400;color:var(--text-tertiary)}
+    .faq-list details[open] summary::after{content:'\2212'}
+    .faq-list .faq-answer{padding:0 var(--space-4) var(--space-4);color:var(--text-secondary);line-height:var(--line-height-relaxed)}
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <header class="site-header"><div class="header-inner">
+    <a href="/" class="logo" aria-label="DevToolsHub home"><span class="logo-icon" aria-hidden="true">🔧</span><span>DevToolsHub</span></a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+    <div class="header-right">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
+  </div></header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+
+  <main id="main-content"><div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="separator" aria-hidden="true">›</span><span class="current">Lorem Ipsum Generator</span></nav>
+    <div class="tool-header"><h1>Lorem Ipsum Generator</h1><p>Generate placeholder text for your designs, mockups, and prototypes. Choose your format and length, then copy with one click.</p></div>
+
+    <div class="tool-container">
+      <!-- Controls -->
+      <div class="controls-panel" role="group" aria-label="Generation options">
+        <div class="control-group">
+          <label for="gen-count">Generate</label>
+          <input type="number" id="gen-count" class="num-input" value="5" min="1" max="999" aria-label="Amount">
+          <select id="gen-type" class="type-select" aria-label="Type">
+            <option value="paragraphs">Paragraphs</option>
+            <option value="sentences">Sentences</option>
+            <option value="words">Words</option>
+          </select>
+        </div>
+        <label class="opt-check"><input type="checkbox" id="opt-lorem" checked><span>Start with "Lorem ipsum…"</span></label>
+        <label class="opt-check"><input type="checkbox" id="opt-html"><span>Add HTML &lt;p&gt; tags</span></label>
+      </div>
+
+      <!-- Buttons top -->
+      <div class="button-group" style="margin-bottom:var(--space-4)">
+        <button id="btn-generate" class="btn btn-primary" type="button" aria-label="Generate text">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Generate
+        </button>
+        <button id="btn-copy" class="btn btn-copy" type="button" aria-label="Copy text">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+        <button id="btn-download" class="btn btn-secondary" type="button" aria-label="Download as .txt">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .txt
+        </button>
+      </div>
+
+      <!-- Output -->
+      <div class="output-count" id="output-count">0 paragraphs · 0 words · 0 characters</div>
+      <div class="textarea-block">
+        <label class="textarea-label" for="text-output">Generated Text</label>
+        <textarea id="text-output" class="textarea-output" readonly rows="10" aria-label="Generated lorem ipsum text"></textarea>
+      </div>
+
+      <!-- Live Preview -->
+      <div class="preview-box" id="live-preview" aria-label="Live preview of generated text">
+        <p style="color:var(--text-tertiary);font-style:italic">Click "Generate" to see a live preview of your placeholder text here.</p>
+      </div>
+    </div>
+
+    <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    <!-- Educational Content -->
+    <section class="content-section" aria-labelledby="what-is-lorem">
+      <h2 id="what-is-lorem">What is Lorem Ipsum?</h2>
+      <p>Lorem Ipsum is the industry-standard placeholder text used in design, typesetting, and web development. It provides a block of text that <em>looks</em> like natural language — with realistic word lengths, line breaks, and letter distribution — without being actual readable content. This lets designers and developers focus on visual layout rather than content meaning.</p>
+      <p>The most recognisable opening — <em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit"</em> — has been the typesetting industry's standard dummy text ever since the 1500s, when an unknown printer scrambled a section of Cicero's philosophical work to make a type specimen book.</p>
+
+      <h2>History of Lorem Ipsum</h2>
+      <p>Contrary to popular belief, Lorem Ipsum is not random gibberish. It has roots in a piece of classical Latin literature from <strong>45 BC</strong> — over 2,000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, traced the text to sections <strong>1.10.32</strong> and <strong>1.10.33</strong> of <em>"De Finibus Bonorum et Malorum"</em> (On the Ends of Good and Evil) by <strong>Marcus Tullius Cicero</strong>.</p>
+      <p>The original passage discusses hedonism and pain — the theory that pleasure is the highest good. Over the centuries, the text was corrupted, with words altered, added, and removed, producing the nonsensical Latin we use today. The modern version has been the standard since the <strong>1960s</strong>, when Letraset released transfer sheets containing Lorem Ipsum passages, and later when Aldus PageMaker included it as default sample text.</p>
+
+      <h2>Why Use Placeholder Text?</h2>
+      <ul>
+        <li><strong>Focus on design, not content</strong> — Placeholder text prevents stakeholders from getting distracted by reading actual content during design reviews. It keeps attention on typography, spacing, and layout.</li>
+        <li><strong>Realistic text flow</strong> — Unlike "Content here, content here" repeated text, Lorem Ipsum mimics real language patterns, giving a more accurate visual impression of the final layout.</li>
+        <li><strong>Test responsive layouts</strong> — Variable paragraph and word lengths help you stress-test how your design handles different content volumes.</li>
+        <li><strong>Industry standard</strong> — Lorem Ipsum is universally recognised by designers, developers, and clients as placeholder content, eliminating confusion about final copy.</li>
+        <li><strong>Available before copywriting</strong> — Design often begins before content is written. Lorem Ipsum fills the gap so design work is not blocked by content production.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details><summary>What is Lorem Ipsum?</summary><div class="faq-answer"><p>Lorem Ipsum is dummy placeholder text used in the design, typesetting, and web development industries. It originates from a 1st-century BC Latin text by Cicero called "De Finibus Bonorum et Malorum." It provides natural-looking text distribution without meaningful content, allowing designers to focus on visual appearance.</p></div></details>
+        <details><summary>Why use Lorem Ipsum instead of real text?</summary><div class="faq-answer"><p>Using real text in early design stages distracts reviewers — they focus on reading the content instead of evaluating the design. Lorem Ipsum's Latin roots make it obviously placeholder text while maintaining realistic word lengths, sentence rhythms, and letter frequencies that closely match English text distribution.</p></div></details>
+        <details><summary>Is Lorem Ipsum real Latin?</summary><div class="faq-answer"><p>Partially. The original text derives from sections 1.10.32 and 1.10.33 of Cicero's "De Finibus Bonorum et Malorum" (45 BC). However, over centuries the text was scrambled — words were altered, added, and removed — so modern Lorem Ipsum is not grammatically correct Latin. It is recognisably Latin-like but ultimately nonsensical.</p></div></details>
+        <details><summary>Can I use Lorem Ipsum in production?</summary><div class="faq-answer"><p>No — Lorem Ipsum is strictly for development and design stages. Before going live, you should replace all placeholder text with final, real content. Search engines may penalise pages containing Lorem Ipsum, and users will lose trust if they encounter placeholder text on a live site.</p></div></details>
+      </div>
+    </section>
+
+    <section class="related-tools" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related Tools</h2>
+      <div class="related-tools-grid">
+        <a href="/markdown-to-html/" class="related-tool-card" aria-label="Markdown to HTML"><span class="card-icon" aria-hidden="true">📝</span>Markdown to HTML</a>
+        <a href="/html-minifier/" class="related-tool-card" aria-label="HTML Minifier"><span class="card-icon" aria-hidden="true">🗜️</span>HTML Minifier</a>
+        <a href="/json-formatter/" class="related-tool-card" aria-label="JSON Formatter"><span class="card-icon" aria-hidden="true">📋</span>JSON Formatter</a>
+      </div>
+    </section>
+    <div class="ad-container" aria-hidden="true">Advertisement</div>
+  </div></main>
+
+  <footer class="site-footer"><div class="footer-inner">
+    <nav class="footer-links" aria-label="Footer navigation"><a href="/about/">About</a><a href="/privacy-policy/">Privacy Policy</a><a href="/contact/">Contact</a></nav>
+    <div class="footer-copy"><p>&copy; 2026 DevToolsHub. All rights reserved.</p><p>Made with ☕ for developers</p></div>
+  </div></footer>
+
+  <script src="../assets/js/global.js"></script>
+  <script>
+  (function(){
+    'use strict';
+
+    /* §1 — Sentence bank (~50 Latin-like sentences) */
+    var SENTENCES=[
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.',
+      'Curabitur pretium tincidunt lacus nulla gravida orci.',
+      'Praesent blandit dolor sed nisi accumsan congue.',
+      'Vivamus vestibulum nulla nec ante tristique cursus.',
+      'Fusce vel dui metus, pretium pretium massa.',
+      'Morbi leo risus, porta ac consectetur ac, vestibulum at eros.',
+      'Donec ullamcorper nulla non metus auctor fringilla.',
+      'Maecenas faucibus mollis interdum pellentesque habitant.',
+      'Aenean lacinia bibendum nulla sed consectetur.',
+      'Cras mattis consectetur purus sit amet fermentum.',
+      'Nullam id dolor id nibh ultricies vehicula ut id elit.',
+      'Integer posuere erat a ante venenatis dapibus posuere velit aliquet.',
+      'Vestibulum id ligula porta felis euismod semper.',
+      'Donec sed odio dui pellentesque ornare sem lacinia.',
+      'Etiam porta sem malesuada magna mollis euismod.',
+      'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+      'Pellentesque habitant morbi tristique senectus et netus et malesuada fames.',
+      'Suspendisse potenti nullam ac tortor vitae purus faucibus ornare.',
+      'Quisque eget odio ac lectus vestibulum faucibus eget in metus.',
+      'In hac habitasse platea dictumst quisque sagittis purus.',
+      'Sed faucibus turpis in eu mi bibendum neque egestas.',
+      'Faucibus nisl tincidunt eget nullam non nisi est sit amet.',
+      'Blandit aliquam etiam erat velit scelerisque in dictum non.',
+      'Ac turpis egestas integer eget aliquet nibh praesent tristique.',
+      'Ultrices sagittis orci a scelerisque purus semper eget duis at.',
+      'Amet consectetur adipiscing elit pellentesque habitant morbi tristique.',
+      'Vitae congue eu consequat ac felis donec et odio pellentesque.',
+      'Fermentum leo vel orci porta non pulvinar neque laoreet.',
+      'Euismod in pellentesque massa placerat duis ultricies lacus.',
+      'Amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor.',
+      'Sagittis aliquam malesuada bibendum arcu vitae elementum.',
+      'Consequat nisl vel pretium lectus quam id leo in vitae turpis.',
+      'Egestas diam in arcu cursus euismod quis viverra nibh cras.',
+      'Pharetra et ultrices neque ornare aenean euismod elementum nisi.',
+      'Fringilla urna porttitor rhoncus dolor purus non enim praesent.',
+      'Nisi lacus sed viverra tellus in hac habitasse platea dictumst.',
+      'Turpis in eu mi bibendum neque egestas congue quisque.',
+      'Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.',
+      'Eget dolor morbi non arcu risus quis varius quam quisque.',
+      'Malesuada fames ac turpis egestas maecenas pharetra convallis posuere.',
+      'Imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis.',
+      'Sit amet facilisis magna etiam tempor orci eu lobortis.',
+      'Tincidunt augue interdum velit euismod in pellentesque massa placerat.',
+      'In ornare quam viverra orci sagittis eu volutpat odio facilisis.',
+      'Neque egestas congue quisque egestas diam in arcu cursus.',
+      'Diam vulputate ut pharetra sit amet aliquam id diam maecenas.'
+    ];
+
+    var OPENING='Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+    /* §2 — Generation Logic */
+    function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+    function pickSentence(exclude){
+      var idx;
+      do{idx=randInt(0,SENTENCES.length-1)}while(idx===exclude);
+      return idx;
+    }
+
+    function generateSentences(count,startWithLorem){
+      var out=[];
+      var lastIdx=-1;
+      for(var i=0;i<count;i++){
+        if(i===0&&startWithLorem){
+          out.push(OPENING);lastIdx=0;
+        }else{
+          var idx=pickSentence(lastIdx);
+          out.push(SENTENCES[idx]);lastIdx=idx;
+        }
+      }
+      return out;
+    }
+
+    function generateParagraphs(count,startWithLorem){
+      var paras=[];
+      for(var p=0;p<count;p++){
+        var sentCount=randInt(4,8);
+        var sents=generateSentences(sentCount,p===0&&startWithLorem);
+        paras.push(sents.join(' '));
+      }
+      return paras;
+    }
+
+    function generateWords(count,startWithLorem){
+      var pool=[];
+      if(startWithLorem){
+        var openWords=OPENING.replace(/[.,]/g,'').split(/\s+/);
+        for(var w=0;w<openWords.length&&pool.length<count;w++) pool.push(openWords[w]);
+      }
+      while(pool.length<count){
+        var s=SENTENCES[randInt(0,SENTENCES.length-1)];
+        var words=s.replace(/[.,]/g,'').split(/\s+/);
+        for(var w=0;w<words.length&&pool.length<count;w++) pool.push(words[w]);
+      }
+      return pool.slice(0,count);
+    }
+
+    function generate(){
+      var count=Math.max(1,Math.min(999,parseInt(genCount.value)||5));
+      genCount.value=count;
+      var type=genType.value;
+      var startLorem=optLorem.checked;
+      var addHtml=optHtml.checked;
+      var text='';
+      var previewHtml='';
+
+      if(type==='paragraphs'){
+        var paras=generateParagraphs(count,startLorem);
+        if(addHtml){
+          text=paras.map(function(p){return '<p>'+p+'<\/p>'}).join('\n\n');
+        }else{
+          text=paras.join('\n\n');
+        }
+        previewHtml=paras.map(function(p){return '<p>'+p+'</p>'}).join('');
+      }else if(type==='sentences'){
+        var sents=generateSentences(count,startLorem);
+        if(addHtml){
+          text='<p>'+sents.join(' ')+'<\/p>';
+        }else{
+          text=sents.join(' ');
+        }
+        previewHtml='<p>'+sents.join(' ')+'</p>';
+      }else{
+        var words=generateWords(count,startLorem);
+        var wordText=words.join(' ');
+        /* Capitalize first letter */
+        wordText=wordText.charAt(0).toUpperCase()+wordText.slice(1);
+        if(addHtml){
+          text='<p>'+wordText+'<\/p>';
+        }else{
+          text=wordText;
+        }
+        previewHtml='<p>'+wordText+'</p>';
+      }
+
+      textOutput.value=text;
+      livePreview.innerHTML=previewHtml;
+      updateStats(text,type);
+    }
+
+    /* §3 — Stats */
+    function updateStats(text,type){
+      var plain=text.replace(/<\/?p>/g,'');
+      var words=plain.trim().split(/\s+/).filter(function(w){return w.length>0});
+      var chars=plain.length;
+      var paras=type==='paragraphs'?parseInt(genCount.value):1;
+      outputCount.textContent=paras+' paragraph'+(paras!==1?'s':'')+' · '+words.length+' words · '+chars.toLocaleString()+' characters';
+    }
+
+    /* §4 — DOM */
+    const genCount=document.getElementById('gen-count');
+    const genType=document.getElementById('gen-type');
+    const optLorem=document.getElementById('opt-lorem');
+    const optHtml=document.getElementById('opt-html');
+    const textOutput=document.getElementById('text-output');
+    const livePreview=document.getElementById('live-preview');
+    const outputCount=document.getElementById('output-count');
+    const btnGenerate=document.getElementById('btn-generate');
+    const btnCopy=document.getElementById('btn-copy');
+    const btnDownload=document.getElementById('btn-download');
+
+    /* §5 — Events */
+    btnGenerate.addEventListener('click',generate);
+
+    btnCopy.addEventListener('click',function(){
+      if(!textOutput.value){showToast('Nothing to copy.',{type:'error'});return}
+      copyToClipboard(textOutput.value);
+    });
+
+    btnDownload.addEventListener('click',function(){
+      if(!textOutput.value){showToast('Nothing to download.',{type:'error'});return}
+      downloadAsFile(textOutput.value,'lorem-ipsum.txt','text/plain');
+    });
+
+    /* Generate on Enter in count field */
+    genCount.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();generate()}
+    });
+
+    /* Auto-generate on type change */
+    genType.addEventListener('change',function(){
+      if(textOutput.value) generate();
+    });
+
+    /* Generate initial content */
+    generate();
+
+  })();
+  </script>
+</body>
+</html>

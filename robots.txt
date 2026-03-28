@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://devtoolshub.pages.dev/sitemap.xml

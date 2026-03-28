@@ -1,0 +1,19 @@
+{
+  "name": "DevToolsHub",
+  "short_name": "DevToolsHub",
+  "description": "Free online developer tools. Format JSON, convert CSV, generate UUIDs, encode Base64, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "any",
+  "categories": ["developer", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/assets/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

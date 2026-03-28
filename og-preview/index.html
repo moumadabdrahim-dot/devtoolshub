@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Graph Preview Tool — See How Your Link Looks on Social Media | DevToolsHub</title>
+  <meta name="description" content="Preview how your URL will appear when shared on Facebook, Twitter, LinkedIn, and Discord. Debug Open Graph and Twitter Card tags. Free tool.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/og-preview/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Open Graph Preview Tool — See How Your Link Looks on Social Media">
+  <meta property="og:description" content="Preview how your URL will appear when shared on Facebook, Twitter, LinkedIn, and Discord.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/og-preview/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Open Graph Preview Tool — See How Your Link Looks on Social Media">
+  <meta name="twitter:description" content="Preview how your URL will appear when shared on Facebook, Twitter, LinkedIn, and Discord.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Open Graph Preview & Debugger","description":"Preview how your URL will appear when shared on Facebook, Twitter, LinkedIn, and Discord.","url":"https://devtoolshub.pages.dev/og-preview/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://devtoolshub.pages.dev/"},{"@type":"ListItem","position":2,"name":"Open Graph Preview","item":"https://devtoolshub.pages.dev/og-preview/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Open Graph?","acceptedAnswer":{"@type":"Answer","text":"Open Graph is a protocol that lets you control how your web pages appear when shared on social media platforms like Facebook, Twitter, and LinkedIn. It uses meta tags to define the title, description, image, and type of each page."}},{"@type":"Question","name":"What is the ideal OG image size?","acceptedAnswer":{"@type":"Answer","text":"The recommended Open Graph image size is 1200×630 pixels. This works well across Facebook, Twitter, LinkedIn, and Discord. Use a 1.91:1 aspect ratio for best results."}},{"@type":"Question","name":"Do Twitter Cards override Open Graph tags?","acceptedAnswer":{"@type":"Answer","text":"Twitter-specific tags (twitter:title, twitter:description, twitter:image) override Open Graph equivalents when present. If only Open Graph tags exist, Twitter falls back to using those."}}]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <style>
+    .breadcrumb{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-tertiary);margin-bottom:var(--space-6)}
+    .breadcrumb a{color:var(--text-secondary);transition:color var(--transition-fast)}.breadcrumb a:hover{color:var(--accent-text)}
+    .breadcrumb .current{color:var(--text-primary)}
+
+    /* Input form */
+    .input-section{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-5)}
+    .input-section h2{font-size:var(--text-lg);margin-bottom:var(--space-4);color:var(--text-primary);display:flex;align-items:center;gap:var(--space-2)}
+    .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+    @media(max-width:768px){.input-grid{grid-template-columns:1fr}}
+    .field{margin-bottom:var(--space-3)}
+    .field:last-child{margin-bottom:0}
+    .field label{display:block;font-size:var(--text-sm);font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-1)}
+    .field input,.field textarea,.field select{width:100%;padding:var(--space-2) var(--space-3);background:var(--bg-input);border:1px solid var(--border-primary);border-radius:var(--radius-md);color:var(--text-primary);font-size:var(--text-sm);font-family:var(--font-sans);transition:border-color var(--transition-fast)}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);outline:none}
+    .field textarea{resize:vertical;min-height:56px}
+    .field select{cursor:pointer}
+    .field .hint{font-size:var(--text-xs);color:var(--text-tertiary);margin-top:2px}
+
+    /* Coming soon URL fetch */
+    .url-fetch-bar{display:flex;gap:var(--space-2);margin-bottom:var(--space-4);opacity:.45;pointer-events:none;position:relative}
+    .url-fetch-bar input{flex:1;padding:var(--space-2) var(--space-3);background:var(--bg-input);border:1px solid var(--border-primary);border-radius:var(--radius-md);color:var(--text-tertiary);font-size:var(--text-sm)}
+    .url-fetch-bar button{white-space:nowrap}
+    .coming-soon-tag{position:absolute;top:-10px;right:8px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;pointer-events:none}
+
+    /* Preview grid */
+    .previews-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-5)}
+    @media(max-width:860px){.previews-grid{grid-template-columns:1fr}}
+    .preview-card{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);overflow:hidden}
+    .preview-card-header{padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border-primary);display:flex;align-items:center;gap:var(--space-2);font-weight:600;font-size:var(--text-sm)}
+
+    /* ---- Facebook ---- */
+    .fb-mock{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#242526;padding:var(--space-4)}
+    .fb-mock-card{border:1px solid #3a3b3c;border-radius:8px;overflow:hidden;max-width:500px}
+    .fb-mock-img{width:100%;height:260px;background:#3a3b3c;display:flex;align-items:center;justify-content:center;color:#8a8d91;font-size:13px;overflow:hidden}
+    .fb-mock-img img{width:100%;height:100%;object-fit:cover}
+    .fb-mock-body{padding:12px;background:#242526}
+    .fb-mock-domain{font-size:12px;color:#8a8d91;text-transform:uppercase;margin-bottom:4px}
+    .fb-mock-title{font-size:16px;font-weight:700;color:#e4e6eb;line-height:1.3;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+    .fb-mock-desc{font-size:14px;color:#8a8d91;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;line-clamp:1;-webkit-box-orient:vertical}
+
+    /* ---- Twitter ---- */
+    .tw-mock{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#000;padding:var(--space-4)}
+    .tw-mock-card{border:1px solid #2f3336;border-radius:16px;overflow:hidden;max-width:500px}
+    .tw-mock-img{width:100%;height:250px;background:#16181c;display:flex;align-items:center;justify-content:center;color:#71767b;font-size:13px;overflow:hidden;position:relative}
+    .tw-mock-img img{width:100%;height:100%;object-fit:cover}
+    .tw-mock-body{padding:12px}
+    .tw-mock-title{font-size:15px;font-weight:700;color:#e7e9ea;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .tw-mock-desc{font-size:14px;color:#71767b;line-height:1.4;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+    .tw-mock-domain{font-size:13px;color:#71767b;display:flex;align-items:center;gap:4px}
+    .tw-mock-domain svg{width:14px;height:14px}
+
+    /* ---- LinkedIn ---- */
+    .li-mock{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#1b1f23;padding:var(--space-4)}
+    .li-mock-card{border:1px solid #38434f;border-radius:8px;overflow:hidden;max-width:500px}
+    .li-mock-img{width:100%;height:250px;background:#38434f;display:flex;align-items:center;justify-content:center;color:#8a8f98;font-size:13px;overflow:hidden}
+    .li-mock-img img{width:100%;height:100%;object-fit:cover}
+    .li-mock-body{padding:12px;background:#1b1f23}
+    .li-mock-title{font-size:14px;font-weight:700;color:#e9e5df;line-height:1.3;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+    .li-mock-domain{font-size:12px;color:#8a8f98}
+
+    /* ---- Discord ---- */
+    .dc-mock{font-family:'gg sans','Noto Sans',Helvetica,Arial,sans-serif;background:#313338;padding:var(--space-4)}
+    .dc-mock-embed{border-left:4px solid #5865f2;background:#2b2d31;border-radius:4px;max-width:420px;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .dc-mock-site{font-size:12px;color:#b5bac1}
+    .dc-mock-title{font-size:16px;font-weight:700;color:#00a8fc;line-height:1.3}
+    .dc-mock-desc{font-size:14px;color:#dbdee1;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical}
+    .dc-mock-img{max-width:400px;max-height:220px;border-radius:4px;overflow:hidden;margin-top:4px}
+    .dc-mock-img img{width:100%;height:100%;object-fit:cover}
+    .dc-mock-img-placeholder{width:100%;height:180px;background:#1e1f22;display:flex;align-items:center;justify-content:center;border-radius:4px;color:#666;font-size:13px}
+
+    /* ---- iMessage/WhatsApp ---- */
+    .im-mock{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#0b0b0b;padding:var(--space-4);display:flex;justify-content:flex-end}
+    .im-mock-bubble{background:#34c759;border-radius:18px;padding:10px 14px;max-width:320px;position:relative}
+    .im-mock-link{background:rgba(0,0,0,.2);border-radius:12px;overflow:hidden;margin-top:6px}
+    .im-mock-img{width:100%;height:160px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;overflow:hidden}
+    .im-mock-img img{width:100%;height:100%;object-fit:cover}
+    .im-mock-body{padding:8px 10px}
+    .im-mock-domain{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:2px}
+    .im-mock-title{font-size:14px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+    .im-mock-text{color:#fff;font-size:14px;margin-bottom:2px}
+
+    .faq-list{display:flex;flex-direction:column;gap:var(--space-3)}
+    .faq-list details{border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden}
+    .faq-list details[open]{border-color:var(--border-secondary)}
+    .faq-list summary{padding:var(--space-4);font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background-color:var(--bg-secondary);user-select:none}
+    .faq-list summary:hover{background-color:var(--bg-hover)}
+    .faq-list summary::-webkit-details-marker{display:none}
+    .faq-list summary::after{content:'+';font-size:var(--text-lg);font-weight:400;color:var(--text-tertiary)}
+    .faq-list details[open] summary::after{content:'\2212'}
+    .faq-list .faq-answer{padding:0 var(--space-4) var(--space-4);color:var(--text-secondary);line-height:var(--line-height-relaxed)}
+    .full-span{grid-column:1/-1}
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <header class="site-header"><div class="header-inner">
+    <a href="/" class="logo" aria-label="DevToolsHub home"><span class="logo-icon" aria-hidden="true">🔧</span><span>DevToolsHub</span></a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+    <div class="header-right">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    </div>
+  </div></header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="/">Home</a><a href="/#tools">All Tools</a></nav>
+
+  <main id="main-content"><div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="separator" aria-hidden="true">›</span><span class="current">Open Graph Preview</span></nav>
+    <div class="tool-header"><h1>Open Graph Preview &amp; Debugger</h1><p>See exactly how your link will look when shared on Facebook, Twitter, LinkedIn, Discord, and iMessage — all in real-time.</p></div>
+
+    <div class="tool-container">
+      <!-- URL Fetch (Coming Soon) -->
+      <div style="position:relative;margin-bottom:var(--space-4)">
+        <div class="url-fetch-bar">
+          <input type="url" placeholder="https://example.com — paste a URL to fetch its OG tags" disabled>
+          <button class="btn btn-primary" type="button" disabled>Fetch Tags</button>
+        </div>
+        <span class="coming-soon-tag" style="opacity:1;pointer-events:none;position:absolute;top:6px;right:12px;z-index:2">Coming Soon</span>
+      </div>
+
+      <!-- Manual input -->
+      <div class="input-section">
+        <h2>✏️ Manual Input</h2>
+        <div class="input-grid">
+          <div>
+            <div class="field"><label for="f-og-title">OG Title</label><input type="text" id="f-og-title" placeholder="My Awesome Page"></div>
+            <div class="field"><label for="f-og-desc">OG Description</label><textarea id="f-og-desc" placeholder="A compelling description of this page..." rows="2"></textarea></div>
+            <div class="field"><label for="f-og-image">OG Image URL</label><input type="url" id="f-og-image" placeholder="https://example.com/image.jpg"><div class="hint">Recommended: 1200 × 630 px (1.91:1 ratio)</div></div>
+            <div class="field"><label for="f-og-sitename">OG Site Name</label><input type="text" id="f-og-sitename" placeholder="My Website"></div>
+          </div>
+          <div>
+            <div class="field"><label for="f-og-type">OG Type</label><select id="f-og-type"><option value="website">website</option><option value="article">article</option><option value="product">product</option><option value="profile">profile</option><option value="video.other">video</option></select></div>
+            <div class="field"><label for="f-og-url">Page URL</label><input type="url" id="f-og-url" placeholder="https://example.com/page"></div>
+            <div class="field"><label for="f-tw-card">Twitter Card Type</label><select id="f-tw-card"><option value="summary_large_image">summary_large_image</option><option value="summary">summary</option></select></div>
+            <div class="field"><label for="f-tw-title">Twitter Title <span style="font-weight:400;color:var(--text-tertiary)">(optional override)</span></label><input type="text" id="f-tw-title" placeholder="Defaults to OG Title"></div>
+            <div class="field"><label for="f-tw-desc">Twitter Description <span style="font-weight:400;color:var(--text-tertiary)">(optional override)</span></label><textarea id="f-tw-desc" placeholder="Defaults to OG Description" rows="2"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Platform Previews -->
+      <div class="previews-grid">
+        <!-- Facebook -->
+        <div class="preview-card">
+          <div class="preview-card-header">📘 Facebook</div>
+          <div class="fb-mock" id="pv-fb">
+            <div class="fb-mock-card"><div class="fb-mock-img" id="fb-img">No image</div><div class="fb-mock-body"><div class="fb-mock-domain" id="fb-domain">EXAMPLE.COM</div><div class="fb-mock-title" id="fb-title">Page Title</div><div class="fb-mock-desc" id="fb-desc">Description</div></div></div>
+          </div>
+        </div>
+        <!-- Twitter -->
+        <div class="preview-card">
+          <div class="preview-card-header">🐦 Twitter / X</div>
+          <div class="tw-mock" id="pv-tw">
+            <div class="tw-mock-card"><div class="tw-mock-img" id="tw-img">No image</div><div class="tw-mock-body"><div class="tw-mock-title" id="tw-title">Page Title</div><div class="tw-mock-desc" id="tw-desc">Description</div><div class="tw-mock-domain" id="tw-domain"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>example.com</span></div></div></div>
+          </div>
+        </div>
+        <!-- LinkedIn -->
+        <div class="preview-card">
+          <div class="preview-card-header">💼 LinkedIn</div>
+          <div class="li-mock" id="pv-li">
+            <div class="li-mock-card"><div class="li-mock-img" id="li-img">No image</div><div class="li-mock-body"><div class="li-mock-title" id="li-title">Page Title</div><div class="li-mock-domain" id="li-domain">example.com</div></div></div>
+          </div>
+        </div>
+        <!-- Discord -->
+        <div class="preview-card">
+          <div class="preview-card-header">💬 Discord</div>
+          <div class="dc-mock" id="pv-dc">
+            <div class="dc-mock-embed"><div class="dc-mock-site" id="dc-site">Example</div><div class="dc-mock-title" id="dc-title">Page Title</div><div class="dc-mock-desc" id="dc-desc">Description</div><div class="dc-mock-img" id="dc-img"><div class="dc-mock-img-placeholder">No image</div></div></div>
+          </div>
+        </div>
+        <!-- iMessage / WhatsApp -->
+        <div class="preview-card full-span">
+          <div class="preview-card-header">💬 iMessage / WhatsApp</div>
+          <div class="im-mock" id="pv-im">
+            <div class="im-mock-bubble"><div class="im-mock-text">Check this out! 👇</div><div class="im-mock-link"><div class="im-mock-img" id="im-img">No image</div><div class="im-mock-body"><div class="im-mock-domain" id="im-domain">example.com</div><div class="im-mock-title" id="im-title">Page Title</div></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated tags -->
+      <div class="textarea-block">
+        <label class="textarea-label" for="tags-output">Generated Meta Tags</label>
+        <textarea id="tags-output" class="textarea-output" readonly rows="14" style="font-family:var(--font-mono);font-size:var(--text-xs)" aria-label="Generated OG meta tags"></textarea>
+      </div>
+      <div class="button-group" style="margin-top:var(--space-4)">
+        <button id="btn-copy" class="btn btn-copy" type="button" aria-label="Copy tags"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy Tags</button>
+        <button id="btn-clear" class="btn btn-secondary" type="button" aria-label="Clear all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Clear All</button>
+      </div>
+    </div>
+
+    <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    <section class="content-section" aria-labelledby="what-is-og">
+      <h2 id="what-is-og">What is Open Graph Protocol?</h2>
+      <p>Open Graph (OG) is a protocol created by Facebook in 2010 that turns web pages into rich objects in a social graph. When you share a URL on Facebook, LinkedIn, Discord, WhatsApp, or Slack, these platforms read the OG meta tags in your HTML to generate a <strong>rich preview card</strong> — showing an image, title, and description instead of a plain URL.</p>
+      <p>The protocol uses <code>&lt;meta property="og:..." content="..."&gt;</code> tags in the <code>&lt;head&gt;</code> section of your page. Without them, platforms will attempt to guess a title and description from your page content — often with poor results.</p>
+
+      <h2>Required Open Graph Tags</h2>
+      <p>The Open Graph protocol specifies four required tags for every page:</p>
+      <ul>
+        <li><strong><code>og:title</code></strong> — The title of your content. This becomes the headline of the share preview card. Keep it concise (60-90 characters).</li>
+        <li><strong><code>og:type</code></strong> — The type of object (e.g., <code>website</code>, <code>article</code>, <code>product</code>). This tells platforms how to categorise your content.</li>
+        <li><strong><code>og:image</code></strong> — An image URL for the preview card. <strong>Recommended size: 1200 × 630 px</strong> (1.91:1 ratio). This single tag has the biggest impact on click-through rates.</li>
+        <li><strong><code>og:url</code></strong> — The canonical URL of the page. This ensures all shares point to the same URL, consolidating engagement metrics.</li>
+      </ul>
+      <p>Additionally, <code>og:description</code> and <code>og:site_name</code> are strongly recommended for optimal previews across all platforms.</p>
+
+      <h2>Twitter Card vs Open Graph</h2>
+      <p>Twitter has its own meta tag system called <strong>Twitter Cards</strong> (<code>twitter:card</code>, <code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>). When both Open Graph and Twitter Card tags are present, Twitter will use its own tags. If Twitter-specific tags are missing, it falls back to Open Graph.</p>
+      <p>The main difference is the <code>twitter:card</code> tag, which has no OG equivalent. It controls the card layout: <strong>summary</strong> (small square image left-aligned) or <strong>summary_large_image</strong> (wide banner image above the text). Most websites should use <code>summary_large_image</code> for maximum visual impact.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details><summary>What is Open Graph?</summary><div class="faq-answer"><p>Open Graph is a protocol by Facebook that lets you control how your pages appear when shared on social media. It uses meta tags (og:title, og:description, og:image, og:url) to define the preview card shown on Facebook, LinkedIn, Discord, WhatsApp, and other platforms.</p></div></details>
+        <details><summary>What is the ideal OG image size?</summary><div class="faq-answer"><p>The recommended size is <strong>1200 × 630 pixels</strong> with a 1.91:1 aspect ratio. This works well across all major platforms. Use JPEG or PNG format and keep the file size under 5MB. Facebook requires a minimum of 200 × 200 px, but larger images produce better preview cards.</p></div></details>
+        <details><summary>Do Twitter Cards override Open Graph tags?</summary><div class="faq-answer"><p>Yes. When both are present, Twitter uses its own tags (twitter:title, twitter:description, twitter:image). If only Open Graph tags are set, Twitter falls back to those. The twitter:card tag (summary or summary_large_image) has no OG equivalent and must always be specified explicitly.</p></div></details>
+        <details><summary>Why is my OG preview not updating after I changed the tags?</summary><div class="faq-answer"><p>Social platforms cache OG data aggressively. Use Facebook's <a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener">Sharing Debugger</a> to scrape fresh data. For Twitter, use the <a href="https://cards-dev.twitter.com/validator" target="_blank" rel="noopener">Card Validator</a>. LinkedIn has an <a href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener">Post Inspector</a> tool. You may need to wait a few minutes for caches to clear.</p></div></details>
+        <details><summary>Can I use different images for Facebook and Twitter?</summary><div class="faq-answer"><p>Yes. Set <code>og:image</code> for Facebook/LinkedIn/Discord and <code>twitter:image</code> for Twitter. Twitter will prefer its own tag. This is useful because Twitter's summary card works best with a 1:1 square image, while Facebook prefers 1.91:1 landscape.</p></div></details>
+      </div>
+    </section>
+
+    <section class="related-tools" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related Tools</h2>
+      <div class="related-tools-grid">
+        <a href="/meta-tags-generator/" class="related-tool-card" aria-label="Meta Tags Generator"><span class="card-icon" aria-hidden="true">🏷️</span>Meta Tags Generator</a>
+        <a href="/robots-txt-generator/" class="related-tool-card" aria-label="robots.txt Generator"><span class="card-icon" aria-hidden="true">🤖</span>robots.txt Generator</a>
+        <a href="/color-picker/" class="related-tool-card" aria-label="Color Picker"><span class="card-icon" aria-hidden="true">🎨</span>Color Picker</a>
+      </div>
+    </section>
+    <div class="ad-container" aria-hidden="true">Advertisement</div>
+  </div></main>
+
+  <footer class="site-footer"><div class="footer-inner">
+    <nav class="footer-links" aria-label="Footer navigation"><a href="/about/">About</a><a href="/privacy-policy/">Privacy Policy</a><a href="/contact/">Contact</a></nav>
+    <div class="footer-copy"><p>&copy; 2026 DevToolsHub. All rights reserved.</p><p>Made with ☕ for developers</p></div>
+  </div></footer>
+
+  <script src="../assets/js/global.js"></script>
+  <script>
+  (function(){
+    'use strict';
+
+    /* §1 — DOM */
+    const fOgTitle=document.getElementById('f-og-title');
+    const fOgDesc=document.getElementById('f-og-desc');
+    const fOgImage=document.getElementById('f-og-image');
+    const fOgSitename=document.getElementById('f-og-sitename');
+    const fOgType=document.getElementById('f-og-type');
+    const fOgUrl=document.getElementById('f-og-url');
+    const fTwCard=document.getElementById('f-tw-card');
+    const fTwTitle=document.getElementById('f-tw-title');
+    const fTwDesc=document.getElementById('f-tw-desc');
+    const tagsOutput=document.getElementById('tags-output');
+    const btnCopy=document.getElementById('btn-copy');
+    const btnClear=document.getElementById('btn-clear');
+
+    const allFields=[fOgTitle,fOgDesc,fOgImage,fOgSitename,fOgType,fOgUrl,fTwCard,fTwTitle,fTwDesc];
+
+    /* §2 — Helpers */
+    function esc(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+    function domain(url){try{return new URL(url).hostname}catch(e){return url.replace(/^https?:\/\//,'').split('/')[0]||'example.com'}}
+    function imgTag(url,fallback){
+      if(!url)return fallback||'No image';
+      return '<img src="'+url+'" alt="Preview" onerror="this.parentElement.textContent=\'Image failed to load\'">';
+    }
+
+    /* §3 — Update all previews */
+    function rebuild(){
+      const title=fOgTitle.value.trim()||'Page Title';
+      const desc=fOgDesc.value.trim()||'Description will appear here.';
+      const image=fOgImage.value.trim();
+      const siteName=fOgSitename.value.trim()||'Example';
+      const ogType=fOgType.value;
+      const url=fOgUrl.value.trim();
+      const twCard=fTwCard.value;
+      const twTitle=fTwTitle.value.trim()||title;
+      const twDesc=fTwDesc.value.trim()||desc;
+      const dom=url?domain(url):'example.com';
+
+      /* Facebook */
+      document.getElementById('fb-img').innerHTML=imgTag(image,'No image');
+      document.getElementById('fb-domain').textContent=dom.toUpperCase();
+      document.getElementById('fb-title').textContent=title;
+      document.getElementById('fb-desc').textContent=desc;
+
+      /* Twitter */
+      document.getElementById('tw-img').innerHTML=imgTag(image,'No image');
+      document.getElementById('tw-title').textContent=twTitle;
+      document.getElementById('tw-desc').textContent=twDesc;
+      document.getElementById('tw-domain').querySelector('span').textContent=dom;
+
+      /* LinkedIn */
+      document.getElementById('li-img').innerHTML=imgTag(image,'No image');
+      document.getElementById('li-title').textContent=title;
+      document.getElementById('li-domain').textContent=dom;
+
+      /* Discord */
+      document.getElementById('dc-site').textContent=siteName;
+      document.getElementById('dc-title').textContent=title;
+      document.getElementById('dc-desc').textContent=desc;
+      const dcImgEl=document.getElementById('dc-img');
+      if(image){dcImgEl.innerHTML=imgTag(image)}
+      else{dcImgEl.innerHTML='<div class="dc-mock-img-placeholder">No image</div>'}
+
+      /* iMessage / WhatsApp */
+      document.getElementById('im-img').innerHTML=imgTag(image,'No image');
+      document.getElementById('im-domain').textContent=dom;
+      document.getElementById('im-title').textContent=title;
+
+      /* Generate tags */
+      const lines=[];
+      lines.push('<!-- Open Graph -->');
+      lines.push('<meta property="og:type" content="'+ogType+'">');
+      if(fOgTitle.value.trim()) lines.push('<meta property="og:title" content="'+esc(fOgTitle.value.trim())+'">');
+      if(fOgDesc.value.trim()) lines.push('<meta property="og:description" content="'+esc(fOgDesc.value.trim())+'">');
+      if(image) lines.push('<meta property="og:image" content="'+esc(image)+'">');
+      if(url) lines.push('<meta property="og:url" content="'+esc(url)+'">');
+      if(fOgSitename.value.trim()) lines.push('<meta property="og:site_name" content="'+esc(fOgSitename.value.trim())+'">');
+
+      lines.push('');lines.push('<!-- Twitter Card -->');
+      lines.push('<meta name="twitter:card" content="'+twCard+'">');
+      if(fTwTitle.value.trim()) lines.push('<meta name="twitter:title" content="'+esc(fTwTitle.value.trim())+'">');
+      else if(fOgTitle.value.trim()) lines.push('<meta name="twitter:title" content="'+esc(fOgTitle.value.trim())+'">');
+      if(fTwDesc.value.trim()) lines.push('<meta name="twitter:description" content="'+esc(fTwDesc.value.trim())+'">');
+      else if(fOgDesc.value.trim()) lines.push('<meta name="twitter:description" content="'+esc(fOgDesc.value.trim())+'">');
+      if(image) lines.push('<meta name="twitter:image" content="'+esc(image)+'">');
+
+      tagsOutput.value=lines.join('\n');
+    }
+
+    /* §4 — Events */
+    allFields.forEach(function(el){el.addEventListener('input',rebuild);el.addEventListener('change',rebuild)});
+
+    btnCopy.addEventListener('click',function(){
+      if(!tagsOutput.value){showToast('Nothing to copy.',{type:'error'});return}
+      copyToClipboard(tagsOutput.value);
+    });
+
+    btnClear.addEventListener('click',function(){
+      allFields.forEach(function(el){if(el.tagName==='SELECT'){el.selectedIndex=0}else{el.value=''}});
+      rebuild();
+    });
+
+    /* Init */
+    rebuild();
+  })();
+  </script>
+</body>
+</html>

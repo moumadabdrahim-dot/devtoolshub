@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | DevToolsHub</title>
+  <meta name="description" content="The page you are looking for does not exist. Browse our free developer tools or return to the homepage.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <style>
+    .error-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 60vh;
+      padding: var(--space-8) var(--space-4);
+    }
+
+    .error-code {
+      font-size: clamp(6rem, 20vw, 12rem);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: var(--space-2);
+      user-select: none;
+      animation: glitch 3s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 93%, 100% { transform: translate(0); opacity: 1; }
+      94% { transform: translate(-2px, 1px); opacity: 0.8; }
+      95% { transform: translate(2px, -1px); opacity: 0.9; }
+      96% { transform: translate(-1px, -2px); opacity: 0.7; }
+      97% { transform: translate(1px, 2px); opacity: 1; }
+    }
+
+    .error-title {
+      font-size: var(--text-2xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+      font-weight: 700;
+    }
+
+    .error-message {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-8);
+    }
+
+    .error-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      justify-content: center;
+      margin-bottom: var(--space-10);
+    }
+
+    .error-actions .btn {
+      min-width: 160px;
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .btn-home {
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+    }
+    .btn-home:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-tools {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-secondary);
+    }
+    .btn-tools:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .popular-tools {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .popular-tools h2 {
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-3);
+    }
+
+    .tool-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .tool-link:hover {
+      border-color: var(--accent);
+      color: var(--accent-text);
+      background-color: var(--bg-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .tool-link .icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .terminal-hint {
+      margin-top: var(--space-10);
+      padding: var(--space-4) var(--space-5);
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      max-width: 500px;
+    }
+
+    .terminal-hint .prompt {
+      color: var(--success);
+    }
+
+    .terminal-hint .cmd {
+      color: var(--text-primary);
+    }
+
+    .terminal-hint .output {
+      color: var(--error);
+    }
+
+    @media (max-width: 640px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .error-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      .error-actions .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+      <div class="header-right">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <main id="main-content">
+    <div class="container">
+      <div class="error-page">
+
+        <!-- Big 404 -->
+        <div class="error-code" aria-hidden="true">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-message">
+          The page you are looking for does not exist, may have been moved, or is temporarily unavailable. Let us get you back on track.
+        </p>
+
+        <!-- Action buttons -->
+        <div class="error-actions">
+          <a href="/" class="btn btn-home" aria-label="Go to homepage">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Back to Home
+          </a>
+          <a href="/#tools" class="btn btn-tools" aria-label="Browse all tools">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Browse All Tools
+          </a>
+        </div>
+
+        <!-- Popular tools -->
+        <div class="popular-tools">
+          <h2>Popular Tools</h2>
+          <div class="tools-grid">
+            <a href="/json-formatter/" class="tool-link"><span class="icon" aria-hidden="true">📋</span>JSON Formatter</a>
+            <a href="/csv-to-json/" class="tool-link"><span class="icon" aria-hidden="true">🔄</span>CSV to JSON</a>
+            <a href="/base64-encode-decode/" class="tool-link"><span class="icon" aria-hidden="true">🔐</span>Base64 Encode</a>
+            <a href="/uuid-generator/" class="tool-link"><span class="icon" aria-hidden="true">🆔</span>UUID Generator</a>
+            <a href="/sql-formatter/" class="tool-link"><span class="icon" aria-hidden="true">🗃️</span>SQL Formatter</a>
+            <a href="/markdown-to-html/" class="tool-link"><span class="icon" aria-hidden="true">📝</span>Markdown to HTML</a>
+          </div>
+        </div>
+
+        <!-- Terminal-style hint -->
+        <div class="terminal-hint" aria-label="Decorative terminal illustration">
+          <div><span class="prompt">$</span> <span class="cmd">curl -I devtoolshub.pages.dev/this-page</span></div>
+          <div><span class="output">HTTP/2 404</span></div>
+          <div><span class="prompt">$</span> <span class="cmd">cd /home</span> <span style="color:var(--text-tertiary)">← try this instead</span></div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/global.js"></script>
+</body>
+</html>

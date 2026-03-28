@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── Primary SEO ── -->
+  <title>JSON to YAML Converter Online — Free Instant Conversion | DevToolsHub</title>
+  <meta name="description" content="Convert JSON to YAML and YAML to JSON online for free. Instant results, no signup, works in your browser.">
+  <link rel="canonical" href="https://devtoolshub.pages.dev/json-to-yaml/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JSON to YAML Converter Online — Free Instant Conversion">
+  <meta property="og:description" content="Convert JSON to YAML and YAML to JSON online for free. Instant results, no signup, works in your browser.">
+  <meta property="og:url" content="https://devtoolshub.pages.dev/json-to-yaml/">
+  <meta property="og:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+  <meta property="og:site_name" content="DevToolsHub">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JSON to YAML Converter Online — Free Instant Conversion">
+  <meta name="twitter:description" content="Convert JSON to YAML and YAML to JSON online for free. Instant results, no signup.">
+  <meta name="twitter:image" content="https://devtoolshub.pages.dev/assets/images/og-image.png">
+
+  <!-- ── Misc Meta ── -->
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- ── Structured Data ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON to YAML Converter",
+    "description": "Convert JSON to YAML and YAML to JSON online for free. Instant results in your browser.",
+    "url": "https://devtoolshub.pages.dev/json-to-yaml/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <!-- ── Breadcrumb JSON-LD ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolshub.pages.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON to YAML Converter", "item": "https://devtoolshub.pages.dev/json-to-yaml/" }
+    ]
+  }
+  </script>
+
+  <!-- ── FAQ JSON-LD ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between JSON and YAML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON uses braces and brackets with strict quoting rules, while YAML uses indentation-based nesting and is designed to be more human-readable. YAML supports comments and multi-line strings natively, which JSON does not."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this converter safe to use with sensitive data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All conversion happens entirely in your browser using JavaScript. No data is sent to any server, stored, or logged."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does YAML support all JSON data types?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. YAML is a superset of JSON and supports all JSON data types including strings, numbers, booleans, null, arrays, and objects. YAML also adds additional features like anchors, aliases, and multi-line strings."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="../assets/css/global.css">
+
+  <!-- ── Page-specific styles ── -->
+  <style>
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-6);
+    }
+    .breadcrumb a {
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+    }
+    .breadcrumb a:hover { color: var(--accent-text); }
+    .breadcrumb .separator { color: var(--text-tertiary); user-select: none; }
+    .breadcrumb .current { color: var(--text-primary); }
+
+    /* Direction toggle */
+    .direction-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .direction-label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .direction-label.active {
+      color: var(--accent-text);
+    }
+    .btn-swap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-swap:hover {
+      background-color: var(--accent-hover);
+    }
+    .btn-swap.flipped svg {
+      transform: rotate(180deg);
+    }
+    .btn-swap svg {
+      transition: transform 0.3s ease;
+    }
+
+    /* Textarea block */
+    .textarea-block {
+      display: flex;
+      flex-direction: column;
+    }
+    .textarea-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* Validation status */
+    .validation-status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-1) var(--space-3);
+      border-radius: 100px;
+      transition: all var(--transition-fast);
+    }
+    .validation-status.valid { color: var(--success); background-color: var(--success-soft); }
+    .validation-status.invalid { color: var(--error); background-color: var(--error-soft); }
+    .validation-status.idle { color: var(--text-tertiary); background-color: transparent; }
+
+    /* Error bar */
+    .error-bar {
+      display: none;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--error-soft);
+      border: 1px solid var(--error);
+      border-radius: var(--radius-md);
+      color: var(--error);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      margin-top: var(--space-3);
+      word-break: break-word;
+    }
+    .error-bar.visible { display: flex; }
+
+    /* Comparison table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: var(--text-sm);
+    }
+    .comparison-table th,
+    .comparison-table td {
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-primary);
+    }
+    .comparison-table th {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .comparison-table td {
+      color: var(--text-secondary);
+    }
+    .comparison-table tr:hover td {
+      background-color: var(--bg-secondary);
+    }
+
+    /* FAQ accordion */
+    .faq-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .faq-list details {
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color var(--transition-fast);
+    }
+    .faq-list details[open] { border-color: var(--border-secondary); }
+    .faq-list summary {
+      padding: var(--space-4);
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-secondary);
+      transition: background-color var(--transition-fast);
+      user-select: none;
+    }
+    .faq-list summary:hover { background-color: var(--bg-hover); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: var(--text-lg); font-weight: 400; color: var(--text-tertiary); }
+    .faq-list details[open] summary::after { content: '−'; }
+    .faq-list .faq-answer { padding: 0 var(--space-4) var(--space-4); color: var(--text-secondary); line-height: var(--line-height-relaxed); }
+
+    .kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border-secondary);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to main content (accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <!-- ================================================================ -->
+  <!--  HEADER                                                          -->
+  <!-- ================================================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="DevToolsHub home">
+        <span class="logo-icon" aria-hidden="true">🔧</span>
+        <span>DevToolsHub</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#tools">All Tools</a>
+      </nav>
+      <div class="header-right">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/#tools">All Tools</a>
+  </nav>
+
+  <!-- ================================================================ -->
+  <!--  MAIN                                                            -->
+  <!-- ================================================================ -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator" aria-hidden="true">›</span>
+        <span class="current">JSON to YAML</span>
+      </nav>
+
+      <!-- Tool Header -->
+      <div class="tool-header">
+        <h1>JSON to YAML Converter</h1>
+        <p>Convert between JSON and YAML instantly in your browser. No data uploaded. <span class="kbd">Ctrl + Enter</span> to convert.</p>
+      </div>
+
+      <!-- Tool Container -->
+      <div class="tool-container">
+
+        <!-- Direction toggle -->
+        <div class="direction-row">
+          <span id="label-left" class="direction-label active">JSON</span>
+          <button id="btn-swap" class="btn-swap" type="button" aria-label="Swap conversion direction">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+          <span id="label-right" class="direction-label">YAML</span>
+        </div>
+
+        <!-- Status -->
+        <div class="flex justify-between items-center mb-3">
+          <span id="validation-status" class="validation-status idle">Paste content to begin</span>
+        </div>
+
+        <!-- Input / Output Grid -->
+        <div class="input-output-grid">
+          <!-- LEFT: Input -->
+          <div class="textarea-block">
+            <label class="textarea-label" for="tool-input" id="input-label">Input — Paste your JSON</label>
+            <textarea
+              id="tool-input"
+              class="textarea-input"
+              placeholder='{"name": "example", "version": 1, "features": ["fast", "free"]}'
+              spellcheck="false"
+              aria-label="Input content"
+            ></textarea>
+            <div class="textarea-footer">
+              <span id="input-stats">0 characters</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: Output -->
+          <div class="textarea-block">
+            <label class="textarea-label" id="output-label">Output — YAML Result</label>
+            <textarea
+              id="tool-output"
+              class="textarea-output"
+              readonly
+              aria-label="Conversion output"
+            ></textarea>
+            <div class="textarea-footer">
+              <span id="output-stats">0 characters</span>
+              <span id="output-size"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Bar -->
+        <div id="error-bar" class="error-bar" role="alert">
+          <span id="error-message"></span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+          <button id="btn-convert" class="btn btn-primary" type="button" aria-label="Convert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+            Convert
+          </button>
+          <button id="btn-copy" class="btn btn-copy" type="button" aria-label="Copy output">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+          <button id="btn-sample" class="btn btn-secondary" type="button" aria-label="Load sample">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Sample
+          </button>
+          <button id="btn-clear" class="btn btn-secondary" type="button" aria-label="Clear all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Clear
+          </button>
+          <button id="btn-download" class="btn btn-secondary" type="button" aria-label="Download output">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+        </div>
+
+      </div><!-- /tool-container -->
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+      <!-- ============================================================ -->
+      <!--  EDUCATIONAL CONTENT                                         -->
+      <!-- ============================================================ -->
+      <section class="content-section" aria-labelledby="what-is-yaml">
+
+        <h2 id="what-is-yaml">What is YAML?</h2>
+        <p>
+          YAML (YAML Ain't Markup Language) is a human-friendly data serialization format. Unlike JSON, which uses braces, brackets, and mandatory quoting, YAML relies on indentation and minimal syntax to represent data structures. This makes YAML files significantly easier to read and write by hand.
+        </p>
+        <p>
+          YAML was first released in 2001 and has since become the go-to format for configuration files across the software industry. If you have ever worked with Docker Compose, Kubernetes manifests, GitHub Actions, Ansible playbooks, or CI/CD pipelines, you have used YAML. It is technically a superset of JSON — meaning every valid JSON document is also valid YAML.
+        </p>
+        <pre><code># YAML example
+name: DevToolsHub
+version: 2
+features:
+  - JSON Formatter
+  - CSV Converter
+  - UUID Generator
+metadata:
+  author: DevToolsHub Team
+  license: MIT
+isActive: true
+deprecatedFields: null</code></pre>
+
+        <h2>JSON vs YAML: Key Differences</h2>
+        <p>While both formats represent the same data structures, they differ in syntax, readability, and use cases:</p>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>JSON</th>
+              <th>YAML</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Readability</td>
+              <td>Moderate — requires braces and quotes</td>
+              <td>High — clean, indentation-based</td>
+            </tr>
+            <tr>
+              <td>Comments</td>
+              <td>Not supported</td>
+              <td>Supported (<code>#</code> syntax)</td>
+            </tr>
+            <tr>
+              <td>Data Types</td>
+              <td>String, number, boolean, null, array, object</td>
+              <td>Same as JSON, plus dates, timestamps, multi-line strings</td>
+            </tr>
+            <tr>
+              <td>File Size</td>
+              <td>Slightly larger due to braces and quotes</td>
+              <td>Slightly smaller, more compact for humans</td>
+            </tr>
+            <tr>
+              <td>Parsing Speed</td>
+              <td>Fast — simpler grammar</td>
+              <td>Slower — indentation-sensitive</td>
+            </tr>
+            <tr>
+              <td>Primary Use</td>
+              <td>APIs, data exchange, browser storage</td>
+              <td>Config files, DevOps, CI/CD pipelines</td>
+            </tr>
+            <tr>
+              <td>Multi-line Strings</td>
+              <td>Escaped with <code>\n</code></td>
+              <td>Native block scalars (<code>|</code> and <code>&gt;</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>How to Convert JSON to YAML</h2>
+        <p>Using this tool, the conversion process is simple and instant:</p>
+        <ol>
+          <li><strong>Paste your JSON</strong> into the input area on the left. The tool accepts any valid JSON — minified or beautified.</li>
+          <li><strong>Click "Convert"</strong> (or press <code>Ctrl + Enter</code>). The equivalent YAML will appear in the output area on the right.</li>
+          <li><strong>Click "Copy"</strong> to copy the YAML to your clipboard, or <strong>"Download"</strong> to save it as a <code>.yaml</code> file.</li>
+          <li><strong>To convert YAML back to JSON</strong>, click the swap button (⇄) to reverse the direction, then paste your YAML.</li>
+        </ol>
+        <p>
+          The tool also auto-converts as you type with a short delay, so you can see the output update in real time.
+        </p>
+
+        <h2>When to Use YAML Over JSON</h2>
+        <p>Both formats have their strengths. Here are situations where YAML is the better choice:</p>
+        <ul>
+          <li><strong>Configuration files</strong> — YAML's readability makes it ideal for settings files that humans edit frequently. Examples include <code>docker-compose.yml</code>, <code>.eslintrc.yml</code>, and <code>mkdocs.yml</code>.</li>
+          <li><strong>Kubernetes manifests</strong> — Almost all Kubernetes resource definitions (Deployments, Services, ConfigMaps) are written in YAML.</li>
+          <li><strong>CI/CD pipelines</strong> — GitHub Actions, GitLab CI, CircleCI, and Azure Pipelines all use YAML for workflow definitions.</li>
+          <li><strong>Ansible playbooks</strong> — Ansible's entire automation language is based on YAML.</li>
+          <li><strong>Documentation with data</strong> — YAML's comment support lets you document settings inline, which JSON cannot do.</li>
+        </ul>
+        <p>
+          Stick with JSON when you need to exchange data between systems (APIs), store data in databases, or when your programming language has faster JSON parsers available.
+        </p>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Is my data safe when using this converter?</summary>
+            <div class="faq-answer">
+              <p>Yes. All conversion is performed entirely in your browser using JavaScript. No data is sent to any server, stored in any database, or logged anywhere. You can verify this by checking the Network tab in your browser's developer tools.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Does YAML support all JSON data types?</summary>
+            <div class="faq-answer">
+              <p>Yes. YAML is a superset of JSON, which means it supports all JSON types: strings, numbers, booleans, null, arrays, and nested objects. YAML also adds its own features like comments, anchors and aliases, multi-line strings (block scalars), and native date/time types.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Why does my YAML output look different from other converters?</summary>
+            <div class="faq-answer">
+              <p>YAML allows multiple valid representations of the same data. For example, short arrays can be written in inline flow style (<code>[a, b, c]</code>) or block style with dashes. This tool outputs block-style YAML with 2-space indentation for maximum readability, which is the convention used by most DevOps tools.</p>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+      <!-- Related Tools -->
+      <section class="related-tools" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related Tools</h2>
+        <div class="related-tools-grid">
+          <a href="/json-formatter/" class="related-tool-card" aria-label="JSON Formatter">
+            <span class="card-icon" aria-hidden="true">📋</span>
+            JSON Formatter &amp; Validator
+          </a>
+          <a href="/csv-to-json/" class="related-tool-card" aria-label="CSV to JSON Converter">
+            <span class="card-icon" aria-hidden="true">📊</span>
+            CSV to JSON Converter
+          </a>
+          <a href="/markdown-to-html/" class="related-tool-card" aria-label="Markdown to HTML">
+            <span class="card-icon" aria-hidden="true">📝</span>
+            Markdown to HTML
+          </a>
+        </div>
+      </section>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-container" aria-hidden="true">Advertisement</div>
+
+    </div>
+  </main>
+
+  <!-- ================================================================ -->
+  <!--  FOOTER                                                          -->
+  <!-- ================================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="footer-copy">
+        <p>&copy; 2026 DevToolsHub. All rights reserved.</p>
+        <p>Made with ☕ for developers</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ── -->
+  <script src="../assets/js/global.js"></script>
+
+  <!-- ============================================================== -->
+  <!--  JSON ↔ YAML  —  TOOL LOGIC                                    -->
+  <!-- ============================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================ */
+      /*  §1  JSON → YAML  (pure JS)                                   */
+      /* ============================================================ */
+
+      /**
+       * Checks whether a YAML string value needs quoting.
+       * @param {string} str
+       * @returns {boolean}
+       */
+      function yamlNeedsQuoting(str) {
+        if (str === '') return true;
+        if (str === 'true' || str === 'false' || str === 'null' ||
+            str === 'yes' || str === 'no' || str === 'on' || str === 'off' ||
+            str === 'True' || str === 'False' || str === 'Null' ||
+            str === 'Yes' || str === 'No' || str === 'On' || str === 'Off' ||
+            str === 'TRUE' || str === 'FALSE' || str === 'NULL' ||
+            str === '~') {
+          return true;
+        }
+        /* Looks like a number */
+        if (/^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/.test(str)) return true;
+        if (/^0[xXoO]/.test(str)) return true;
+        /* Contains special YAML characters at start */
+        if (/^[\-?:,\[\]{}#&*!|>'"%@`]/.test(str)) return true;
+        /* Contains characters that could be misinterpreted */
+        if (/[:\-#]/.test(str) && /\s/.test(str)) return true;
+        /* Contains trailing/leading whitespace */
+        if (str !== str.trim()) return true;
+        return false;
+      }
+
+      /**
+       * Escapes a string for YAML double-quoting.
+       * @param {string} str
+       * @returns {string}
+       */
+      function yamlEscapeString(str) {
+        return str
+          .replace(/\\/g, '\\\\')
+          .replace(/"/g, '\\"')
+          .replace(/\n/g, '\\n')
+          .replace(/\r/g, '\\r')
+          .replace(/\t/g, '\\t');
+      }
+
+      /**
+       * Converts a JS value (from JSON.parse) to a YAML string.
+       * @param {*}      value   The value to convert.
+       * @param {number} indent  Current indentation depth (in spaces).
+       * @param {boolean} isArrayItem  Whether this is a direct array element.
+       * @returns {string}
+       */
+      function valueToYaml(value, indent, isArrayItem) {
+        var pad = repeatStr('  ', indent);
+
+        /* null */
+        if (value === null) return 'null';
+
+        /* boolean */
+        if (typeof value === 'boolean') return value ? 'true' : 'false';
+
+        /* number */
+        if (typeof value === 'number') {
+          if (Number.isNaN(value)) return '.nan';
+          if (!Number.isFinite(value)) return value > 0 ? '.inf' : '-.inf';
+          return String(value);
+        }
+
+        /* string */
+        if (typeof value === 'string') {
+          /* Multi-line → use block literal */
+          if (value.indexOf('\n') !== -1) {
+            var blockPad = repeatStr('  ', indent + 1);
+            var lines = value.split('\n');
+            var block = '|\n';
+            for (var i = 0; i < lines.length; i++) {
+              block += blockPad + lines[i];
+              if (i < lines.length - 1) block += '\n';
+            }
+            return block;
+          }
+          if (yamlNeedsQuoting(value)) {
+            return '"' + yamlEscapeString(value) + '"';
+          }
+          return value;
+        }
+
+        /* array */
+        if (Array.isArray(value)) {
+          if (value.length === 0) return '[]';
+          var result = '';
+          for (var idx = 0; idx < value.length; idx++) {
+            var item = value[idx];
+            if (idx > 0 || !isArrayItem) result += '\n';
+            if (item !== null && typeof item === 'object' && !Array.isArray(item)) {
+              /* Object inside array: put first key on same line as dash */
+              var keys = Object.keys(item);
+              if (keys.length === 0) {
+                result += pad + '- {}';
+              } else {
+                result += pad + '- ' + yamlSafeKey(keys[0]) + ': ' + valueToYaml(item[keys[0]], indent + 2, false);
+                for (var ki = 1; ki < keys.length; ki++) {
+                  result += '\n' + pad + '  ' + yamlSafeKey(keys[ki]) + ': ' + valueToYaml(item[keys[ki]], indent + 2, false);
+                }
+              }
+            } else if (Array.isArray(item)) {
+              result += pad + '-';
+              var subYaml = valueToYaml(item, indent + 1, true);
+              result += '\n' + subYaml;
+            } else {
+              result += pad + '- ' + valueToYaml(item, indent + 1, false);
+            }
+          }
+          return isArrayItem ? result : result;
+        }
+
+        /* object */
+        if (typeof value === 'object') {
+          var objKeys = Object.keys(value);
+          if (objKeys.length === 0) return '{}';
+          var objResult = '';
+          for (var oi = 0; oi < objKeys.length; oi++) {
+            if (oi > 0 || !isArrayItem) objResult += '\n';
+            objResult += pad + yamlSafeKey(objKeys[oi]) + ': ';
+            var child = value[objKeys[oi]];
+            if (child !== null && typeof child === 'object') {
+              objResult += valueToYaml(child, indent + 1, false);
+            } else {
+              objResult += valueToYaml(child, indent + 1, false);
+            }
+          }
+          return objResult;
+        }
+
+        return String(value);
+      }
+
+      /**
+       * Makes a YAML key safe, quoting if necessary.
+       * @param {string} key
+       * @returns {string}
+       */
+      function yamlSafeKey(key) {
+        if (yamlNeedsQuoting(key)) {
+          return '"' + yamlEscapeString(key) + '"';
+        }
+        return key;
+      }
+
+      /**
+       * Repeats a string n times (ES5-safe).
+       * @param {string} str
+       * @param {number} n
+       * @returns {string}
+       */
+      function repeatStr(str, n) {
+        var result = '';
+        for (var i = 0; i < n; i++) result += str;
+        return result;
+      }
+
+      /**
+       * Converts a JSON string to YAML.
+       * @param {string} jsonStr
+       * @returns {string}
+       */
+      function jsonToYaml(jsonStr) {
+        var parsed = JSON.parse(jsonStr);
+        var yaml = valueToYaml(parsed, 0, false);
+        /* Trim leading newline from top-level objects/arrays */
+        if (yaml.charAt(0) === '\n') yaml = yaml.substring(1);
+        return yaml + '\n';
+      }
+
+      /* ============================================================ */
+      /*  §2 YAML → JSON (pure JS, covers common subset)               */
+      /* ============================================================ */
+
+      /**
+       * Parses a YAML string into a JavaScript value.
+       * Handles: key-value pairs, nested objects (indentation),
+       * arrays (- prefix), quoted strings, numbers, booleans, null.
+       *
+       * @param {string} yamlStr
+       * @returns {*}
+       */
+      function yamlToJson(yamlStr) {
+        var lines = yamlStr.split('\n');
+        var cleaned = [];
+
+        /* Remove blank lines and comment-only lines */
+        for (var i = 0; i < lines.length; i++) {
+          var stripped = lines[i];
+          /* Remove inline comments (not inside quotes) */
+          var inQ = false;
+          var qChar = '';
+          var commentIdx = -1;
+          for (var ci = 0; ci < stripped.length; ci++) {
+            var ch = stripped[ci];
+            if (inQ) {
+              if (ch === '\\') { ci++; continue; }
+              if (ch === qChar) inQ = false;
+            } else {
+              if (ch === '"' || ch === "'") { inQ = true; qChar = ch; }
+              if (ch === '#') { commentIdx = ci; break; }
+            }
+          }
+          if (commentIdx > 0) {
+            stripped = stripped.substring(0, commentIdx);
+          } else if (commentIdx === 0) {
+            continue;
+          }
+          /* Keep lines that aren't purely empty after removing the comment */
+          if (stripped.trimEnd().length > 0 || stripped.length > 0) {
+            /* Preserve original indentation by keeping original-ish line */
+            cleaned.push(stripped.replace(/\s+$/, ''));
+          }
+        }
+
+        if (cleaned.length === 0) return null;
+
+        var pos = { idx: 0 };
+        var result = parseYamlBlock(cleaned, pos, -1);
+        return result;
+      }
+
+      /**
+       * Gets the indentation level (number of leading spaces) of a line.
+       * @param {string} line
+       * @returns {number}
+       */
+      function yamlIndent(line) {
+        var count = 0;
+        for (var i = 0; i < line.length; i++) {
+          if (line[i] === ' ') count++;
+          else break;
+        }
+        return count;
+      }
+
+      /**
+       * Parses a scalar YAML value string into the appropriate JS type.
+       * @param {string} val
+       * @returns {*}
+       */
+      function parseYamlScalar(val) {
+        val = val.trim();
+
+        if (val === '' || val === '~' || val === 'null' || val === 'Null' || val === 'NULL') return null;
+        if (val === 'true' || val === 'True' || val === 'TRUE' ||
+            val === 'yes' || val === 'Yes' || val === 'YES' ||
+            val === 'on' || val === 'On' || val === 'ON') return true;
+        if (val === 'false' || val === 'False' || val === 'FALSE' ||
+            val === 'no' || val === 'No' || val === 'NO' ||
+            val === 'off' || val === 'Off' || val === 'OFF') return false;
+
+        /* Quoted string */
+        if ((val.charAt(0) === '"' && val.charAt(val.length - 1) === '"') ||
+            (val.charAt(0) === "'" && val.charAt(val.length - 1) === "'")) {
+          var inner = val.substring(1, val.length - 1);
+          if (val.charAt(0) === '"') {
+            inner = inner.replace(/\\n/g, '\n').replace(/\\t/g, '\t')
+                         .replace(/\\r/g, '\r').replace(/\\\\/g, '\\')
+                         .replace(/\\"/g, '"');
+          }
+          return inner;
+        }
+
+        /* Inline array [a, b, c] */
+        if (val.charAt(0) === '[' && val.charAt(val.length - 1) === ']') {
+          var innerArr = val.substring(1, val.length - 1).trim();
+          if (innerArr === '') return [];
+          return splitYamlFlow(innerArr).map(parseYamlScalar);
+        }
+
+        /* Inline object {a: 1, b: 2} */
+        if (val.charAt(0) === '{' && val.charAt(val.length - 1) === '}') {
+          var innerObj = val.substring(1, val.length - 1).trim();
+          if (innerObj === '') return {};
+          var obj = {};
+          var pairs = splitYamlFlow(innerObj);
+          for (var pi = 0; pi < pairs.length; pi++) {
+            var colonIdx = pairs[pi].indexOf(':');
+            if (colonIdx !== -1) {
+              var k = pairs[pi].substring(0, colonIdx).trim();
+              var v = pairs[pi].substring(colonIdx + 1).trim();
+              obj[stripQuotes(k)] = parseYamlScalar(v);
+            }
+          }
+          return obj;
+        }
+
+        /* Number */
+        if (/^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/.test(val)) {
+          var num = Number(val);
+          if (!isNaN(num)) return num;
+        }
+        if (/^0x[0-9a-fA-F]+$/.test(val)) return parseInt(val, 16);
+        if (/^0o[0-7]+$/.test(val)) return parseInt(val.substring(2), 8);
+
+        return val;
+      }
+
+      /**
+       * Strips matching quotes from a string.
+       * @param {string} s
+       * @returns {string}
+       */
+      function stripQuotes(s) {
+        s = s.trim();
+        if ((s.charAt(0) === '"' && s.charAt(s.length - 1) === '"') ||
+            (s.charAt(0) === "'" && s.charAt(s.length - 1) === "'")) {
+          return s.substring(1, s.length - 1);
+        }
+        return s;
+      }
+
+      /**
+       * Splits a YAML flow-style sequence by commas, respecting nesting.
+       * @param {string} str
+       * @returns {string[]}
+       */
+      function splitYamlFlow(str) {
+        var parts = [];
+        var depth = 0;
+        var current = '';
+        var inQ = false;
+        var qCh = '';
+        for (var i = 0; i < str.length; i++) {
+          var c = str[i];
+          if (inQ) {
+            current += c;
+            if (c === '\\') { i++; current += str[i] || ''; continue; }
+            if (c === qCh) inQ = false;
+            continue;
+          }
+          if (c === '"' || c === "'") { inQ = true; qCh = c; current += c; continue; }
+          if (c === '[' || c === '{') { depth++; current += c; continue; }
+          if (c === ']' || c === '}') { depth--; current += c; continue; }
+          if (c === ',' && depth === 0) {
+            parts.push(current.trim());
+            current = '';
+            continue;
+          }
+          current += c;
+        }
+        if (current.trim()) parts.push(current.trim());
+        return parts;
+      }
+
+      /**
+       * Parses a block of YAML lines into a JS object, array, or scalar.
+       * @param {string[]} lines  All cleaned lines.
+       * @param {{ idx: number }} pos  Mutable position tracker.
+       * @param {number} parentIndent  Parent indentation level.
+       * @returns {*}
+       */
+      function parseYamlBlock(lines, pos, parentIndent) {
+        if (pos.idx >= lines.length) return null;
+
+        var firstLine = lines[pos.idx];
+        var firstIndent = yamlIndent(firstLine);
+        var trimmed = firstLine.trim();
+
+        /* Detect if this block is an array (lines starting with -) */
+        if (trimmed.charAt(0) === '-') {
+          return parseYamlArray(lines, pos, firstIndent);
+        }
+
+        /* Otherwise it's a mapping */
+        return parseYamlMapping(lines, pos, firstIndent);
+      }
+
+      /**
+       * Parses YAML lines as an array.
+       */
+      function parseYamlArray(lines, pos, blockIndent) {
+        var arr = [];
+
+        while (pos.idx < lines.length) {
+          var line = lines[pos.idx];
+          var indent = yamlIndent(line);
+          var trimmed = line.trim();
+
+          if (trimmed === '') { pos.idx++; continue; }
+          if (indent < blockIndent) break;
+          if (indent > blockIndent) break; /* belongs to sub-block */
+
+          if (trimmed.charAt(0) !== '-') break;
+
+          /* Remove the leading "- " */
+          var afterDash = trimmed.substring(1).trim();
+          pos.idx++;
+
+          if (afterDash === '') {
+            /* Value is in the next indented lines */
+            if (pos.idx < lines.length && yamlIndent(lines[pos.idx]) > indent) {
+              arr.push(parseYamlBlock(lines, pos, indent));
+            } else {
+              arr.push(null);
+            }
+          } else if (afterDash.indexOf(':') !== -1 && !isFlowOrQuoted(afterDash)) {
+            /* Inline mapping on the dash line: - key: value */
+            var subObj = {};
+            var cp = parseKeyValue(afterDash);
+            if (cp.value === '' && pos.idx < lines.length && yamlIndent(lines[pos.idx]) > indent) {
+              subObj[cp.key] = parseYamlBlock(lines, pos, indent + 1);
+            } else {
+              subObj[cp.key] = parseYamlScalar(cp.value);
+            }
+            /* Continue reading sibling keys at same indent + 2 */
+            while (pos.idx < lines.length) {
+              var nextLine = lines[pos.idx];
+              var nextIndent = yamlIndent(nextLine);
+              var nextTrimmed = nextLine.trim();
+              if (nextTrimmed === '') { pos.idx++; continue; }
+              if (nextIndent <= indent) break;
+              if (nextTrimmed.charAt(0) === '-') break;
+              if (nextTrimmed.indexOf(':') !== -1 && !isFlowOrQuoted(nextTrimmed)) {
+                var kv2 = parseKeyValue(nextTrimmed);
+                pos.idx++;
+                if (kv2.value === '' && pos.idx < lines.length && yamlIndent(lines[pos.idx]) > nextIndent) {
+                  subObj[kv2.key] = parseYamlBlock(lines, pos, nextIndent);
+                } else {
+                  subObj[kv2.key] = parseYamlScalar(kv2.value);
+                }
+              } else {
+                break;
+              }
+            }
+            arr.push(subObj);
+          } else {
+            arr.push(parseYamlScalar(afterDash));
+          }
+        }
+        return arr;
+      }
+
+      /**
+       * Parses YAML lines as a mapping (object).
+       */
+      function parseYamlMapping(lines, pos, blockIndent) {
+        var obj = {};
+
+        while (pos.idx < lines.length) {
+          var line = lines[pos.idx];
+          var indent = yamlIndent(line);
+          var trimmed = line.trim();
+
+          if (trimmed === '') { pos.idx++; continue; }
+          if (indent < blockIndent) break;
+          if (indent > blockIndent) break;
+
+          if (trimmed.indexOf(':') === -1 || isFlowOrQuoted(trimmed)) break;
+
+          var kv = parseKeyValue(trimmed);
+          pos.idx++;
+
+          if (kv.value === '') {
+            /* Value is a nested block */
+            if (pos.idx < lines.length && yamlIndent(lines[pos.idx]) > indent) {
+              obj[kv.key] = parseYamlBlock(lines, pos, indent);
+            } else {
+              obj[kv.key] = null;
+            }
+          } else if (kv.value === '|' || kv.value === '>') {
+            /* Block scalar */
+            var blockStr = '';
+            var scalarIndent = -1;
+            while (pos.idx < lines.length) {
+              var sl = lines[pos.idx];
+              var si = yamlIndent(sl);
+              if (sl.trim() === '' && scalarIndent === -1) { pos.idx++; continue; }
+              if (scalarIndent === -1) scalarIndent = si;
+              if (si < scalarIndent && sl.trim() !== '') break;
+              if (blockStr) blockStr += kv.value === '|' ? '\n' : ' ';
+              blockStr += sl.substring(scalarIndent);
+              pos.idx++;
+            }
+            obj[kv.key] = blockStr;
+          } else {
+            obj[kv.key] = parseYamlScalar(kv.value);
+          }
+        }
+        return obj;
+      }
+
+      /**
+       * Parses "key: value" from a trimmed line.
+       * Handles quoted keys.
+       * @param {string} line
+       * @returns {{ key: string, value: string }}
+       */
+      function parseKeyValue(line) {
+        var colonIdx;
+        if (line.charAt(0) === '"') {
+          var endQ = line.indexOf('"', 1);
+          colonIdx = line.indexOf(':', endQ + 1);
+        } else if (line.charAt(0) === "'") {
+          var endSQ = line.indexOf("'", 1);
+          colonIdx = line.indexOf(':', endSQ + 1);
+        } else {
+          colonIdx = line.indexOf(':');
+        }
+
+        if (colonIdx === -1) {
+          return { key: line, value: '' };
+        }
+
+        var key = stripQuotes(line.substring(0, colonIdx).trim());
+        var value = line.substring(colonIdx + 1).trim();
+        return { key: key, value: value };
+      }
+
+      /**
+       * Checks if a trimmed line is a flow sequence/mapping or purely quoted string
+       * (meaning a colon inside a quote shouldn't be treated as a key separator).
+       * @param {string} trimmed
+       * @returns {boolean}
+       */
+      function isFlowOrQuoted(trimmed) {
+        /* If it starts with [ or { and ends with ] or }, it's flow */
+        if ((trimmed.charAt(0) === '[' && trimmed.charAt(trimmed.length - 1) === ']') ||
+            (trimmed.charAt(0) === '{' && trimmed.charAt(trimmed.length - 1) === '}')) {
+          return true;
+        }
+        /* If the entire value is a quoted string that contains a colon */
+        if ((trimmed.charAt(0) === '"' && trimmed.charAt(trimmed.length - 1) === '"') ||
+            (trimmed.charAt(0) === "'" && trimmed.charAt(trimmed.length - 1) === "'")) {
+          return true;
+        }
+        return false;
+      }
+
+      /* ============================================================ */
+      /*  §3  UI Logic                                                  */
+      /* ============================================================ */
+
+      /* ── DOM References ── */
+      const inputEl      = document.getElementById('tool-input');
+      const outputEl     = document.getElementById('tool-output');
+      const errorBar     = document.getElementById('error-bar');
+      const errorMsg     = document.getElementById('error-message');
+      const statusEl     = document.getElementById('validation-status');
+      const inputStats   = document.getElementById('input-stats');
+      const outputStats  = document.getElementById('output-stats');
+      const outputSize   = document.getElementById('output-size');
+      const inputLabel   = document.getElementById('input-label');
+      const outputLabel  = document.getElementById('output-label');
+      const labelLeft    = document.getElementById('label-left');
+      const labelRight   = document.getElementById('label-right');
+      const btnSwap      = document.getElementById('btn-swap');
+      const btnConvert   = document.getElementById('btn-convert');
+      const btnCopy      = document.getElementById('btn-copy');
+      const btnSample    = document.getElementById('btn-sample');
+      const btnClear     = document.getElementById('btn-clear');
+      const btnDownload  = document.getElementById('btn-download');
+
+      /* ── State ── */
+      let direction = 'json-to-yaml'; /* or 'yaml-to-json' */
+
+      const SAMPLE_JSON = '{\n  "name": "DevToolsHub",\n  "version": 2,\n  "features": [\n    "JSON Formatter",\n    "CSV Converter",\n    "UUID Generator"\n  ],\n  "server": {\n    "host": "0.0.0.0",\n    "port": 3000,\n    "ssl": true\n  },\n  "database": {\n    "engine": "postgres",\n    "pool": {\n      "min": 2,\n      "max": 10\n    }\n  },\n  "isActive": true,\n  "deprecated": null\n}';
+
+      const SAMPLE_YAML = 'name: DevToolsHub\nversion: 2\nfeatures:\n  - JSON Formatter\n  - CSV Converter\n  - UUID Generator\nserver:\n  host: 0.0.0.0\n  port: 3000\n  ssl: true\ndatabase:\n  engine: postgres\n  pool:\n    min: 2\n    max: 10\nisActive: true\ndeprecated: null\n';
+
+      /* ── Helpers ── */
+      function showError(msg) {
+        errorMsg.textContent = '\u274c ' + msg;
+        errorBar.classList.add('visible');
+        statusEl.className = 'validation-status invalid';
+        statusEl.textContent = '\u2717 Invalid';
+      }
+
+      function hideError() {
+        errorBar.classList.remove('visible');
+        errorMsg.textContent = '';
+      }
+
+      function setStatus(state, text) {
+        statusEl.className = 'validation-status ' + state;
+        statusEl.textContent = text;
+      }
+
+      function updateStats() {
+        const ilen = inputEl.value.length;
+        const iStats = countTextStats(inputEl.value);
+        inputStats.textContent = ilen.toLocaleString() + ' chars \u00b7 ' + iStats.lines + ' lines';
+        const olen = outputEl.value.length;
+        outputStats.textContent = olen.toLocaleString() + ' chars';
+        outputSize.textContent = olen > 0 ? formatFileSize(olen) : '';
+      }
+
+      function updateLabels() {
+        if (direction === 'json-to-yaml') {
+          inputLabel.textContent = 'Input \u2014 Paste your JSON';
+          outputLabel.textContent = 'Output \u2014 YAML Result';
+          labelLeft.textContent = 'JSON';
+          labelRight.textContent = 'YAML';
+          labelLeft.classList.add('active');
+          labelRight.classList.remove('active');
+          inputEl.placeholder = '{"name": "example", "version": 1, "features": ["fast", "free"]}';
+          btnSwap.classList.remove('flipped');
+        } else {
+          inputLabel.textContent = 'Input \u2014 Paste your YAML';
+          outputLabel.textContent = 'Output \u2014 JSON Result';
+          labelLeft.textContent = 'YAML';
+          labelRight.textContent = 'JSON';
+          labelRight.classList.add('active');
+          labelLeft.classList.remove('active');
+          inputEl.placeholder = 'name: example\nversion: 1\nfeatures:\n  - fast\n  - free';
+          btnSwap.classList.add('flipped');
+        }
+      }
+
+      /* ── Core conversion ── */
+      function convert() {
+        const raw = inputEl.value.trim();
+        if (!raw) {
+          showError('Input is empty. Paste some content first.');
+          return;
+        }
+
+        try {
+          let result;
+          if (direction === 'json-to-yaml') {
+            result = jsonToYaml(raw);
+          } else {
+            const parsed = yamlToJson(raw);
+            result = JSON.stringify(parsed, null, 2);
+          }
+          outputEl.value = result;
+          hideError();
+          setStatus('valid', '\u2713 Converted');
+          updateStats();
+        } catch (err) {
+          outputEl.value = '';
+          showError(err.message);
+          updateStats();
+        }
+      }
+
+      /* ── Real-time convert (debounced) ── */
+      const realtimeConvert = debounce(function () {
+        const raw = inputEl.value.trim();
+        if (!raw) {
+          setStatus('idle', 'Paste content to begin');
+          hideError();
+          return;
+        }
+        try {
+          if (direction === 'json-to-yaml') {
+            JSON.parse(raw);
+          }
+          setStatus('valid', '\u2713 Valid input');
+          hideError();
+        } catch (err) {
+          setStatus('invalid', '\u2717 Invalid input');
+        }
+      }, 500);
+
+      /* ── Event Bindings ── */
+      btnConvert.addEventListener('click', convert);
+
+      btnSwap.addEventListener('click', function () {
+        /* Swap direction */
+        direction = direction === 'json-to-yaml' ? 'yaml-to-json' : 'json-to-yaml';
+        updateLabels();
+
+        /* Optionally swap input ↔ output content */
+        const oldOutput = outputEl.value;
+        if (oldOutput) {
+          inputEl.value = oldOutput;
+          outputEl.value = '';
+        }
+        hideError();
+        setStatus('idle', 'Paste content to begin');
+        updateStats();
+      });
+
+      btnCopy.addEventListener('click', function () {
+        if (!outputEl.value) {
+          showToast('Nothing to copy. Convert something first.', { type: 'error' });
+          return;
+        }
+        copyToClipboard(outputEl.value);
+      });
+
+      btnSample.addEventListener('click', function () {
+        inputEl.value = direction === 'json-to-yaml' ? SAMPLE_JSON : SAMPLE_YAML;
+        updateStats();
+        convert();
+      });
+
+      btnClear.addEventListener('click', function () {
+        inputEl.value = '';
+        outputEl.value = '';
+        hideError();
+        setStatus('idle', 'Paste content to begin');
+        updateStats();
+        inputEl.focus();
+      });
+
+      btnDownload.addEventListener('click', function () {
+        if (!outputEl.value) {
+          showToast('Nothing to download. Convert something first.', { type: 'error' });
+          return;
+        }
+        const ext = direction === 'json-to-yaml' ? '.yaml' : '.json';
+        const mime = direction === 'json-to-yaml' ? 'text/yaml' : 'application/json';
+        downloadAsFile(outputEl.value, 'converted' + ext, mime);
+      });
+
+      inputEl.addEventListener('input', function () {
+        updateStats();
+        realtimeConvert();
+      });
+
+      inputEl.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          convert();
+        }
+      });
+
+      /* ── Init ── */
+      updateLabels();
+      updateStats();
+
+    })();
+  </script>
+
+</body>
+</html>
