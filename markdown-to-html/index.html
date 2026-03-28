@@ -1041,7 +1041,8 @@
           PREVIEW_CSS +
           '</style></head><body>' +
           bodyHtml +
-          '</body></html>'
+          '<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621b8160be4d43c18edc39a1cc496b2a"}'></script>
+</body></html>'
         );
         doc.close();
       }
@@ -1127,7 +1128,8 @@
           showToast('Nothing to download. Convert some Markdown first.', { type: 'error' });
           return;
         }
-        const fullHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Converted Markdown</title>\n<style>\n' + PREVIEW_CSS + '\n</style>\n</head>\n<body>\n' + currentHtml + '\n</body>\n</html>';
+        const fullHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Converted Markdown</title>\n<style>\n' + PREVIEW_CSS + '\n</style>\n</head>\n<body>\n' + currentHtml + '\n<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621b8160be4d43c18edc39a1cc496b2a"}'></script>
+</body>\n</html>';
         downloadAsFile(fullHtml, 'converted.html', 'text/html');
       });
 
@@ -1139,5 +1141,6 @@
     })();
   </script>
 
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621b8160be4d43c18edc39a1cc496b2a"}'></script>
 </body>
 </html>
